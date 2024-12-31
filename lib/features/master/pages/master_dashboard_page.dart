@@ -1,9 +1,7 @@
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
-import 'package:flexofast_basis_data_dashboard/features/master/pages/form_client_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/pages/form_distributor_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/pages/form_gudang_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/pages/form_pabrik_page.dart';
-import 'package:flexofast_basis_data_dashboard/features/master/pages/form_pegawai_page.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -16,18 +14,6 @@ class MasterDashboardPage extends StatelessWidget {
       title: 'Master Data',
       body: ListView(
         children: [
-          ListTile(
-            title: const Text('Pegawai'),
-            onTap: () {
-              Navigate.push(context, const FormPegawaiPage());
-            },
-          ),
-          ListTile(
-            title: const Text('Client'),
-            onTap: () {
-              Navigate.push(context, const FormClientPage());
-            },
-          ),
           ListTile(
             title: const Text('Gudang'),
             onTap: () {

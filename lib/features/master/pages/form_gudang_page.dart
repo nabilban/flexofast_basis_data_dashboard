@@ -1,5 +1,6 @@
 import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/cubit/gudang_cubit.dart';
+import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_form_scaffold.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_text_field.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _FormGudangPageState extends State<FormGudangPage> {
           ),
           CommonTextField(
             controller: _volumeController,
-            label: 'Volume',
+            label: 'Volume (m³)',
             keyboardType: TextInputType.number,
             onChanged: _onChanged,
           ),
@@ -102,6 +103,7 @@ class _FormGudangPageState extends State<FormGudangPage> {
                 );
                 context.read<GudangCubit>().insertGudang(gudangInput);
               }
+              Navigate.pop(context);
             }
           },
           label: const Text('Simpan'),

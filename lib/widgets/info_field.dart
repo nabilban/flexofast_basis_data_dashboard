@@ -21,7 +21,7 @@ class InfoField extends StatelessWidget {
             ),
           ),
         ),
-        const Text(':'),
+        const Text(': '),
         Expanded(
           flex: 3,
           child: Text(

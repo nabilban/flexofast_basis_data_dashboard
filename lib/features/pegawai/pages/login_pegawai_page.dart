@@ -1,3 +1,4 @@
+import 'package:flexofast_basis_data_dashboard/features/pegawai/pages/dashboard_pegawai_page.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/empty_widget_state.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/loading_widget_state.dart';
 import 'package:flexofast_basis_data_dashboard/features/pegawai/pages/form_pegawai_page.dart';
@@ -7,15 +8,15 @@ import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PegawaiLoginPage extends StatelessWidget {
-  const PegawaiLoginPage({super.key});
+class LoginPegawaiPage extends StatelessWidget {
+  const LoginPegawaiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: context.read<PegawaiCubit>()..getAllPegawai(),
       child: CommonScaffold(
-        title: 'Dashboard Pegawai',
+        title: 'Login Pegawai',
         body: BlocBuilder<PegawaiCubit, PegawaiState>(
           builder: (context, state) {
             return state.maybeWhen(orElse: () {
@@ -32,6 +33,11 @@ class PegawaiLoginPage extends StatelessWidget {
                       title: Text(pegawai.nama),
                       onTap: () {
                         context.read<PegawaiCubit>().selectPegawai(pegawai.id);
+                        Navigate.push(context, const DashboardPegawaiPage());
+                      },
+                      onLongPress: () {
+                        Navigate.push(
+                            context, FormPegawaiPage(pegawai: pegawai));
                       },
                     );
                   });

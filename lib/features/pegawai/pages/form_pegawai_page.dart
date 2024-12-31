@@ -30,7 +30,7 @@ class _FormPegawaiPageState extends State<FormPegawaiPage> {
   @override
   Widget build(BuildContext context) {
     return CommonFormScaffold(
-      title: 'Form Pegawai',
+      title: widget.pegawai == null ? 'Register Pegawai' : 'Edit Pegawai',
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
@@ -45,14 +45,22 @@ class _FormPegawaiPageState extends State<FormPegawaiPage> {
             onPressed: () {
               final pegawai =
                   PegawaiEntityCompanion.insert(nama: _namaController.text);
-              context.read<PegawaiCubit>().insertPegawai(pegawai);
+              if (widget.pegawai != null) {
+                context.read<PegawaiCubit>().updatePegawai(
+                    widget.pegawai!.copyWith(nama: _namaController.text));
+              } else {
+                context.read<PegawaiCubit>().insertPegawai(pegawai);
+              }
               Navigate.pop(context);
             },
             label: const Text('Simpan'),
             icon: const Icon(Icons.save)),
         if (widget.pegawai != null)
           ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                context.read<PegawaiCubit>().deletePegawai(widget.pegawai!);
+                Navigate.pop(context);
+              },
               label: const Text('Delete'),
               icon: const Icon(Icons.delete)),
       ],

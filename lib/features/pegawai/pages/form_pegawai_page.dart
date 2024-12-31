@@ -1,6 +1,10 @@
 import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
+import 'package:flexofast_basis_data_dashboard/features/pegawai/cubit/pegawai_cubit.dart';
+import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_form_scaffold.dart';
+import 'package:flexofast_basis_data_dashboard/widgets/common_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormPegawaiPage extends StatefulWidget {
   const FormPegawaiPage({
@@ -28,18 +32,29 @@ class _FormPegawaiPageState extends State<FormPegawaiPage> {
     return CommonFormScaffold(
       title: 'Form Pegawai',
       body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
-          TextField(
+          CommonTextField(
+            label: 'Nama',
             controller: _namaController,
-            decoration: const InputDecoration(labelText: 'Nama'),
           ),
         ],
       ),
       actions: [
         ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              final pegawai =
+                  PegawaiEntityCompanion.insert(nama: _namaController.text);
+              context.read<PegawaiCubit>().insertPegawai(pegawai);
+              Navigate.pop(context);
+            },
             label: const Text('Simpan'),
             icon: const Icon(Icons.save)),
+        if (widget.pegawai != null)
+          ElevatedButton.icon(
+              onPressed: () {},
+              label: const Text('Delete'),
+              icon: const Icon(Icons.delete)),
       ],
     );
   }

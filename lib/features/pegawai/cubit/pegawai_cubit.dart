@@ -23,7 +23,7 @@ class PegawaiCubit extends Cubit<PegawaiState> {
     emit(PegawaiState.loaded(state.renderedListPegawai, current));
   }
 
-  Future<void> insertPegawai(PegawaiEntityData pegawai) async {
+  Future<void> insertPegawai(PegawaiEntityCompanion pegawai) async {
     await pegawaiDao.insertPegawai(pegawai);
     await getAllPegawai();
   }

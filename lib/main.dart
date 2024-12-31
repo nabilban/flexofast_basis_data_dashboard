@@ -1,6 +1,6 @@
-import 'package:flexofast_basis_data_dashboard/app.dart';
+import 'package:flexofast_basis_data_dashboard/provider.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const App());
+  runApp(const GlobalProvider());
 }

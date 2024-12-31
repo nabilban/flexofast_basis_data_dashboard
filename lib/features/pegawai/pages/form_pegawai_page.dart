@@ -20,11 +20,18 @@ class FormPegawaiPage extends StatefulWidget {
 
 class _FormPegawaiPageState extends State<FormPegawaiPage> {
   late final TextEditingController _namaController;
+  bool isEdited = false;
 
   @override
   void initState() {
     _namaController = TextEditingController(text: widget.pegawai?.nama);
     super.initState();
+  }
+
+  void _onChanged(String value) {
+    setState(() {
+      isEdited = true;
+    });
   }
 
   @override
@@ -35,6 +42,7 @@ class _FormPegawaiPageState extends State<FormPegawaiPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
           CommonTextField(
+            onChanged: _onChanged,
             label: 'Nama',
             controller: _namaController,
           ),
@@ -43,13 +51,15 @@ class _FormPegawaiPageState extends State<FormPegawaiPage> {
       actions: [
         ElevatedButton.icon(
             onPressed: () {
-              final pegawai =
-                  PegawaiEntityCompanion.insert(nama: _namaController.text);
-              if (widget.pegawai != null) {
-                context.read<PegawaiCubit>().updatePegawai(
-                    widget.pegawai!.copyWith(nama: _namaController.text));
-              } else {
-                context.read<PegawaiCubit>().insertPegawai(pegawai);
+              if (isEdited) {
+                if (widget.pegawai != null) {
+                  context.read<PegawaiCubit>().updatePegawai(
+                      widget.pegawai!.copyWith(nama: _namaController.text));
+                } else {
+                  final pegawai =
+                      PegawaiEntityCompanion.insert(nama: _namaController.text);
+                  context.read<PegawaiCubit>().insertPegawai(pegawai);
+                }
               }
               Navigate.pop(context);
             },

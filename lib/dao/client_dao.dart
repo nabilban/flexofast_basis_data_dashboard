@@ -26,7 +26,7 @@ class ClientDao extends DatabaseAccessor<Datasource> with _$ClientDaoMixin {
     return result;
   }
 
-  Future updateClient(ClientEntityCompanion client) async {
+  Future updateClient(ClientEntityData client) async {
     await update(db.clientEntity).replace(client);
   }
 

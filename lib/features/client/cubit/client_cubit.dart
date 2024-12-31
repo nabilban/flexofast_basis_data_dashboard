@@ -44,7 +44,7 @@ class ClientCubit extends Cubit<ClientState> {
     }
   }
 
-  Future<void> updateClient(ClientEntityCompanion client) async {
+  Future<void> updateClient(ClientEntityData client) async {
     emit(const ClientState.loading());
     try {
       await clientDao.updateClient(client);

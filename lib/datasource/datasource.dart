@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:flexofast_basis_data_dashboard/entity/barang_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/client_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/distributor_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/gudang_entity.dart';
@@ -24,6 +25,7 @@ part 'datasource.g.dart';
   SewaEntity,
   TagihanEntity,
   TransaksiEntity,
+  BarangEntity
 ])
 class Datasource extends _$Datasource {
   Datasource() : super(_openConnection());

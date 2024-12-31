@@ -2971,6 +2971,227 @@ class PersetujuanEntityCompanion
   }
 }
 
+class $BarangEntityTable extends BarangEntity
+    with TableInfo<$BarangEntityTable, BarangEntityData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BarangEntityTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _namaMeta = const VerificationMeta('nama');
+  @override
+  late final GeneratedColumn<String> nama = GeneratedColumn<String>(
+      'nama', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [id, nama, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'barang_entity';
+  @override
+  VerificationContext validateIntegrity(Insertable<BarangEntityData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('nama')) {
+      context.handle(
+          _namaMeta, nama.isAcceptableOrUnknown(data['nama']!, _namaMeta));
+    } else if (isInserting) {
+      context.missing(_namaMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  BarangEntityData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BarangEntityData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nama: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nama'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
+    );
+  }
+
+  @override
+  $BarangEntityTable createAlias(String alias) {
+    return $BarangEntityTable(attachedDatabase, alias);
+  }
+}
+
+class BarangEntityData extends DataClass
+    implements Insertable<BarangEntityData> {
+  final int id;
+  final String nama;
+  final DateTime? createdAt;
+  const BarangEntityData(
+      {required this.id, required this.nama, this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['nama'] = Variable<String>(nama);
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
+    }
+    return map;
+  }
+
+  BarangEntityCompanion toCompanion(bool nullToAbsent) {
+    return BarangEntityCompanion(
+      id: Value(id),
+      nama: Value(nama),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
+    );
+  }
+
+  factory BarangEntityData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BarangEntityData(
+      id: serializer.fromJson<int>(json['id']),
+      nama: serializer.fromJson<String>(json['nama']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'nama': serializer.toJson<String>(nama),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
+    };
+  }
+
+  BarangEntityData copyWith(
+          {int? id,
+          String? nama,
+          Value<DateTime?> createdAt = const Value.absent()}) =>
+      BarangEntityData(
+        id: id ?? this.id,
+        nama: nama ?? this.nama,
+        createdAt: createdAt.present ? createdAt.value : this.createdAt,
+      );
+  BarangEntityData copyWithCompanion(BarangEntityCompanion data) {
+    return BarangEntityData(
+      id: data.id.present ? data.id.value : this.id,
+      nama: data.nama.present ? data.nama.value : this.nama,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BarangEntityData(')
+          ..write('id: $id, ')
+          ..write('nama: $nama, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, nama, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BarangEntityData &&
+          other.id == this.id &&
+          other.nama == this.nama &&
+          other.createdAt == this.createdAt);
+}
+
+class BarangEntityCompanion extends UpdateCompanion<BarangEntityData> {
+  final Value<int> id;
+  final Value<String> nama;
+  final Value<DateTime?> createdAt;
+  const BarangEntityCompanion({
+    this.id = const Value.absent(),
+    this.nama = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  BarangEntityCompanion.insert({
+    this.id = const Value.absent(),
+    required String nama,
+    this.createdAt = const Value.absent(),
+  }) : nama = Value(nama);
+  static Insertable<BarangEntityData> custom({
+    Expression<int>? id,
+    Expression<String>? nama,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (nama != null) 'nama': nama,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  BarangEntityCompanion copyWith(
+      {Value<int>? id, Value<String>? nama, Value<DateTime?>? createdAt}) {
+    return BarangEntityCompanion(
+      id: id ?? this.id,
+      nama: nama ?? this.nama,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (nama.present) {
+      map['nama'] = Variable<String>(nama.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BarangEntityCompanion(')
+          ..write('id: $id, ')
+          ..write('nama: $nama, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$Datasource extends GeneratedDatabase {
   _$Datasource(QueryExecutor e) : super(e);
   $DatasourceManager get managers => $DatasourceManager(this);
@@ -2988,6 +3209,7 @@ abstract class _$Datasource extends GeneratedDatabase {
       $TransaksiEntityTable(this);
   late final $PersetujuanEntityTable persetujuanEntity =
       $PersetujuanEntityTable(this);
+  late final $BarangEntityTable barangEntity = $BarangEntityTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3002,7 +3224,8 @@ abstract class _$Datasource extends GeneratedDatabase {
         tagihanEntity,
         pembayaranEntity,
         transaksiEntity,
-        persetujuanEntity
+        persetujuanEntity,
+        barangEntity
       ];
 }
 
@@ -5700,6 +5923,143 @@ typedef $$PersetujuanEntityTableProcessedTableManager = ProcessedTableManager<
     (PersetujuanEntityData, $$PersetujuanEntityTableReferences),
     PersetujuanEntityData,
     PrefetchHooks Function({bool idPegawai, bool idTransaksi})>;
+typedef $$BarangEntityTableCreateCompanionBuilder = BarangEntityCompanion
+    Function({
+  Value<int> id,
+  required String nama,
+  Value<DateTime?> createdAt,
+});
+typedef $$BarangEntityTableUpdateCompanionBuilder = BarangEntityCompanion
+    Function({
+  Value<int> id,
+  Value<String> nama,
+  Value<DateTime?> createdAt,
+});
+
+class $$BarangEntityTableFilterComposer
+    extends Composer<_$Datasource, $BarangEntityTable> {
+  $$BarangEntityTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nama => $composableBuilder(
+      column: $table.nama, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$BarangEntityTableOrderingComposer
+    extends Composer<_$Datasource, $BarangEntityTable> {
+  $$BarangEntityTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nama => $composableBuilder(
+      column: $table.nama, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$BarangEntityTableAnnotationComposer
+    extends Composer<_$Datasource, $BarangEntityTable> {
+  $$BarangEntityTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get nama =>
+      $composableBuilder(column: $table.nama, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$BarangEntityTableTableManager extends RootTableManager<
+    _$Datasource,
+    $BarangEntityTable,
+    BarangEntityData,
+    $$BarangEntityTableFilterComposer,
+    $$BarangEntityTableOrderingComposer,
+    $$BarangEntityTableAnnotationComposer,
+    $$BarangEntityTableCreateCompanionBuilder,
+    $$BarangEntityTableUpdateCompanionBuilder,
+    (
+      BarangEntityData,
+      BaseReferences<_$Datasource, $BarangEntityTable, BarangEntityData>
+    ),
+    BarangEntityData,
+    PrefetchHooks Function()> {
+  $$BarangEntityTableTableManager(_$Datasource db, $BarangEntityTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BarangEntityTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BarangEntityTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BarangEntityTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> nama = const Value.absent(),
+            Value<DateTime?> createdAt = const Value.absent(),
+          }) =>
+              BarangEntityCompanion(
+            id: id,
+            nama: nama,
+            createdAt: createdAt,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String nama,
+            Value<DateTime?> createdAt = const Value.absent(),
+          }) =>
+              BarangEntityCompanion.insert(
+            id: id,
+            nama: nama,
+            createdAt: createdAt,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$BarangEntityTableProcessedTableManager = ProcessedTableManager<
+    _$Datasource,
+    $BarangEntityTable,
+    BarangEntityData,
+    $$BarangEntityTableFilterComposer,
+    $$BarangEntityTableOrderingComposer,
+    $$BarangEntityTableAnnotationComposer,
+    $$BarangEntityTableCreateCompanionBuilder,
+    $$BarangEntityTableUpdateCompanionBuilder,
+    (
+      BarangEntityData,
+      BaseReferences<_$Datasource, $BarangEntityTable, BarangEntityData>
+    ),
+    BarangEntityData,
+    PrefetchHooks Function()>;
 
 class $DatasourceManager {
   final _$Datasource _db;
@@ -5724,4 +6084,6 @@ class $DatasourceManager {
       $$TransaksiEntityTableTableManager(_db, _db.transaksiEntity);
   $$PersetujuanEntityTableTableManager get persetujuanEntity =>
       $$PersetujuanEntityTableTableManager(_db, _db.persetujuanEntity);
+  $$BarangEntityTableTableManager get barangEntity =>
+      $$BarangEntityTableTableManager(_db, _db.barangEntity);
 }

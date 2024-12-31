@@ -1,7 +1,7 @@
 import 'package:flexofast_basis_data_dashboard/features/client/pages/client_dashboard_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/client/pages/client_login_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/pages/master_dashboard_page.dart';
-import 'package:flexofast_basis_data_dashboard/features/pegawai/pages/pegawai_login_page.dart';
+import 'package:flexofast_basis_data_dashboard/features/pegawai/pages/login_pegawai_page.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class DashboardMenu extends StatelessWidget {
           ListTile(
             title: const Text('Login Pegawai'),
             onTap: () {
-              Navigate.push(context, const PegawaiLoginPage());
+              Navigate.push(context, const LoginPegawaiPage());
             },
           ),
           ListTile(

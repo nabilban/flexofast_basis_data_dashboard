@@ -18,4 +18,16 @@ class PegawaiDao extends DatabaseAccessor<Datasource> with _$PegawaiDaoMixin {
         .getSingle();
     return result;
   }
+
+  Future<void> insertPegawai(PegawaiEntityData pegawai) async {
+    await into(db.pegawaiEntity).insert(pegawai);
+  }
+
+  Future<void> updatePegawai(PegawaiEntityData pegawai) async {
+    await update(db.pegawaiEntity).replace(pegawai);
+  }
+
+  Future<void> deletePegawai(PegawaiEntityData pegawai) async {
+    await delete(db.pegawaiEntity).delete(pegawai);
+  }
 }

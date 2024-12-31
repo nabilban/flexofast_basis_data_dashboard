@@ -40,9 +40,10 @@ dependencies:
   flutter_bloc: ^8.1.6
   injectable: ^2.5.0
   get_it: ^8.0.3
-  freezed: ^2.5.7
+  freezed_annotation: ^2.4.4
 
 dev_dependencies:
+  freezed: ^2.5.7
   flutter_test:
     sdk: flutter
 

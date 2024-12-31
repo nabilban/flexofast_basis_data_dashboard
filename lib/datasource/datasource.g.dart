@@ -330,8 +330,14 @@ class $DistributorEntityTable extends DistributorEntity
   late final GeneratedColumn<String> alamat = GeneratedColumn<String>(
       'alamat', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  List<GeneratedColumn> get $columns => [id, nama, alamat];
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [id, nama, alamat, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -358,6 +364,10 @@ class $DistributorEntityTable extends DistributorEntity
     } else if (isInserting) {
       context.missing(_alamatMeta);
     }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
     return context;
   }
 
@@ -373,6 +383,8 @@ class $DistributorEntityTable extends DistributorEntity
           .read(DriftSqlType.string, data['${effectivePrefix}nama'])!,
       alamat: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}alamat'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
     );
   }
 
@@ -387,14 +399,21 @@ class DistributorEntityData extends DataClass
   final int id;
   final String nama;
   final String alamat;
+  final DateTime? createdAt;
   const DistributorEntityData(
-      {required this.id, required this.nama, required this.alamat});
+      {required this.id,
+      required this.nama,
+      required this.alamat,
+      this.createdAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['nama'] = Variable<String>(nama);
     map['alamat'] = Variable<String>(alamat);
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
+    }
     return map;
   }
 
@@ -403,6 +422,9 @@ class DistributorEntityData extends DataClass
       id: Value(id),
       nama: Value(nama),
       alamat: Value(alamat),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
     );
   }
 
@@ -413,6 +435,7 @@ class DistributorEntityData extends DataClass
       id: serializer.fromJson<int>(json['id']),
       nama: serializer.fromJson<String>(json['nama']),
       alamat: serializer.fromJson<String>(json['alamat']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
     );
   }
   @override
@@ -422,20 +445,27 @@ class DistributorEntityData extends DataClass
       'id': serializer.toJson<int>(id),
       'nama': serializer.toJson<String>(nama),
       'alamat': serializer.toJson<String>(alamat),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
     };
   }
 
-  DistributorEntityData copyWith({int? id, String? nama, String? alamat}) =>
+  DistributorEntityData copyWith(
+          {int? id,
+          String? nama,
+          String? alamat,
+          Value<DateTime?> createdAt = const Value.absent()}) =>
       DistributorEntityData(
         id: id ?? this.id,
         nama: nama ?? this.nama,
         alamat: alamat ?? this.alamat,
+        createdAt: createdAt.present ? createdAt.value : this.createdAt,
       );
   DistributorEntityData copyWithCompanion(DistributorEntityCompanion data) {
     return DistributorEntityData(
       id: data.id.present ? data.id.value : this.id,
       nama: data.nama.present ? data.nama.value : this.nama,
       alamat: data.alamat.present ? data.alamat.value : this.alamat,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
   }
 
@@ -444,20 +474,22 @@ class DistributorEntityData extends DataClass
     return (StringBuffer('DistributorEntityData(')
           ..write('id: $id, ')
           ..write('nama: $nama, ')
-          ..write('alamat: $alamat')
+          ..write('alamat: $alamat, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, nama, alamat);
+  int get hashCode => Object.hash(id, nama, alamat, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DistributorEntityData &&
           other.id == this.id &&
           other.nama == this.nama &&
-          other.alamat == this.alamat);
+          other.alamat == this.alamat &&
+          other.createdAt == this.createdAt);
 }
 
 class DistributorEntityCompanion
@@ -465,35 +497,44 @@ class DistributorEntityCompanion
   final Value<int> id;
   final Value<String> nama;
   final Value<String> alamat;
+  final Value<DateTime?> createdAt;
   const DistributorEntityCompanion({
     this.id = const Value.absent(),
     this.nama = const Value.absent(),
     this.alamat = const Value.absent(),
+    this.createdAt = const Value.absent(),
   });
   DistributorEntityCompanion.insert({
     this.id = const Value.absent(),
     required String nama,
     required String alamat,
+    this.createdAt = const Value.absent(),
   })  : nama = Value(nama),
         alamat = Value(alamat);
   static Insertable<DistributorEntityData> custom({
     Expression<int>? id,
     Expression<String>? nama,
     Expression<String>? alamat,
+    Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (nama != null) 'nama': nama,
       if (alamat != null) 'alamat': alamat,
+      if (createdAt != null) 'created_at': createdAt,
     });
   }
 
   DistributorEntityCompanion copyWith(
-      {Value<int>? id, Value<String>? nama, Value<String>? alamat}) {
+      {Value<int>? id,
+      Value<String>? nama,
+      Value<String>? alamat,
+      Value<DateTime?>? createdAt}) {
     return DistributorEntityCompanion(
       id: id ?? this.id,
       nama: nama ?? this.nama,
       alamat: alamat ?? this.alamat,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -509,6 +550,9 @@ class DistributorEntityCompanion
     if (alamat.present) {
       map['alamat'] = Variable<String>(alamat.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
     return map;
   }
 
@@ -517,7 +561,8 @@ class DistributorEntityCompanion
     return (StringBuffer('DistributorEntityCompanion(')
           ..write('id: $id, ')
           ..write('nama: $nama, ')
-          ..write('alamat: $alamat')
+          ..write('alamat: $alamat, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
@@ -558,8 +603,15 @@ class $GudangEntityTable extends GudangEntity
   late final GeneratedColumn<int> harga = GeneratedColumn<int>(
       'harga', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  List<GeneratedColumn> get $columns => [id, tipe, volume, alamat, harga];
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, tipe, volume, alamat, harga, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -597,6 +649,10 @@ class $GudangEntityTable extends GudangEntity
     } else if (isInserting) {
       context.missing(_hargaMeta);
     }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
     return context;
   }
 
@@ -616,6 +672,8 @@ class $GudangEntityTable extends GudangEntity
           .read(DriftSqlType.string, data['${effectivePrefix}alamat'])!,
       harga: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}harga'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
     );
   }
 
@@ -632,12 +690,14 @@ class GudangEntityData extends DataClass
   final int volume;
   final String alamat;
   final int harga;
+  final DateTime? createdAt;
   const GudangEntityData(
       {required this.id,
       required this.tipe,
       required this.volume,
       required this.alamat,
-      required this.harga});
+      required this.harga,
+      this.createdAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -646,6 +706,9 @@ class GudangEntityData extends DataClass
     map['volume'] = Variable<int>(volume);
     map['alamat'] = Variable<String>(alamat);
     map['harga'] = Variable<int>(harga);
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
+    }
     return map;
   }
 
@@ -656,6 +719,9 @@ class GudangEntityData extends DataClass
       volume: Value(volume),
       alamat: Value(alamat),
       harga: Value(harga),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
     );
   }
 
@@ -668,6 +734,7 @@ class GudangEntityData extends DataClass
       volume: serializer.fromJson<int>(json['volume']),
       alamat: serializer.fromJson<String>(json['alamat']),
       harga: serializer.fromJson<int>(json['harga']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
     );
   }
   @override
@@ -679,17 +746,24 @@ class GudangEntityData extends DataClass
       'volume': serializer.toJson<int>(volume),
       'alamat': serializer.toJson<String>(alamat),
       'harga': serializer.toJson<int>(harga),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
     };
   }
 
   GudangEntityData copyWith(
-          {int? id, String? tipe, int? volume, String? alamat, int? harga}) =>
+          {int? id,
+          String? tipe,
+          int? volume,
+          String? alamat,
+          int? harga,
+          Value<DateTime?> createdAt = const Value.absent()}) =>
       GudangEntityData(
         id: id ?? this.id,
         tipe: tipe ?? this.tipe,
         volume: volume ?? this.volume,
         alamat: alamat ?? this.alamat,
         harga: harga ?? this.harga,
+        createdAt: createdAt.present ? createdAt.value : this.createdAt,
       );
   GudangEntityData copyWithCompanion(GudangEntityCompanion data) {
     return GudangEntityData(
@@ -698,6 +772,7 @@ class GudangEntityData extends DataClass
       volume: data.volume.present ? data.volume.value : this.volume,
       alamat: data.alamat.present ? data.alamat.value : this.alamat,
       harga: data.harga.present ? data.harga.value : this.harga,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
   }
 
@@ -708,13 +783,14 @@ class GudangEntityData extends DataClass
           ..write('tipe: $tipe, ')
           ..write('volume: $volume, ')
           ..write('alamat: $alamat, ')
-          ..write('harga: $harga')
+          ..write('harga: $harga, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, tipe, volume, alamat, harga);
+  int get hashCode => Object.hash(id, tipe, volume, alamat, harga, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -723,7 +799,8 @@ class GudangEntityData extends DataClass
           other.tipe == this.tipe &&
           other.volume == this.volume &&
           other.alamat == this.alamat &&
-          other.harga == this.harga);
+          other.harga == this.harga &&
+          other.createdAt == this.createdAt);
 }
 
 class GudangEntityCompanion extends UpdateCompanion<GudangEntityData> {
@@ -732,12 +809,14 @@ class GudangEntityCompanion extends UpdateCompanion<GudangEntityData> {
   final Value<int> volume;
   final Value<String> alamat;
   final Value<int> harga;
+  final Value<DateTime?> createdAt;
   const GudangEntityCompanion({
     this.id = const Value.absent(),
     this.tipe = const Value.absent(),
     this.volume = const Value.absent(),
     this.alamat = const Value.absent(),
     this.harga = const Value.absent(),
+    this.createdAt = const Value.absent(),
   });
   GudangEntityCompanion.insert({
     this.id = const Value.absent(),
@@ -745,6 +824,7 @@ class GudangEntityCompanion extends UpdateCompanion<GudangEntityData> {
     required int volume,
     required String alamat,
     required int harga,
+    this.createdAt = const Value.absent(),
   })  : tipe = Value(tipe),
         volume = Value(volume),
         alamat = Value(alamat),
@@ -755,6 +835,7 @@ class GudangEntityCompanion extends UpdateCompanion<GudangEntityData> {
     Expression<int>? volume,
     Expression<String>? alamat,
     Expression<int>? harga,
+    Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -762,6 +843,7 @@ class GudangEntityCompanion extends UpdateCompanion<GudangEntityData> {
       if (volume != null) 'volume': volume,
       if (alamat != null) 'alamat': alamat,
       if (harga != null) 'harga': harga,
+      if (createdAt != null) 'created_at': createdAt,
     });
   }
 
@@ -770,13 +852,15 @@ class GudangEntityCompanion extends UpdateCompanion<GudangEntityData> {
       Value<String>? tipe,
       Value<int>? volume,
       Value<String>? alamat,
-      Value<int>? harga}) {
+      Value<int>? harga,
+      Value<DateTime?>? createdAt}) {
     return GudangEntityCompanion(
       id: id ?? this.id,
       tipe: tipe ?? this.tipe,
       volume: volume ?? this.volume,
       alamat: alamat ?? this.alamat,
       harga: harga ?? this.harga,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -798,6 +882,9 @@ class GudangEntityCompanion extends UpdateCompanion<GudangEntityData> {
     if (harga.present) {
       map['harga'] = Variable<int>(harga.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
     return map;
   }
 
@@ -808,7 +895,8 @@ class GudangEntityCompanion extends UpdateCompanion<GudangEntityData> {
           ..write('tipe: $tipe, ')
           ..write('volume: $volume, ')
           ..write('alamat: $alamat, ')
-          ..write('harga: $harga')
+          ..write('harga: $harga, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
@@ -839,8 +927,14 @@ class $PabrikEntityTable extends PabrikEntity
   late final GeneratedColumn<String> alamat = GeneratedColumn<String>(
       'alamat', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  List<GeneratedColumn> get $columns => [id, nama, alamat];
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [id, nama, alamat, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -866,6 +960,10 @@ class $PabrikEntityTable extends PabrikEntity
     } else if (isInserting) {
       context.missing(_alamatMeta);
     }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
     return context;
   }
 
@@ -881,6 +979,8 @@ class $PabrikEntityTable extends PabrikEntity
           .read(DriftSqlType.string, data['${effectivePrefix}nama'])!,
       alamat: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}alamat'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
     );
   }
 
@@ -895,14 +995,21 @@ class PabrikEntityData extends DataClass
   final int id;
   final String nama;
   final String alamat;
+  final DateTime? createdAt;
   const PabrikEntityData(
-      {required this.id, required this.nama, required this.alamat});
+      {required this.id,
+      required this.nama,
+      required this.alamat,
+      this.createdAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['nama'] = Variable<String>(nama);
     map['alamat'] = Variable<String>(alamat);
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
+    }
     return map;
   }
 
@@ -911,6 +1018,9 @@ class PabrikEntityData extends DataClass
       id: Value(id),
       nama: Value(nama),
       alamat: Value(alamat),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
     );
   }
 
@@ -921,6 +1031,7 @@ class PabrikEntityData extends DataClass
       id: serializer.fromJson<int>(json['id']),
       nama: serializer.fromJson<String>(json['nama']),
       alamat: serializer.fromJson<String>(json['alamat']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
     );
   }
   @override
@@ -930,20 +1041,27 @@ class PabrikEntityData extends DataClass
       'id': serializer.toJson<int>(id),
       'nama': serializer.toJson<String>(nama),
       'alamat': serializer.toJson<String>(alamat),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
     };
   }
 
-  PabrikEntityData copyWith({int? id, String? nama, String? alamat}) =>
+  PabrikEntityData copyWith(
+          {int? id,
+          String? nama,
+          String? alamat,
+          Value<DateTime?> createdAt = const Value.absent()}) =>
       PabrikEntityData(
         id: id ?? this.id,
         nama: nama ?? this.nama,
         alamat: alamat ?? this.alamat,
+        createdAt: createdAt.present ? createdAt.value : this.createdAt,
       );
   PabrikEntityData copyWithCompanion(PabrikEntityCompanion data) {
     return PabrikEntityData(
       id: data.id.present ? data.id.value : this.id,
       nama: data.nama.present ? data.nama.value : this.nama,
       alamat: data.alamat.present ? data.alamat.value : this.alamat,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
   }
 
@@ -952,55 +1070,66 @@ class PabrikEntityData extends DataClass
     return (StringBuffer('PabrikEntityData(')
           ..write('id: $id, ')
           ..write('nama: $nama, ')
-          ..write('alamat: $alamat')
+          ..write('alamat: $alamat, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, nama, alamat);
+  int get hashCode => Object.hash(id, nama, alamat, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PabrikEntityData &&
           other.id == this.id &&
           other.nama == this.nama &&
-          other.alamat == this.alamat);
+          other.alamat == this.alamat &&
+          other.createdAt == this.createdAt);
 }
 
 class PabrikEntityCompanion extends UpdateCompanion<PabrikEntityData> {
   final Value<int> id;
   final Value<String> nama;
   final Value<String> alamat;
+  final Value<DateTime?> createdAt;
   const PabrikEntityCompanion({
     this.id = const Value.absent(),
     this.nama = const Value.absent(),
     this.alamat = const Value.absent(),
+    this.createdAt = const Value.absent(),
   });
   PabrikEntityCompanion.insert({
     this.id = const Value.absent(),
     required String nama,
     required String alamat,
+    this.createdAt = const Value.absent(),
   })  : nama = Value(nama),
         alamat = Value(alamat);
   static Insertable<PabrikEntityData> custom({
     Expression<int>? id,
     Expression<String>? nama,
     Expression<String>? alamat,
+    Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (nama != null) 'nama': nama,
       if (alamat != null) 'alamat': alamat,
+      if (createdAt != null) 'created_at': createdAt,
     });
   }
 
   PabrikEntityCompanion copyWith(
-      {Value<int>? id, Value<String>? nama, Value<String>? alamat}) {
+      {Value<int>? id,
+      Value<String>? nama,
+      Value<String>? alamat,
+      Value<DateTime?>? createdAt}) {
     return PabrikEntityCompanion(
       id: id ?? this.id,
       nama: nama ?? this.nama,
       alamat: alamat ?? this.alamat,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -1016,6 +1145,9 @@ class PabrikEntityCompanion extends UpdateCompanion<PabrikEntityData> {
     if (alamat.present) {
       map['alamat'] = Variable<String>(alamat.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
     return map;
   }
 
@@ -1024,7 +1156,8 @@ class PabrikEntityCompanion extends UpdateCompanion<PabrikEntityData> {
     return (StringBuffer('PabrikEntityCompanion(')
           ..write('id: $id, ')
           ..write('nama: $nama, ')
-          ..write('alamat: $alamat')
+          ..write('alamat: $alamat, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
@@ -3126,12 +3259,14 @@ typedef $$DistributorEntityTableCreateCompanionBuilder
   Value<int> id,
   required String nama,
   required String alamat,
+  Value<DateTime?> createdAt,
 });
 typedef $$DistributorEntityTableUpdateCompanionBuilder
     = DistributorEntityCompanion Function({
   Value<int> id,
   Value<String> nama,
   Value<String> alamat,
+  Value<DateTime?> createdAt,
 });
 
 class $$DistributorEntityTableFilterComposer
@@ -3151,6 +3286,9 @@ class $$DistributorEntityTableFilterComposer
 
   ColumnFilters<String> get alamat => $composableBuilder(
       column: $table.alamat, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
 }
 
 class $$DistributorEntityTableOrderingComposer
@@ -3170,6 +3308,9 @@ class $$DistributorEntityTableOrderingComposer
 
   ColumnOrderings<String> get alamat => $composableBuilder(
       column: $table.alamat, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$DistributorEntityTableAnnotationComposer
@@ -3189,6 +3330,9 @@ class $$DistributorEntityTableAnnotationComposer
 
   GeneratedColumn<String> get alamat =>
       $composableBuilder(column: $table.alamat, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 }
 
 class $$DistributorEntityTableTableManager extends RootTableManager<
@@ -3223,21 +3367,25 @@ class $$DistributorEntityTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> nama = const Value.absent(),
             Value<String> alamat = const Value.absent(),
+            Value<DateTime?> createdAt = const Value.absent(),
           }) =>
               DistributorEntityCompanion(
             id: id,
             nama: nama,
             alamat: alamat,
+            createdAt: createdAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String nama,
             required String alamat,
+            Value<DateTime?> createdAt = const Value.absent(),
           }) =>
               DistributorEntityCompanion.insert(
             id: id,
             nama: nama,
             alamat: alamat,
+            createdAt: createdAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
@@ -3269,6 +3417,7 @@ typedef $$GudangEntityTableCreateCompanionBuilder = GudangEntityCompanion
   required int volume,
   required String alamat,
   required int harga,
+  Value<DateTime?> createdAt,
 });
 typedef $$GudangEntityTableUpdateCompanionBuilder = GudangEntityCompanion
     Function({
@@ -3277,6 +3426,7 @@ typedef $$GudangEntityTableUpdateCompanionBuilder = GudangEntityCompanion
   Value<int> volume,
   Value<String> alamat,
   Value<int> harga,
+  Value<DateTime?> createdAt,
 });
 
 final class $$GudangEntityTableReferences
@@ -3323,6 +3473,9 @@ class $$GudangEntityTableFilterComposer
   ColumnFilters<int> get harga => $composableBuilder(
       column: $table.harga, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
   Expression<bool> sewaEntityRefs(
       Expression<bool> Function($$SewaEntityTableFilterComposer f) f) {
     final $$SewaEntityTableFilterComposer composer = $composerBuilder(
@@ -3368,6 +3521,9 @@ class $$GudangEntityTableOrderingComposer
 
   ColumnOrderings<int> get harga => $composableBuilder(
       column: $table.harga, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$GudangEntityTableAnnotationComposer
@@ -3393,6 +3549,9 @@ class $$GudangEntityTableAnnotationComposer
 
   GeneratedColumn<int> get harga =>
       $composableBuilder(column: $table.harga, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   Expression<T> sewaEntityRefs<T extends Object>(
       Expression<T> Function($$SewaEntityTableAnnotationComposer a) f) {
@@ -3444,6 +3603,7 @@ class $$GudangEntityTableTableManager extends RootTableManager<
             Value<int> volume = const Value.absent(),
             Value<String> alamat = const Value.absent(),
             Value<int> harga = const Value.absent(),
+            Value<DateTime?> createdAt = const Value.absent(),
           }) =>
               GudangEntityCompanion(
             id: id,
@@ -3451,6 +3611,7 @@ class $$GudangEntityTableTableManager extends RootTableManager<
             volume: volume,
             alamat: alamat,
             harga: harga,
+            createdAt: createdAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -3458,6 +3619,7 @@ class $$GudangEntityTableTableManager extends RootTableManager<
             required int volume,
             required String alamat,
             required int harga,
+            Value<DateTime?> createdAt = const Value.absent(),
           }) =>
               GudangEntityCompanion.insert(
             id: id,
@@ -3465,6 +3627,7 @@ class $$GudangEntityTableTableManager extends RootTableManager<
             volume: volume,
             alamat: alamat,
             harga: harga,
+            createdAt: createdAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
@@ -3515,12 +3678,14 @@ typedef $$PabrikEntityTableCreateCompanionBuilder = PabrikEntityCompanion
   Value<int> id,
   required String nama,
   required String alamat,
+  Value<DateTime?> createdAt,
 });
 typedef $$PabrikEntityTableUpdateCompanionBuilder = PabrikEntityCompanion
     Function({
   Value<int> id,
   Value<String> nama,
   Value<String> alamat,
+  Value<DateTime?> createdAt,
 });
 
 class $$PabrikEntityTableFilterComposer
@@ -3540,6 +3705,9 @@ class $$PabrikEntityTableFilterComposer
 
   ColumnFilters<String> get alamat => $composableBuilder(
       column: $table.alamat, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
 }
 
 class $$PabrikEntityTableOrderingComposer
@@ -3559,6 +3727,9 @@ class $$PabrikEntityTableOrderingComposer
 
   ColumnOrderings<String> get alamat => $composableBuilder(
       column: $table.alamat, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$PabrikEntityTableAnnotationComposer
@@ -3578,6 +3749,9 @@ class $$PabrikEntityTableAnnotationComposer
 
   GeneratedColumn<String> get alamat =>
       $composableBuilder(column: $table.alamat, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 }
 
 class $$PabrikEntityTableTableManager extends RootTableManager<
@@ -3609,21 +3783,25 @@ class $$PabrikEntityTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> nama = const Value.absent(),
             Value<String> alamat = const Value.absent(),
+            Value<DateTime?> createdAt = const Value.absent(),
           }) =>
               PabrikEntityCompanion(
             id: id,
             nama: nama,
             alamat: alamat,
+            createdAt: createdAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String nama,
             required String alamat,
+            Value<DateTime?> createdAt = const Value.absent(),
           }) =>
               PabrikEntityCompanion.insert(
             id: id,
             nama: nama,
             alamat: alamat,
+            createdAt: createdAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

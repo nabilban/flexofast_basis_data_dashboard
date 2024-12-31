@@ -7,6 +7,8 @@ part 'pegawai_dao.g.dart';
 class PegawaiDao extends DatabaseAccessor<Datasource> with _$PegawaiDaoMixin {
   PegawaiDao(super.db);
 
+  static PegawaiDao instance = PegawaiDao(Datasource.instance);
+
   Future<List<PegawaiEntityData>> getAllPegawai() async {
     final result = await select(db.pegawaiEntity).get();
     return result;

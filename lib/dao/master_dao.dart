@@ -28,7 +28,7 @@ class MasterDao extends DatabaseAccessor<Datasource> with _$MasterDaoMixin {
     return result;
   }
 
-  Future updateGudang(GudangEntityCompanion gudang) async {
+  Future updateGudang(GudangEntityData gudang) async {
     await update(db.gudangEntity).replace(gudang);
   }
 

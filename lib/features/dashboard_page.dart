@@ -1,3 +1,4 @@
+import 'package:flexofast_basis_data_dashboard/features/client/pages/cilent_dashboard_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/pages/master_dashboard_page.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
@@ -25,7 +26,9 @@ class DashboardMenu extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Login Client'),
-            onTap: () {},
+            onTap: () {
+              Navigate.push(context, const CilentDashboardPage());
+            },
           ),
         ],
       ),

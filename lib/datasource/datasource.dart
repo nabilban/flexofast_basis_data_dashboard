@@ -28,6 +28,8 @@ part 'datasource.g.dart';
 class Datasource extends _$Datasource {
   Datasource() : super(_openConnection());
 
+  static Datasource instance = Datasource();
+
   @override
   int get schemaVersion => 1;
 

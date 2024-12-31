@@ -1,12 +1,13 @@
 import 'package:drift/drift.dart';
 import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
+import 'package:flexofast_basis_data_dashboard/entity/client_entity.dart';
 part 'client_dao.g.dart';
 
-@DriftAccessor(tables: [ClientDao])
+@DriftAccessor(tables: [ClientEntity])
 class ClientDao extends DatabaseAccessor<Datasource> with _$ClientDaoMixin {
   ClientDao(super.db);
 
-  final ClientDao instance = ClientDao(Datasource.instance);
+  static ClientDao instance = ClientDao(Datasource.instance);
 
   Future<List<ClientEntityData>> getAllClient() async {
     final result = await select(db.clientEntity).get();

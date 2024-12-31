@@ -8,25 +8,27 @@ part 'client_cubit.freezed.dart';
 part 'client_state.dart';
 
 class ClientCubit extends Cubit<ClientState> {
-  ClientCubit(this._clientDao) : super(const ClientState.initial());
+  ClientCubit() : super(const ClientState.initial());
 
-  final ClientDao _clientDao;
+  final clientDao = ClientDao.instance;
 
   Future<void> getAllClient() async {
+    final current = state.current;
     emit(const ClientState.loading());
     try {
-      final result = await _clientDao.getAllClient();
-      emit(ClientState.loaded(result));
+      final result = await clientDao.getAllClient();
+      emit(ClientState.loaded(result, current));
     } catch (e) {
       emit(const ClientState.error());
     }
   }
 
-  Future<void> getClientById(int id) async {
-    emit(const ClientState.loading());
+  Future<void> selectedClient(int id) async {
     try {
-      final result = await _clientDao.getClientById(id);
-      emit(ClientState.loaded([result]));
+      final current = state.renderedListClient;
+      emit(const ClientState.loading());
+      final result = await clientDao.getClientById(id);
+      emit(ClientState.loaded(current, result));
     } catch (e) {
       emit(const ClientState.error());
     }
@@ -35,7 +37,7 @@ class ClientCubit extends Cubit<ClientState> {
   Future<void> insertClient(ClientEntityCompanion client) async {
     emit(const ClientState.loading());
     try {
-      await _clientDao.insertClient(client);
+      await clientDao.insertClient(client);
       getAllClient();
     } catch (e) {
       emit(const ClientState.error());
@@ -45,7 +47,7 @@ class ClientCubit extends Cubit<ClientState> {
   Future<void> updateClient(ClientEntityCompanion client) async {
     emit(const ClientState.loading());
     try {
-      await _clientDao.updateClient(client);
+      await clientDao.updateClient(client);
       getAllClient();
     } catch (e) {
       emit(const ClientState.error());
@@ -55,7 +57,7 @@ class ClientCubit extends Cubit<ClientState> {
   Future<void> deleteClient(int id) async {
     emit(const ClientState.loading());
     try {
-      await _clientDao.deleteClient(id);
+      await clientDao.deleteClient(id);
       getAllClient();
     } catch (e) {
       emit(const ClientState.error());

@@ -1,4 +1,7 @@
 import 'package:flexofast_basis_data_dashboard/features/master/cubit/gudang_cubit.dart';
+import 'package:flexofast_basis_data_dashboard/features/master/pages/form_gudang_page.dart';
+import 'package:flexofast_basis_data_dashboard/navigate.dart';
+import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/empty_widget_state.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/info_field.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/loading_widget_state.dart';
@@ -10,40 +13,50 @@ class ListGudangPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: context.read<GudangCubit>()..getAllGudang(),
-      child: BlocBuilder<GudangCubit, GudangState>(
-        builder: (context, state) {
-          return state.maybeWhen(orElse: () {
-            return const LoadingWidgetState();
-          }, loaded: (list) {
-            if (list.isEmpty) {
-              return const EmptyWidgetState();
-            }
-            return ListView.builder(
-                itemCount: list.length,
-                itemBuilder: (context, index) {
-                  final item = list[index];
-                  return ListTile(
-                    title: Row(
-                      children: [
-                        Text('Gudang ${item.id}'),
-                      ],
-                    ),
-                    subtitle: Column(
-                      children: [
-                        InfoField(title: 'Volume', value: '${item.volume} m³'),
-                        InfoField(title: 'Tipe', value: item.tipe),
-                        InfoField(title: 'Alamat', value: item.alamat),
-                      ],
-                    ),
-                    onTap: () {
-                      // Navigate.push(context, FormGudangPage(gudang: item));
-                    },
-                  );
-                });
-          });
+    return CommonScaffold(
+      title: 'Daftar Gudang',
+      body: BlocProvider.value(
+        value: context.read<GudangCubit>()..getAllGudang(),
+        child: BlocBuilder<GudangCubit, GudangState>(
+          builder: (context, state) {
+            return state.maybeWhen(orElse: () {
+              return const LoadingWidgetState();
+            }, loaded: (list) {
+              if (list.isEmpty) {
+                return const EmptyWidgetState();
+              }
+              return ListView.builder(
+                  itemCount: list.length,
+                  itemBuilder: (context, index) {
+                    final item = list[index];
+                    return ListTile(
+                      title: Row(
+                        children: [
+                          Text('Gudang ${item.id}'),
+                        ],
+                      ),
+                      subtitle: Column(
+                        children: [
+                          InfoField(
+                              title: 'Volume', value: '${item.volume} m³'),
+                          InfoField(title: 'Tipe', value: item.tipe),
+                          InfoField(title: 'Alamat', value: item.alamat),
+                        ],
+                      ),
+                      onTap: () {
+                        Navigate.push(context, FormGudangPage(gudang: item));
+                      },
+                    );
+                  });
+            });
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigate.push(context, const FormGudangPage());
         },
+        child: const Icon(Icons.add),
       ),
     );
   }

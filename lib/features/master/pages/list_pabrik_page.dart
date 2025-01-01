@@ -48,7 +48,7 @@ class ListPabrikPage extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          Navigate.push(context, FormPabrikPage(pabrik: item));
+                          Navigate.push(context, FormPabrikPage(data: item));
                         },
                       ),
                     );

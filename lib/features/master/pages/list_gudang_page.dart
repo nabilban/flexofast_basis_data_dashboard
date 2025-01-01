@@ -49,10 +49,10 @@ class ListGudangPage extends StatelessWidget {
                             InfoField(
                                 title: 'Volume', value: '${item.volume} m³'),
                             InfoField(
-                              title: 'Harga/Hari',
-                              value: Utils.formatCurrency(
+                              title: 'Harga',
+                              value: '${Utils.formatCurrency(
                                 item.harga,
-                              ),
+                              )} / Hari',
                             ),
                           ],
                         ),

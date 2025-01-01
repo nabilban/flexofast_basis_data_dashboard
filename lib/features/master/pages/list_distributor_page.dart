@@ -49,7 +49,7 @@ class ListDistributorPage extends StatelessWidget {
                         ),
                         onTap: () {
                           Navigate.push(
-                              context, FormDistributorPage(distributor: item));
+                              context, FormDistributorPage(data: item));
                         },
                       ),
                     );

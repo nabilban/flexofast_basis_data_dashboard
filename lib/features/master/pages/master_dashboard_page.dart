@@ -1,8 +1,8 @@
+import 'package:flexofast_basis_data_dashboard/features/master/pages/list_distributor_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/pages/list_gudang_page.dart';
+import 'package:flexofast_basis_data_dashboard/features/master/pages/list_pabrik_page.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/pages/form_distributor_page.dart';
-import 'package:flexofast_basis_data_dashboard/features/master/pages/form_gudang_page.dart';
-import 'package:flexofast_basis_data_dashboard/features/master/pages/form_pabrik_page.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -24,13 +24,13 @@ class MasterDashboardPage extends StatelessWidget {
           ListTile(
             title: const Text('Pabrik'),
             onTap: () {
-              Navigate.push(context, const FormPabrikPage());
+              Navigate.push(context, const ListPabrikPage());
             },
           ),
           ListTile(
             title: const Text('Distributor'),
             onTap: () {
-              Navigate.push(context, const FormDistributorPage());
+              Navigate.push(context, const ListDistributorPage());
             },
           ),
         ],

@@ -1,7 +1,6 @@
-import 'package:flexofast_basis_data_dashboard/features/master/cubit/gudang_cubit.dart';
-import 'package:flexofast_basis_data_dashboard/features/master/pages/form_gudang_page.dart';
+import 'package:flexofast_basis_data_dashboard/features/master/cubit/distributor_cubit.dart';
+import 'package:flexofast_basis_data_dashboard/features/master/pages/form_distributor_page.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
-import 'package:flexofast_basis_data_dashboard/utils.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/empty_widget_state.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/info_field.dart';
@@ -9,16 +8,16 @@ import 'package:flexofast_basis_data_dashboard/widgets/loading_widget_state.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ListGudangPage extends StatelessWidget {
-  const ListGudangPage({super.key});
+class ListDistributorPage extends StatelessWidget {
+  const ListDistributorPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CommonScaffold(
-      title: 'Daftar Gudang',
+      title: 'Daftar Distributor',
       body: BlocProvider.value(
-        value: context.read<GudangCubit>()..getAllGudang(),
-        child: BlocBuilder<GudangCubit, GudangState>(
+        value: context.read<DistributorCubit>()..getAllDistributor(),
+        child: BlocBuilder<DistributorCubit, DistributorState>(
           builder: (context, state) {
             return state.maybeWhen(orElse: () {
               return const LoadingWidgetState();
@@ -36,7 +35,7 @@ class ListGudangPage extends StatelessWidget {
                         title: Row(
                           children: [
                             Text(
-                              'Gudang ${item.id}',
+                              'Distributor ${item.id}',
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -44,20 +43,13 @@ class ListGudangPage extends StatelessWidget {
                         ),
                         subtitle: Column(
                           children: [
+                            InfoField(title: 'Nama', value: item.nama),
                             InfoField(title: 'Alamat', value: item.alamat),
-                            InfoField(title: 'Tipe', value: item.tipe),
-                            InfoField(
-                                title: 'Volume', value: '${item.volume} m³'),
-                            InfoField(
-                              title: 'Harga/Hari',
-                              value: Utils.formatCurrency(
-                                item.harga,
-                              ),
-                            ),
                           ],
                         ),
                         onTap: () {
-                          Navigate.push(context, FormGudangPage(gudang: item));
+                          Navigate.push(
+                              context, FormDistributorPage(distributor: item));
                         },
                       ),
                     );
@@ -68,9 +60,9 @@ class ListGudangPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigate.push(context, const FormGudangPage());
+          Navigate.push(context, const FormDistributorPage());
         },
-        child: const Icon(Icons.warehouse_outlined),
+        child: const Icon(Icons.store_outlined),
       ),
     );
   }

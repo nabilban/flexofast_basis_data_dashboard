@@ -7,7 +7,7 @@ part 'barang_dao.g.dart';
 class BarangDao extends DatabaseAccessor<Datasource> with _$BarangDaoMixin {
   BarangDao(super.db);
 
-  static BarangDao instance = BarangDao(Datasource.instance);
+  static final BarangDao instance = BarangDao(Datasource.instance);
 
   Future<List<BarangEntityData>> getAllBarang() async {
     final result = await select(db.barangEntity).get();

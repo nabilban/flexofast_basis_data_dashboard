@@ -1,4 +1,6 @@
 import 'package:flexofast_basis_data_dashboard/features/pegawai/cubit/pegawai_cubit.dart';
+import 'package:flexofast_basis_data_dashboard/features/sewa/pages/penyewaan_page.dart';
+import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +19,9 @@ class DashboardPegawaiPage extends StatelessWidget {
             children: [
               ListTile(
                 title: const Text('Penyewaan'),
-                onTap: () {},
+                onTap: () {
+                  Navigate.push(context, const PenyewaanPage());
+                },
               ),
               ListTile(
                 title: const Text('Daftar Transaksi'),

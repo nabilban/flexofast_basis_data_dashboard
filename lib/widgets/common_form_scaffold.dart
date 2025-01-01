@@ -6,7 +6,7 @@ class CommonFormScaffold extends StatelessWidget {
 
   final String title;
   final Widget body;
-  final List<ElevatedButton>? actions;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {

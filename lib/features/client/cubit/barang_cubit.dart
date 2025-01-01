@@ -15,7 +15,6 @@ class BarangCubit extends Cubit<BarangState> {
     emit(const BarangState.loading());
     try {
       final result = await barangDao.getAllBarang();
-      print(result);
       emit(BarangState.loaded(result));
     } catch (e) {
       emit(const BarangState.error());

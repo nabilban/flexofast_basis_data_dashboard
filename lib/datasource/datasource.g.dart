@@ -1384,705 +1384,6 @@ class PegawaiEntityCompanion extends UpdateCompanion<PegawaiEntityData> {
   }
 }
 
-class $SewaEntityTable extends SewaEntity
-    with TableInfo<$SewaEntityTable, SewaEntityData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $SewaEntityTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _idClientMeta =
-      const VerificationMeta('idClient');
-  @override
-  late final GeneratedColumn<int> idClient = GeneratedColumn<int>(
-      'id_client', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES client_entity (id)'));
-  static const VerificationMeta _idGudangMeta =
-      const VerificationMeta('idGudang');
-  @override
-  late final GeneratedColumn<int> idGudang = GeneratedColumn<int>(
-      'id_gudang', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES gudang_entity (id)'));
-  static const VerificationMeta _tanggalMulaiMeta =
-      const VerificationMeta('tanggalMulai');
-  @override
-  late final GeneratedColumn<DateTime> tanggalMulai = GeneratedColumn<DateTime>(
-      'tanggal_mulai', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _tanggalAkhirMeta =
-      const VerificationMeta('tanggalAkhir');
-  @override
-  late final GeneratedColumn<DateTime> tanggalAkhir = GeneratedColumn<DateTime>(
-      'tanggal_akhir', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
-      'created_at', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, idClient, idGudang, tanggalMulai, tanggalAkhir, createdAt];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'sewa_entity';
-  @override
-  VerificationContext validateIntegrity(Insertable<SewaEntityData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('id_client')) {
-      context.handle(_idClientMeta,
-          idClient.isAcceptableOrUnknown(data['id_client']!, _idClientMeta));
-    } else if (isInserting) {
-      context.missing(_idClientMeta);
-    }
-    if (data.containsKey('id_gudang')) {
-      context.handle(_idGudangMeta,
-          idGudang.isAcceptableOrUnknown(data['id_gudang']!, _idGudangMeta));
-    } else if (isInserting) {
-      context.missing(_idGudangMeta);
-    }
-    if (data.containsKey('tanggal_mulai')) {
-      context.handle(
-          _tanggalMulaiMeta,
-          tanggalMulai.isAcceptableOrUnknown(
-              data['tanggal_mulai']!, _tanggalMulaiMeta));
-    } else if (isInserting) {
-      context.missing(_tanggalMulaiMeta);
-    }
-    if (data.containsKey('tanggal_akhir')) {
-      context.handle(
-          _tanggalAkhirMeta,
-          tanggalAkhir.isAcceptableOrUnknown(
-              data['tanggal_akhir']!, _tanggalAkhirMeta));
-    } else if (isInserting) {
-      context.missing(_tanggalAkhirMeta);
-    }
-    if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  SewaEntityData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SewaEntityData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idClient: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_client'])!,
-      idGudang: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_gudang'])!,
-      tanggalMulai: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}tanggal_mulai'])!,
-      tanggalAkhir: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}tanggal_akhir'])!,
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
-    );
-  }
-
-  @override
-  $SewaEntityTable createAlias(String alias) {
-    return $SewaEntityTable(attachedDatabase, alias);
-  }
-}
-
-class SewaEntityData extends DataClass implements Insertable<SewaEntityData> {
-  final int id;
-  final int idClient;
-  final int idGudang;
-  final DateTime tanggalMulai;
-  final DateTime tanggalAkhir;
-  final DateTime? createdAt;
-  const SewaEntityData(
-      {required this.id,
-      required this.idClient,
-      required this.idGudang,
-      required this.tanggalMulai,
-      required this.tanggalAkhir,
-      this.createdAt});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['id_client'] = Variable<int>(idClient);
-    map['id_gudang'] = Variable<int>(idGudang);
-    map['tanggal_mulai'] = Variable<DateTime>(tanggalMulai);
-    map['tanggal_akhir'] = Variable<DateTime>(tanggalAkhir);
-    if (!nullToAbsent || createdAt != null) {
-      map['created_at'] = Variable<DateTime>(createdAt);
-    }
-    return map;
-  }
-
-  SewaEntityCompanion toCompanion(bool nullToAbsent) {
-    return SewaEntityCompanion(
-      id: Value(id),
-      idClient: Value(idClient),
-      idGudang: Value(idGudang),
-      tanggalMulai: Value(tanggalMulai),
-      tanggalAkhir: Value(tanggalAkhir),
-      createdAt: createdAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(createdAt),
-    );
-  }
-
-  factory SewaEntityData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return SewaEntityData(
-      id: serializer.fromJson<int>(json['id']),
-      idClient: serializer.fromJson<int>(json['idClient']),
-      idGudang: serializer.fromJson<int>(json['idGudang']),
-      tanggalMulai: serializer.fromJson<DateTime>(json['tanggalMulai']),
-      tanggalAkhir: serializer.fromJson<DateTime>(json['tanggalAkhir']),
-      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'idClient': serializer.toJson<int>(idClient),
-      'idGudang': serializer.toJson<int>(idGudang),
-      'tanggalMulai': serializer.toJson<DateTime>(tanggalMulai),
-      'tanggalAkhir': serializer.toJson<DateTime>(tanggalAkhir),
-      'createdAt': serializer.toJson<DateTime?>(createdAt),
-    };
-  }
-
-  SewaEntityData copyWith(
-          {int? id,
-          int? idClient,
-          int? idGudang,
-          DateTime? tanggalMulai,
-          DateTime? tanggalAkhir,
-          Value<DateTime?> createdAt = const Value.absent()}) =>
-      SewaEntityData(
-        id: id ?? this.id,
-        idClient: idClient ?? this.idClient,
-        idGudang: idGudang ?? this.idGudang,
-        tanggalMulai: tanggalMulai ?? this.tanggalMulai,
-        tanggalAkhir: tanggalAkhir ?? this.tanggalAkhir,
-        createdAt: createdAt.present ? createdAt.value : this.createdAt,
-      );
-  SewaEntityData copyWithCompanion(SewaEntityCompanion data) {
-    return SewaEntityData(
-      id: data.id.present ? data.id.value : this.id,
-      idClient: data.idClient.present ? data.idClient.value : this.idClient,
-      idGudang: data.idGudang.present ? data.idGudang.value : this.idGudang,
-      tanggalMulai: data.tanggalMulai.present
-          ? data.tanggalMulai.value
-          : this.tanggalMulai,
-      tanggalAkhir: data.tanggalAkhir.present
-          ? data.tanggalAkhir.value
-          : this.tanggalAkhir,
-      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SewaEntityData(')
-          ..write('id: $id, ')
-          ..write('idClient: $idClient, ')
-          ..write('idGudang: $idGudang, ')
-          ..write('tanggalMulai: $tanggalMulai, ')
-          ..write('tanggalAkhir: $tanggalAkhir, ')
-          ..write('createdAt: $createdAt')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      id, idClient, idGudang, tanggalMulai, tanggalAkhir, createdAt);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is SewaEntityData &&
-          other.id == this.id &&
-          other.idClient == this.idClient &&
-          other.idGudang == this.idGudang &&
-          other.tanggalMulai == this.tanggalMulai &&
-          other.tanggalAkhir == this.tanggalAkhir &&
-          other.createdAt == this.createdAt);
-}
-
-class SewaEntityCompanion extends UpdateCompanion<SewaEntityData> {
-  final Value<int> id;
-  final Value<int> idClient;
-  final Value<int> idGudang;
-  final Value<DateTime> tanggalMulai;
-  final Value<DateTime> tanggalAkhir;
-  final Value<DateTime?> createdAt;
-  const SewaEntityCompanion({
-    this.id = const Value.absent(),
-    this.idClient = const Value.absent(),
-    this.idGudang = const Value.absent(),
-    this.tanggalMulai = const Value.absent(),
-    this.tanggalAkhir = const Value.absent(),
-    this.createdAt = const Value.absent(),
-  });
-  SewaEntityCompanion.insert({
-    this.id = const Value.absent(),
-    required int idClient,
-    required int idGudang,
-    required DateTime tanggalMulai,
-    required DateTime tanggalAkhir,
-    this.createdAt = const Value.absent(),
-  })  : idClient = Value(idClient),
-        idGudang = Value(idGudang),
-        tanggalMulai = Value(tanggalMulai),
-        tanggalAkhir = Value(tanggalAkhir);
-  static Insertable<SewaEntityData> custom({
-    Expression<int>? id,
-    Expression<int>? idClient,
-    Expression<int>? idGudang,
-    Expression<DateTime>? tanggalMulai,
-    Expression<DateTime>? tanggalAkhir,
-    Expression<DateTime>? createdAt,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (idClient != null) 'id_client': idClient,
-      if (idGudang != null) 'id_gudang': idGudang,
-      if (tanggalMulai != null) 'tanggal_mulai': tanggalMulai,
-      if (tanggalAkhir != null) 'tanggal_akhir': tanggalAkhir,
-      if (createdAt != null) 'created_at': createdAt,
-    });
-  }
-
-  SewaEntityCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? idClient,
-      Value<int>? idGudang,
-      Value<DateTime>? tanggalMulai,
-      Value<DateTime>? tanggalAkhir,
-      Value<DateTime?>? createdAt}) {
-    return SewaEntityCompanion(
-      id: id ?? this.id,
-      idClient: idClient ?? this.idClient,
-      idGudang: idGudang ?? this.idGudang,
-      tanggalMulai: tanggalMulai ?? this.tanggalMulai,
-      tanggalAkhir: tanggalAkhir ?? this.tanggalAkhir,
-      createdAt: createdAt ?? this.createdAt,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (idClient.present) {
-      map['id_client'] = Variable<int>(idClient.value);
-    }
-    if (idGudang.present) {
-      map['id_gudang'] = Variable<int>(idGudang.value);
-    }
-    if (tanggalMulai.present) {
-      map['tanggal_mulai'] = Variable<DateTime>(tanggalMulai.value);
-    }
-    if (tanggalAkhir.present) {
-      map['tanggal_akhir'] = Variable<DateTime>(tanggalAkhir.value);
-    }
-    if (createdAt.present) {
-      map['created_at'] = Variable<DateTime>(createdAt.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SewaEntityCompanion(')
-          ..write('id: $id, ')
-          ..write('idClient: $idClient, ')
-          ..write('idGudang: $idGudang, ')
-          ..write('tanggalMulai: $tanggalMulai, ')
-          ..write('tanggalAkhir: $tanggalAkhir, ')
-          ..write('createdAt: $createdAt')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $TagihanEntityTable extends TagihanEntity
-    with TableInfo<$TagihanEntityTable, TagihanEntityData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $TagihanEntityTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _idSewaMeta = const VerificationMeta('idSewa');
-  @override
-  late final GeneratedColumn<int> idSewa = GeneratedColumn<int>(
-      'id_sewa', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES sewa_entity (id)'));
-  static const VerificationMeta _idPembayaranMeta =
-      const VerificationMeta('idPembayaran');
-  @override
-  late final GeneratedColumn<int> idPembayaran = GeneratedColumn<int>(
-      'id_pembayaran', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _biayaMeta = const VerificationMeta('biaya');
-  @override
-  late final GeneratedColumn<int> biaya = GeneratedColumn<int>(
-      'biaya', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _batasWaktuMeta =
-      const VerificationMeta('batasWaktu');
-  @override
-  late final GeneratedColumn<DateTime> batasWaktu = GeneratedColumn<DateTime>(
-      'batas_waktu', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
-      'created_at', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, idSewa, idPembayaran, biaya, batasWaktu, createdAt];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'tagihan_entity';
-  @override
-  VerificationContext validateIntegrity(Insertable<TagihanEntityData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('id_sewa')) {
-      context.handle(_idSewaMeta,
-          idSewa.isAcceptableOrUnknown(data['id_sewa']!, _idSewaMeta));
-    } else if (isInserting) {
-      context.missing(_idSewaMeta);
-    }
-    if (data.containsKey('id_pembayaran')) {
-      context.handle(
-          _idPembayaranMeta,
-          idPembayaran.isAcceptableOrUnknown(
-              data['id_pembayaran']!, _idPembayaranMeta));
-    } else if (isInserting) {
-      context.missing(_idPembayaranMeta);
-    }
-    if (data.containsKey('biaya')) {
-      context.handle(
-          _biayaMeta, biaya.isAcceptableOrUnknown(data['biaya']!, _biayaMeta));
-    } else if (isInserting) {
-      context.missing(_biayaMeta);
-    }
-    if (data.containsKey('batas_waktu')) {
-      context.handle(
-          _batasWaktuMeta,
-          batasWaktu.isAcceptableOrUnknown(
-              data['batas_waktu']!, _batasWaktuMeta));
-    } else if (isInserting) {
-      context.missing(_batasWaktuMeta);
-    }
-    if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  TagihanEntityData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TagihanEntityData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idSewa: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_sewa'])!,
-      idPembayaran: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_pembayaran'])!,
-      biaya: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}biaya'])!,
-      batasWaktu: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}batas_waktu'])!,
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
-    );
-  }
-
-  @override
-  $TagihanEntityTable createAlias(String alias) {
-    return $TagihanEntityTable(attachedDatabase, alias);
-  }
-}
-
-class TagihanEntityData extends DataClass
-    implements Insertable<TagihanEntityData> {
-  final int id;
-  final int idSewa;
-  final int idPembayaran;
-  final int biaya;
-  final DateTime batasWaktu;
-  final DateTime? createdAt;
-  const TagihanEntityData(
-      {required this.id,
-      required this.idSewa,
-      required this.idPembayaran,
-      required this.biaya,
-      required this.batasWaktu,
-      this.createdAt});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['id_sewa'] = Variable<int>(idSewa);
-    map['id_pembayaran'] = Variable<int>(idPembayaran);
-    map['biaya'] = Variable<int>(biaya);
-    map['batas_waktu'] = Variable<DateTime>(batasWaktu);
-    if (!nullToAbsent || createdAt != null) {
-      map['created_at'] = Variable<DateTime>(createdAt);
-    }
-    return map;
-  }
-
-  TagihanEntityCompanion toCompanion(bool nullToAbsent) {
-    return TagihanEntityCompanion(
-      id: Value(id),
-      idSewa: Value(idSewa),
-      idPembayaran: Value(idPembayaran),
-      biaya: Value(biaya),
-      batasWaktu: Value(batasWaktu),
-      createdAt: createdAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(createdAt),
-    );
-  }
-
-  factory TagihanEntityData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TagihanEntityData(
-      id: serializer.fromJson<int>(json['id']),
-      idSewa: serializer.fromJson<int>(json['idSewa']),
-      idPembayaran: serializer.fromJson<int>(json['idPembayaran']),
-      biaya: serializer.fromJson<int>(json['biaya']),
-      batasWaktu: serializer.fromJson<DateTime>(json['batasWaktu']),
-      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'idSewa': serializer.toJson<int>(idSewa),
-      'idPembayaran': serializer.toJson<int>(idPembayaran),
-      'biaya': serializer.toJson<int>(biaya),
-      'batasWaktu': serializer.toJson<DateTime>(batasWaktu),
-      'createdAt': serializer.toJson<DateTime?>(createdAt),
-    };
-  }
-
-  TagihanEntityData copyWith(
-          {int? id,
-          int? idSewa,
-          int? idPembayaran,
-          int? biaya,
-          DateTime? batasWaktu,
-          Value<DateTime?> createdAt = const Value.absent()}) =>
-      TagihanEntityData(
-        id: id ?? this.id,
-        idSewa: idSewa ?? this.idSewa,
-        idPembayaran: idPembayaran ?? this.idPembayaran,
-        biaya: biaya ?? this.biaya,
-        batasWaktu: batasWaktu ?? this.batasWaktu,
-        createdAt: createdAt.present ? createdAt.value : this.createdAt,
-      );
-  TagihanEntityData copyWithCompanion(TagihanEntityCompanion data) {
-    return TagihanEntityData(
-      id: data.id.present ? data.id.value : this.id,
-      idSewa: data.idSewa.present ? data.idSewa.value : this.idSewa,
-      idPembayaran: data.idPembayaran.present
-          ? data.idPembayaran.value
-          : this.idPembayaran,
-      biaya: data.biaya.present ? data.biaya.value : this.biaya,
-      batasWaktu:
-          data.batasWaktu.present ? data.batasWaktu.value : this.batasWaktu,
-      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TagihanEntityData(')
-          ..write('id: $id, ')
-          ..write('idSewa: $idSewa, ')
-          ..write('idPembayaran: $idPembayaran, ')
-          ..write('biaya: $biaya, ')
-          ..write('batasWaktu: $batasWaktu, ')
-          ..write('createdAt: $createdAt')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(id, idSewa, idPembayaran, biaya, batasWaktu, createdAt);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is TagihanEntityData &&
-          other.id == this.id &&
-          other.idSewa == this.idSewa &&
-          other.idPembayaran == this.idPembayaran &&
-          other.biaya == this.biaya &&
-          other.batasWaktu == this.batasWaktu &&
-          other.createdAt == this.createdAt);
-}
-
-class TagihanEntityCompanion extends UpdateCompanion<TagihanEntityData> {
-  final Value<int> id;
-  final Value<int> idSewa;
-  final Value<int> idPembayaran;
-  final Value<int> biaya;
-  final Value<DateTime> batasWaktu;
-  final Value<DateTime?> createdAt;
-  const TagihanEntityCompanion({
-    this.id = const Value.absent(),
-    this.idSewa = const Value.absent(),
-    this.idPembayaran = const Value.absent(),
-    this.biaya = const Value.absent(),
-    this.batasWaktu = const Value.absent(),
-    this.createdAt = const Value.absent(),
-  });
-  TagihanEntityCompanion.insert({
-    this.id = const Value.absent(),
-    required int idSewa,
-    required int idPembayaran,
-    required int biaya,
-    required DateTime batasWaktu,
-    this.createdAt = const Value.absent(),
-  })  : idSewa = Value(idSewa),
-        idPembayaran = Value(idPembayaran),
-        biaya = Value(biaya),
-        batasWaktu = Value(batasWaktu);
-  static Insertable<TagihanEntityData> custom({
-    Expression<int>? id,
-    Expression<int>? idSewa,
-    Expression<int>? idPembayaran,
-    Expression<int>? biaya,
-    Expression<DateTime>? batasWaktu,
-    Expression<DateTime>? createdAt,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (idSewa != null) 'id_sewa': idSewa,
-      if (idPembayaran != null) 'id_pembayaran': idPembayaran,
-      if (biaya != null) 'biaya': biaya,
-      if (batasWaktu != null) 'batas_waktu': batasWaktu,
-      if (createdAt != null) 'created_at': createdAt,
-    });
-  }
-
-  TagihanEntityCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? idSewa,
-      Value<int>? idPembayaran,
-      Value<int>? biaya,
-      Value<DateTime>? batasWaktu,
-      Value<DateTime?>? createdAt}) {
-    return TagihanEntityCompanion(
-      id: id ?? this.id,
-      idSewa: idSewa ?? this.idSewa,
-      idPembayaran: idPembayaran ?? this.idPembayaran,
-      biaya: biaya ?? this.biaya,
-      batasWaktu: batasWaktu ?? this.batasWaktu,
-      createdAt: createdAt ?? this.createdAt,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (idSewa.present) {
-      map['id_sewa'] = Variable<int>(idSewa.value);
-    }
-    if (idPembayaran.present) {
-      map['id_pembayaran'] = Variable<int>(idPembayaran.value);
-    }
-    if (biaya.present) {
-      map['biaya'] = Variable<int>(biaya.value);
-    }
-    if (batasWaktu.present) {
-      map['batas_waktu'] = Variable<DateTime>(batasWaktu.value);
-    }
-    if (createdAt.present) {
-      map['created_at'] = Variable<DateTime>(createdAt.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TagihanEntityCompanion(')
-          ..write('id: $id, ')
-          ..write('idSewa: $idSewa, ')
-          ..write('idPembayaran: $idPembayaran, ')
-          ..write('biaya: $biaya, ')
-          ..write('batasWaktu: $batasWaktu, ')
-          ..write('createdAt: $createdAt')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $PembayaranEntityTable extends PembayaranEntity
     with TableInfo<$PembayaranEntityTable, PembayaranEntityData> {
   @override
@@ -2098,15 +1399,6 @@ class $PembayaranEntityTable extends PembayaranEntity
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _idTagihanMeta =
-      const VerificationMeta('idTagihan');
-  @override
-  late final GeneratedColumn<int> idTagihan = GeneratedColumn<int>(
-      'id_tagihan', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES tagihan_entity (id)'));
   static const VerificationMeta _jumlahBayarMeta =
       const VerificationMeta('jumlahBayar');
   @override
@@ -2120,7 +1412,7 @@ class $PembayaranEntityTable extends PembayaranEntity
       'created_at', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns => [id, idTagihan, jumlahBayar, createdAt];
+  List<GeneratedColumn> get $columns => [id, jumlahBayar, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2134,12 +1426,6 @@ class $PembayaranEntityTable extends PembayaranEntity
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('id_tagihan')) {
-      context.handle(_idTagihanMeta,
-          idTagihan.isAcceptableOrUnknown(data['id_tagihan']!, _idTagihanMeta));
-    } else if (isInserting) {
-      context.missing(_idTagihanMeta);
     }
     if (data.containsKey('jumlah_bayar')) {
       context.handle(
@@ -2164,8 +1450,6 @@ class $PembayaranEntityTable extends PembayaranEntity
     return PembayaranEntityData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idTagihan: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_tagihan'])!,
       jumlahBayar: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}jumlah_bayar'])!,
       createdAt: attachedDatabase.typeMapping
@@ -2182,19 +1466,14 @@ class $PembayaranEntityTable extends PembayaranEntity
 class PembayaranEntityData extends DataClass
     implements Insertable<PembayaranEntityData> {
   final int id;
-  final int idTagihan;
   final int jumlahBayar;
   final DateTime? createdAt;
   const PembayaranEntityData(
-      {required this.id,
-      required this.idTagihan,
-      required this.jumlahBayar,
-      this.createdAt});
+      {required this.id, required this.jumlahBayar, this.createdAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['id_tagihan'] = Variable<int>(idTagihan);
     map['jumlah_bayar'] = Variable<int>(jumlahBayar);
     if (!nullToAbsent || createdAt != null) {
       map['created_at'] = Variable<DateTime>(createdAt);
@@ -2205,7 +1484,6 @@ class PembayaranEntityData extends DataClass
   PembayaranEntityCompanion toCompanion(bool nullToAbsent) {
     return PembayaranEntityCompanion(
       id: Value(id),
-      idTagihan: Value(idTagihan),
       jumlahBayar: Value(jumlahBayar),
       createdAt: createdAt == null && nullToAbsent
           ? const Value.absent()
@@ -2218,7 +1496,6 @@ class PembayaranEntityData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return PembayaranEntityData(
       id: serializer.fromJson<int>(json['id']),
-      idTagihan: serializer.fromJson<int>(json['idTagihan']),
       jumlahBayar: serializer.fromJson<int>(json['jumlahBayar']),
       createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
     );
@@ -2228,7 +1505,6 @@ class PembayaranEntityData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'idTagihan': serializer.toJson<int>(idTagihan),
       'jumlahBayar': serializer.toJson<int>(jumlahBayar),
       'createdAt': serializer.toJson<DateTime?>(createdAt),
     };
@@ -2236,19 +1512,16 @@ class PembayaranEntityData extends DataClass
 
   PembayaranEntityData copyWith(
           {int? id,
-          int? idTagihan,
           int? jumlahBayar,
           Value<DateTime?> createdAt = const Value.absent()}) =>
       PembayaranEntityData(
         id: id ?? this.id,
-        idTagihan: idTagihan ?? this.idTagihan,
         jumlahBayar: jumlahBayar ?? this.jumlahBayar,
         createdAt: createdAt.present ? createdAt.value : this.createdAt,
       );
   PembayaranEntityData copyWithCompanion(PembayaranEntityCompanion data) {
     return PembayaranEntityData(
       id: data.id.present ? data.id.value : this.id,
-      idTagihan: data.idTagihan.present ? data.idTagihan.value : this.idTagihan,
       jumlahBayar:
           data.jumlahBayar.present ? data.jumlahBayar.value : this.jumlahBayar,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
@@ -2259,7 +1532,6 @@ class PembayaranEntityData extends DataClass
   String toString() {
     return (StringBuffer('PembayaranEntityData(')
           ..write('id: $id, ')
-          ..write('idTagihan: $idTagihan, ')
           ..write('jumlahBayar: $jumlahBayar, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -2267,57 +1539,46 @@ class PembayaranEntityData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, idTagihan, jumlahBayar, createdAt);
+  int get hashCode => Object.hash(id, jumlahBayar, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PembayaranEntityData &&
           other.id == this.id &&
-          other.idTagihan == this.idTagihan &&
           other.jumlahBayar == this.jumlahBayar &&
           other.createdAt == this.createdAt);
 }
 
 class PembayaranEntityCompanion extends UpdateCompanion<PembayaranEntityData> {
   final Value<int> id;
-  final Value<int> idTagihan;
   final Value<int> jumlahBayar;
   final Value<DateTime?> createdAt;
   const PembayaranEntityCompanion({
     this.id = const Value.absent(),
-    this.idTagihan = const Value.absent(),
     this.jumlahBayar = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
   PembayaranEntityCompanion.insert({
     this.id = const Value.absent(),
-    required int idTagihan,
     required int jumlahBayar,
     this.createdAt = const Value.absent(),
-  })  : idTagihan = Value(idTagihan),
-        jumlahBayar = Value(jumlahBayar);
+  }) : jumlahBayar = Value(jumlahBayar);
   static Insertable<PembayaranEntityData> custom({
     Expression<int>? id,
-    Expression<int>? idTagihan,
     Expression<int>? jumlahBayar,
     Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (idTagihan != null) 'id_tagihan': idTagihan,
       if (jumlahBayar != null) 'jumlah_bayar': jumlahBayar,
       if (createdAt != null) 'created_at': createdAt,
     });
   }
 
   PembayaranEntityCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? idTagihan,
-      Value<int>? jumlahBayar,
-      Value<DateTime?>? createdAt}) {
+      {Value<int>? id, Value<int>? jumlahBayar, Value<DateTime?>? createdAt}) {
     return PembayaranEntityCompanion(
       id: id ?? this.id,
-      idTagihan: idTagihan ?? this.idTagihan,
       jumlahBayar: jumlahBayar ?? this.jumlahBayar,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -2328,9 +1589,6 @@ class PembayaranEntityCompanion extends UpdateCompanion<PembayaranEntityData> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
-    }
-    if (idTagihan.present) {
-      map['id_tagihan'] = Variable<int>(idTagihan.value);
     }
     if (jumlahBayar.present) {
       map['jumlah_bayar'] = Variable<int>(jumlahBayar.value);
@@ -2345,7 +1603,6 @@ class PembayaranEntityCompanion extends UpdateCompanion<PembayaranEntityData> {
   String toString() {
     return (StringBuffer('PembayaranEntityCompanion(')
           ..write('id: $id, ')
-          ..write('idTagihan: $idTagihan, ')
           ..write('jumlahBayar: $jumlahBayar, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -2971,6 +2228,707 @@ class PersetujuanEntityCompanion
   }
 }
 
+class $SewaEntityTable extends SewaEntity
+    with TableInfo<$SewaEntityTable, SewaEntityData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SewaEntityTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idClientMeta =
+      const VerificationMeta('idClient');
+  @override
+  late final GeneratedColumn<int> idClient = GeneratedColumn<int>(
+      'id_client', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES client_entity (id)'));
+  static const VerificationMeta _idGudangMeta =
+      const VerificationMeta('idGudang');
+  @override
+  late final GeneratedColumn<int> idGudang = GeneratedColumn<int>(
+      'id_gudang', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES gudang_entity (id)'));
+  static const VerificationMeta _tanggalMulaiMeta =
+      const VerificationMeta('tanggalMulai');
+  @override
+  late final GeneratedColumn<DateTime> tanggalMulai = GeneratedColumn<DateTime>(
+      'tanggal_mulai', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _tanggalAkhirMeta =
+      const VerificationMeta('tanggalAkhir');
+  @override
+  late final GeneratedColumn<DateTime> tanggalAkhir = GeneratedColumn<DateTime>(
+      'tanggal_akhir', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, idClient, idGudang, tanggalMulai, tanggalAkhir, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sewa_entity';
+  @override
+  VerificationContext validateIntegrity(Insertable<SewaEntityData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_client')) {
+      context.handle(_idClientMeta,
+          idClient.isAcceptableOrUnknown(data['id_client']!, _idClientMeta));
+    } else if (isInserting) {
+      context.missing(_idClientMeta);
+    }
+    if (data.containsKey('id_gudang')) {
+      context.handle(_idGudangMeta,
+          idGudang.isAcceptableOrUnknown(data['id_gudang']!, _idGudangMeta));
+    } else if (isInserting) {
+      context.missing(_idGudangMeta);
+    }
+    if (data.containsKey('tanggal_mulai')) {
+      context.handle(
+          _tanggalMulaiMeta,
+          tanggalMulai.isAcceptableOrUnknown(
+              data['tanggal_mulai']!, _tanggalMulaiMeta));
+    } else if (isInserting) {
+      context.missing(_tanggalMulaiMeta);
+    }
+    if (data.containsKey('tanggal_akhir')) {
+      context.handle(
+          _tanggalAkhirMeta,
+          tanggalAkhir.isAcceptableOrUnknown(
+              data['tanggal_akhir']!, _tanggalAkhirMeta));
+    } else if (isInserting) {
+      context.missing(_tanggalAkhirMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SewaEntityData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SewaEntityData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idClient: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_client'])!,
+      idGudang: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_gudang'])!,
+      tanggalMulai: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}tanggal_mulai'])!,
+      tanggalAkhir: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}tanggal_akhir'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
+    );
+  }
+
+  @override
+  $SewaEntityTable createAlias(String alias) {
+    return $SewaEntityTable(attachedDatabase, alias);
+  }
+}
+
+class SewaEntityData extends DataClass implements Insertable<SewaEntityData> {
+  final int id;
+  final int idClient;
+  final int idGudang;
+  final DateTime tanggalMulai;
+  final DateTime tanggalAkhir;
+  final DateTime? createdAt;
+  const SewaEntityData(
+      {required this.id,
+      required this.idClient,
+      required this.idGudang,
+      required this.tanggalMulai,
+      required this.tanggalAkhir,
+      this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['id_client'] = Variable<int>(idClient);
+    map['id_gudang'] = Variable<int>(idGudang);
+    map['tanggal_mulai'] = Variable<DateTime>(tanggalMulai);
+    map['tanggal_akhir'] = Variable<DateTime>(tanggalAkhir);
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
+    }
+    return map;
+  }
+
+  SewaEntityCompanion toCompanion(bool nullToAbsent) {
+    return SewaEntityCompanion(
+      id: Value(id),
+      idClient: Value(idClient),
+      idGudang: Value(idGudang),
+      tanggalMulai: Value(tanggalMulai),
+      tanggalAkhir: Value(tanggalAkhir),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
+    );
+  }
+
+  factory SewaEntityData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SewaEntityData(
+      id: serializer.fromJson<int>(json['id']),
+      idClient: serializer.fromJson<int>(json['idClient']),
+      idGudang: serializer.fromJson<int>(json['idGudang']),
+      tanggalMulai: serializer.fromJson<DateTime>(json['tanggalMulai']),
+      tanggalAkhir: serializer.fromJson<DateTime>(json['tanggalAkhir']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idClient': serializer.toJson<int>(idClient),
+      'idGudang': serializer.toJson<int>(idGudang),
+      'tanggalMulai': serializer.toJson<DateTime>(tanggalMulai),
+      'tanggalAkhir': serializer.toJson<DateTime>(tanggalAkhir),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
+    };
+  }
+
+  SewaEntityData copyWith(
+          {int? id,
+          int? idClient,
+          int? idGudang,
+          DateTime? tanggalMulai,
+          DateTime? tanggalAkhir,
+          Value<DateTime?> createdAt = const Value.absent()}) =>
+      SewaEntityData(
+        id: id ?? this.id,
+        idClient: idClient ?? this.idClient,
+        idGudang: idGudang ?? this.idGudang,
+        tanggalMulai: tanggalMulai ?? this.tanggalMulai,
+        tanggalAkhir: tanggalAkhir ?? this.tanggalAkhir,
+        createdAt: createdAt.present ? createdAt.value : this.createdAt,
+      );
+  SewaEntityData copyWithCompanion(SewaEntityCompanion data) {
+    return SewaEntityData(
+      id: data.id.present ? data.id.value : this.id,
+      idClient: data.idClient.present ? data.idClient.value : this.idClient,
+      idGudang: data.idGudang.present ? data.idGudang.value : this.idGudang,
+      tanggalMulai: data.tanggalMulai.present
+          ? data.tanggalMulai.value
+          : this.tanggalMulai,
+      tanggalAkhir: data.tanggalAkhir.present
+          ? data.tanggalAkhir.value
+          : this.tanggalAkhir,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SewaEntityData(')
+          ..write('id: $id, ')
+          ..write('idClient: $idClient, ')
+          ..write('idGudang: $idGudang, ')
+          ..write('tanggalMulai: $tanggalMulai, ')
+          ..write('tanggalAkhir: $tanggalAkhir, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, idClient, idGudang, tanggalMulai, tanggalAkhir, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SewaEntityData &&
+          other.id == this.id &&
+          other.idClient == this.idClient &&
+          other.idGudang == this.idGudang &&
+          other.tanggalMulai == this.tanggalMulai &&
+          other.tanggalAkhir == this.tanggalAkhir &&
+          other.createdAt == this.createdAt);
+}
+
+class SewaEntityCompanion extends UpdateCompanion<SewaEntityData> {
+  final Value<int> id;
+  final Value<int> idClient;
+  final Value<int> idGudang;
+  final Value<DateTime> tanggalMulai;
+  final Value<DateTime> tanggalAkhir;
+  final Value<DateTime?> createdAt;
+  const SewaEntityCompanion({
+    this.id = const Value.absent(),
+    this.idClient = const Value.absent(),
+    this.idGudang = const Value.absent(),
+    this.tanggalMulai = const Value.absent(),
+    this.tanggalAkhir = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  SewaEntityCompanion.insert({
+    this.id = const Value.absent(),
+    required int idClient,
+    required int idGudang,
+    required DateTime tanggalMulai,
+    required DateTime tanggalAkhir,
+    this.createdAt = const Value.absent(),
+  })  : idClient = Value(idClient),
+        idGudang = Value(idGudang),
+        tanggalMulai = Value(tanggalMulai),
+        tanggalAkhir = Value(tanggalAkhir);
+  static Insertable<SewaEntityData> custom({
+    Expression<int>? id,
+    Expression<int>? idClient,
+    Expression<int>? idGudang,
+    Expression<DateTime>? tanggalMulai,
+    Expression<DateTime>? tanggalAkhir,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idClient != null) 'id_client': idClient,
+      if (idGudang != null) 'id_gudang': idGudang,
+      if (tanggalMulai != null) 'tanggal_mulai': tanggalMulai,
+      if (tanggalAkhir != null) 'tanggal_akhir': tanggalAkhir,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  SewaEntityCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? idClient,
+      Value<int>? idGudang,
+      Value<DateTime>? tanggalMulai,
+      Value<DateTime>? tanggalAkhir,
+      Value<DateTime?>? createdAt}) {
+    return SewaEntityCompanion(
+      id: id ?? this.id,
+      idClient: idClient ?? this.idClient,
+      idGudang: idGudang ?? this.idGudang,
+      tanggalMulai: tanggalMulai ?? this.tanggalMulai,
+      tanggalAkhir: tanggalAkhir ?? this.tanggalAkhir,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idClient.present) {
+      map['id_client'] = Variable<int>(idClient.value);
+    }
+    if (idGudang.present) {
+      map['id_gudang'] = Variable<int>(idGudang.value);
+    }
+    if (tanggalMulai.present) {
+      map['tanggal_mulai'] = Variable<DateTime>(tanggalMulai.value);
+    }
+    if (tanggalAkhir.present) {
+      map['tanggal_akhir'] = Variable<DateTime>(tanggalAkhir.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SewaEntityCompanion(')
+          ..write('id: $id, ')
+          ..write('idClient: $idClient, ')
+          ..write('idGudang: $idGudang, ')
+          ..write('tanggalMulai: $tanggalMulai, ')
+          ..write('tanggalAkhir: $tanggalAkhir, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TagihanEntityTable extends TagihanEntity
+    with TableInfo<$TagihanEntityTable, TagihanEntityData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TagihanEntityTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idSewaMeta = const VerificationMeta('idSewa');
+  @override
+  late final GeneratedColumn<int> idSewa = GeneratedColumn<int>(
+      'id_sewa', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES sewa_entity (id)'));
+  static const VerificationMeta _idPembayaranMeta =
+      const VerificationMeta('idPembayaran');
+  @override
+  late final GeneratedColumn<int> idPembayaran = GeneratedColumn<int>(
+      'id_pembayaran', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _biayaMeta = const VerificationMeta('biaya');
+  @override
+  late final GeneratedColumn<int> biaya = GeneratedColumn<int>(
+      'biaya', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _batasWaktuMeta =
+      const VerificationMeta('batasWaktu');
+  @override
+  late final GeneratedColumn<DateTime> batasWaktu = GeneratedColumn<DateTime>(
+      'batas_waktu', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, idSewa, idPembayaran, biaya, batasWaktu, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tagihan_entity';
+  @override
+  VerificationContext validateIntegrity(Insertable<TagihanEntityData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_sewa')) {
+      context.handle(_idSewaMeta,
+          idSewa.isAcceptableOrUnknown(data['id_sewa']!, _idSewaMeta));
+    } else if (isInserting) {
+      context.missing(_idSewaMeta);
+    }
+    if (data.containsKey('id_pembayaran')) {
+      context.handle(
+          _idPembayaranMeta,
+          idPembayaran.isAcceptableOrUnknown(
+              data['id_pembayaran']!, _idPembayaranMeta));
+    }
+    if (data.containsKey('biaya')) {
+      context.handle(
+          _biayaMeta, biaya.isAcceptableOrUnknown(data['biaya']!, _biayaMeta));
+    } else if (isInserting) {
+      context.missing(_biayaMeta);
+    }
+    if (data.containsKey('batas_waktu')) {
+      context.handle(
+          _batasWaktuMeta,
+          batasWaktu.isAcceptableOrUnknown(
+              data['batas_waktu']!, _batasWaktuMeta));
+    } else if (isInserting) {
+      context.missing(_batasWaktuMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TagihanEntityData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TagihanEntityData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idSewa: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_sewa'])!,
+      idPembayaran: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_pembayaran']),
+      biaya: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}biaya'])!,
+      batasWaktu: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}batas_waktu'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
+    );
+  }
+
+  @override
+  $TagihanEntityTable createAlias(String alias) {
+    return $TagihanEntityTable(attachedDatabase, alias);
+  }
+}
+
+class TagihanEntityData extends DataClass
+    implements Insertable<TagihanEntityData> {
+  final int id;
+  final int idSewa;
+  final int? idPembayaran;
+  final int biaya;
+  final DateTime batasWaktu;
+  final DateTime? createdAt;
+  const TagihanEntityData(
+      {required this.id,
+      required this.idSewa,
+      this.idPembayaran,
+      required this.biaya,
+      required this.batasWaktu,
+      this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['id_sewa'] = Variable<int>(idSewa);
+    if (!nullToAbsent || idPembayaran != null) {
+      map['id_pembayaran'] = Variable<int>(idPembayaran);
+    }
+    map['biaya'] = Variable<int>(biaya);
+    map['batas_waktu'] = Variable<DateTime>(batasWaktu);
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
+    }
+    return map;
+  }
+
+  TagihanEntityCompanion toCompanion(bool nullToAbsent) {
+    return TagihanEntityCompanion(
+      id: Value(id),
+      idSewa: Value(idSewa),
+      idPembayaran: idPembayaran == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idPembayaran),
+      biaya: Value(biaya),
+      batasWaktu: Value(batasWaktu),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
+    );
+  }
+
+  factory TagihanEntityData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TagihanEntityData(
+      id: serializer.fromJson<int>(json['id']),
+      idSewa: serializer.fromJson<int>(json['idSewa']),
+      idPembayaran: serializer.fromJson<int?>(json['idPembayaran']),
+      biaya: serializer.fromJson<int>(json['biaya']),
+      batasWaktu: serializer.fromJson<DateTime>(json['batasWaktu']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idSewa': serializer.toJson<int>(idSewa),
+      'idPembayaran': serializer.toJson<int?>(idPembayaran),
+      'biaya': serializer.toJson<int>(biaya),
+      'batasWaktu': serializer.toJson<DateTime>(batasWaktu),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
+    };
+  }
+
+  TagihanEntityData copyWith(
+          {int? id,
+          int? idSewa,
+          Value<int?> idPembayaran = const Value.absent(),
+          int? biaya,
+          DateTime? batasWaktu,
+          Value<DateTime?> createdAt = const Value.absent()}) =>
+      TagihanEntityData(
+        id: id ?? this.id,
+        idSewa: idSewa ?? this.idSewa,
+        idPembayaran:
+            idPembayaran.present ? idPembayaran.value : this.idPembayaran,
+        biaya: biaya ?? this.biaya,
+        batasWaktu: batasWaktu ?? this.batasWaktu,
+        createdAt: createdAt.present ? createdAt.value : this.createdAt,
+      );
+  TagihanEntityData copyWithCompanion(TagihanEntityCompanion data) {
+    return TagihanEntityData(
+      id: data.id.present ? data.id.value : this.id,
+      idSewa: data.idSewa.present ? data.idSewa.value : this.idSewa,
+      idPembayaran: data.idPembayaran.present
+          ? data.idPembayaran.value
+          : this.idPembayaran,
+      biaya: data.biaya.present ? data.biaya.value : this.biaya,
+      batasWaktu:
+          data.batasWaktu.present ? data.batasWaktu.value : this.batasWaktu,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagihanEntityData(')
+          ..write('id: $id, ')
+          ..write('idSewa: $idSewa, ')
+          ..write('idPembayaran: $idPembayaran, ')
+          ..write('biaya: $biaya, ')
+          ..write('batasWaktu: $batasWaktu, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, idSewa, idPembayaran, biaya, batasWaktu, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TagihanEntityData &&
+          other.id == this.id &&
+          other.idSewa == this.idSewa &&
+          other.idPembayaran == this.idPembayaran &&
+          other.biaya == this.biaya &&
+          other.batasWaktu == this.batasWaktu &&
+          other.createdAt == this.createdAt);
+}
+
+class TagihanEntityCompanion extends UpdateCompanion<TagihanEntityData> {
+  final Value<int> id;
+  final Value<int> idSewa;
+  final Value<int?> idPembayaran;
+  final Value<int> biaya;
+  final Value<DateTime> batasWaktu;
+  final Value<DateTime?> createdAt;
+  const TagihanEntityCompanion({
+    this.id = const Value.absent(),
+    this.idSewa = const Value.absent(),
+    this.idPembayaran = const Value.absent(),
+    this.biaya = const Value.absent(),
+    this.batasWaktu = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  TagihanEntityCompanion.insert({
+    this.id = const Value.absent(),
+    required int idSewa,
+    this.idPembayaran = const Value.absent(),
+    required int biaya,
+    required DateTime batasWaktu,
+    this.createdAt = const Value.absent(),
+  })  : idSewa = Value(idSewa),
+        biaya = Value(biaya),
+        batasWaktu = Value(batasWaktu);
+  static Insertable<TagihanEntityData> custom({
+    Expression<int>? id,
+    Expression<int>? idSewa,
+    Expression<int>? idPembayaran,
+    Expression<int>? biaya,
+    Expression<DateTime>? batasWaktu,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idSewa != null) 'id_sewa': idSewa,
+      if (idPembayaran != null) 'id_pembayaran': idPembayaran,
+      if (biaya != null) 'biaya': biaya,
+      if (batasWaktu != null) 'batas_waktu': batasWaktu,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  TagihanEntityCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? idSewa,
+      Value<int?>? idPembayaran,
+      Value<int>? biaya,
+      Value<DateTime>? batasWaktu,
+      Value<DateTime?>? createdAt}) {
+    return TagihanEntityCompanion(
+      id: id ?? this.id,
+      idSewa: idSewa ?? this.idSewa,
+      idPembayaran: idPembayaran ?? this.idPembayaran,
+      biaya: biaya ?? this.biaya,
+      batasWaktu: batasWaktu ?? this.batasWaktu,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idSewa.present) {
+      map['id_sewa'] = Variable<int>(idSewa.value);
+    }
+    if (idPembayaran.present) {
+      map['id_pembayaran'] = Variable<int>(idPembayaran.value);
+    }
+    if (biaya.present) {
+      map['biaya'] = Variable<int>(biaya.value);
+    }
+    if (batasWaktu.present) {
+      map['batas_waktu'] = Variable<DateTime>(batasWaktu.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagihanEntityCompanion(')
+          ..write('id: $id, ')
+          ..write('idSewa: $idSewa, ')
+          ..write('idPembayaran: $idPembayaran, ')
+          ..write('biaya: $biaya, ')
+          ..write('batasWaktu: $batasWaktu, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $BarangEntityTable extends BarangEntity
     with TableInfo<$BarangEntityTable, BarangEntityData> {
   @override
@@ -3201,14 +3159,14 @@ abstract class _$Datasource extends GeneratedDatabase {
   late final $GudangEntityTable gudangEntity = $GudangEntityTable(this);
   late final $PabrikEntityTable pabrikEntity = $PabrikEntityTable(this);
   late final $PegawaiEntityTable pegawaiEntity = $PegawaiEntityTable(this);
-  late final $SewaEntityTable sewaEntity = $SewaEntityTable(this);
-  late final $TagihanEntityTable tagihanEntity = $TagihanEntityTable(this);
   late final $PembayaranEntityTable pembayaranEntity =
       $PembayaranEntityTable(this);
   late final $TransaksiEntityTable transaksiEntity =
       $TransaksiEntityTable(this);
   late final $PersetujuanEntityTable persetujuanEntity =
       $PersetujuanEntityTable(this);
+  late final $SewaEntityTable sewaEntity = $SewaEntityTable(this);
+  late final $TagihanEntityTable tagihanEntity = $TagihanEntityTable(this);
   late final $BarangEntityTable barangEntity = $BarangEntityTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -3220,11 +3178,11 @@ abstract class _$Datasource extends GeneratedDatabase {
         gudangEntity,
         pabrikEntity,
         pegawaiEntity,
-        sewaEntity,
-        tagihanEntity,
         pembayaranEntity,
         transaksiEntity,
         persetujuanEntity,
+        sewaEntity,
+        tagihanEntity,
         barangEntity
       ];
 }
@@ -4273,829 +4231,18 @@ typedef $$PegawaiEntityTableProcessedTableManager = ProcessedTableManager<
     (PegawaiEntityData, $$PegawaiEntityTableReferences),
     PegawaiEntityData,
     PrefetchHooks Function({bool persetujuanEntityRefs})>;
-typedef $$SewaEntityTableCreateCompanionBuilder = SewaEntityCompanion Function({
-  Value<int> id,
-  required int idClient,
-  required int idGudang,
-  required DateTime tanggalMulai,
-  required DateTime tanggalAkhir,
-  Value<DateTime?> createdAt,
-});
-typedef $$SewaEntityTableUpdateCompanionBuilder = SewaEntityCompanion Function({
-  Value<int> id,
-  Value<int> idClient,
-  Value<int> idGudang,
-  Value<DateTime> tanggalMulai,
-  Value<DateTime> tanggalAkhir,
-  Value<DateTime?> createdAt,
-});
-
-final class $$SewaEntityTableReferences
-    extends BaseReferences<_$Datasource, $SewaEntityTable, SewaEntityData> {
-  $$SewaEntityTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $ClientEntityTable _idClientTable(_$Datasource db) =>
-      db.clientEntity.createAlias(
-          $_aliasNameGenerator(db.sewaEntity.idClient, db.clientEntity.id));
-
-  $$ClientEntityTableProcessedTableManager get idClient {
-    final manager = $$ClientEntityTableTableManager($_db, $_db.clientEntity)
-        .filter((f) => f.id($_item.idClient!));
-    final item = $_typedResult.readTableOrNull(_idClientTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-
-  static $GudangEntityTable _idGudangTable(_$Datasource db) =>
-      db.gudangEntity.createAlias(
-          $_aliasNameGenerator(db.sewaEntity.idGudang, db.gudangEntity.id));
-
-  $$GudangEntityTableProcessedTableManager get idGudang {
-    final manager = $$GudangEntityTableTableManager($_db, $_db.gudangEntity)
-        .filter((f) => f.id($_item.idGudang!));
-    final item = $_typedResult.readTableOrNull(_idGudangTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-
-  static MultiTypedResultKey<$TagihanEntityTable, List<TagihanEntityData>>
-      _tagihanEntityRefsTable(_$Datasource db) => MultiTypedResultKey.fromTable(
-          db.tagihanEntity,
-          aliasName:
-              $_aliasNameGenerator(db.sewaEntity.id, db.tagihanEntity.idSewa));
-
-  $$TagihanEntityTableProcessedTableManager get tagihanEntityRefs {
-    final manager = $$TagihanEntityTableTableManager($_db, $_db.tagihanEntity)
-        .filter((f) => f.idSewa.id($_item.id));
-
-    final cache = $_typedResult.readTableOrNull(_tagihanEntityRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $$SewaEntityTableFilterComposer
-    extends Composer<_$Datasource, $SewaEntityTable> {
-  $$SewaEntityTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<DateTime> get tanggalMulai => $composableBuilder(
-      column: $table.tanggalMulai, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<DateTime> get tanggalAkhir => $composableBuilder(
-      column: $table.tanggalAkhir, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-      column: $table.createdAt, builder: (column) => ColumnFilters(column));
-
-  $$ClientEntityTableFilterComposer get idClient {
-    final $$ClientEntityTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idClient,
-        referencedTable: $db.clientEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$ClientEntityTableFilterComposer(
-              $db: $db,
-              $table: $db.clientEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  $$GudangEntityTableFilterComposer get idGudang {
-    final $$GudangEntityTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idGudang,
-        referencedTable: $db.gudangEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$GudangEntityTableFilterComposer(
-              $db: $db,
-              $table: $db.gudangEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<bool> tagihanEntityRefs(
-      Expression<bool> Function($$TagihanEntityTableFilterComposer f) f) {
-    final $$TagihanEntityTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.tagihanEntity,
-        getReferencedColumn: (t) => t.idSewa,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$TagihanEntityTableFilterComposer(
-              $db: $db,
-              $table: $db.tagihanEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$SewaEntityTableOrderingComposer
-    extends Composer<_$Datasource, $SewaEntityTable> {
-  $$SewaEntityTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<DateTime> get tanggalMulai => $composableBuilder(
-      column: $table.tanggalMulai,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<DateTime> get tanggalAkhir => $composableBuilder(
-      column: $table.tanggalAkhir,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
-
-  $$ClientEntityTableOrderingComposer get idClient {
-    final $$ClientEntityTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idClient,
-        referencedTable: $db.clientEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$ClientEntityTableOrderingComposer(
-              $db: $db,
-              $table: $db.clientEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  $$GudangEntityTableOrderingComposer get idGudang {
-    final $$GudangEntityTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idGudang,
-        referencedTable: $db.gudangEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$GudangEntityTableOrderingComposer(
-              $db: $db,
-              $table: $db.gudangEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $$SewaEntityTableAnnotationComposer
-    extends Composer<_$Datasource, $SewaEntityTable> {
-  $$SewaEntityTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get tanggalMulai => $composableBuilder(
-      column: $table.tanggalMulai, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get tanggalAkhir => $composableBuilder(
-      column: $table.tanggalAkhir, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => column);
-
-  $$ClientEntityTableAnnotationComposer get idClient {
-    final $$ClientEntityTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idClient,
-        referencedTable: $db.clientEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$ClientEntityTableAnnotationComposer(
-              $db: $db,
-              $table: $db.clientEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  $$GudangEntityTableAnnotationComposer get idGudang {
-    final $$GudangEntityTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idGudang,
-        referencedTable: $db.gudangEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$GudangEntityTableAnnotationComposer(
-              $db: $db,
-              $table: $db.gudangEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<T> tagihanEntityRefs<T extends Object>(
-      Expression<T> Function($$TagihanEntityTableAnnotationComposer a) f) {
-    final $$TagihanEntityTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.tagihanEntity,
-        getReferencedColumn: (t) => t.idSewa,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$TagihanEntityTableAnnotationComposer(
-              $db: $db,
-              $table: $db.tagihanEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$SewaEntityTableTableManager extends RootTableManager<
-    _$Datasource,
-    $SewaEntityTable,
-    SewaEntityData,
-    $$SewaEntityTableFilterComposer,
-    $$SewaEntityTableOrderingComposer,
-    $$SewaEntityTableAnnotationComposer,
-    $$SewaEntityTableCreateCompanionBuilder,
-    $$SewaEntityTableUpdateCompanionBuilder,
-    (SewaEntityData, $$SewaEntityTableReferences),
-    SewaEntityData,
-    PrefetchHooks Function(
-        {bool idClient, bool idGudang, bool tagihanEntityRefs})> {
-  $$SewaEntityTableTableManager(_$Datasource db, $SewaEntityTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$SewaEntityTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$SewaEntityTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$SewaEntityTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> idClient = const Value.absent(),
-            Value<int> idGudang = const Value.absent(),
-            Value<DateTime> tanggalMulai = const Value.absent(),
-            Value<DateTime> tanggalAkhir = const Value.absent(),
-            Value<DateTime?> createdAt = const Value.absent(),
-          }) =>
-              SewaEntityCompanion(
-            id: id,
-            idClient: idClient,
-            idGudang: idGudang,
-            tanggalMulai: tanggalMulai,
-            tanggalAkhir: tanggalAkhir,
-            createdAt: createdAt,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int idClient,
-            required int idGudang,
-            required DateTime tanggalMulai,
-            required DateTime tanggalAkhir,
-            Value<DateTime?> createdAt = const Value.absent(),
-          }) =>
-              SewaEntityCompanion.insert(
-            id: id,
-            idClient: idClient,
-            idGudang: idGudang,
-            tanggalMulai: tanggalMulai,
-            tanggalAkhir: tanggalAkhir,
-            createdAt: createdAt,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$SewaEntityTableReferences(db, table, e)
-                  ))
-              .toList(),
-          prefetchHooksCallback: (
-              {idClient = false, idGudang = false, tagihanEntityRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (tagihanEntityRefs) db.tagihanEntity
-              ],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (idClient) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.idClient,
-                    referencedTable:
-                        $$SewaEntityTableReferences._idClientTable(db),
-                    referencedColumn:
-                        $$SewaEntityTableReferences._idClientTable(db).id,
-                  ) as T;
-                }
-                if (idGudang) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.idGudang,
-                    referencedTable:
-                        $$SewaEntityTableReferences._idGudangTable(db),
-                    referencedColumn:
-                        $$SewaEntityTableReferences._idGudangTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (tagihanEntityRefs)
-                    await $_getPrefetchedData(
-                        currentTable: table,
-                        referencedTable: $$SewaEntityTableReferences
-                            ._tagihanEntityRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$SewaEntityTableReferences(db, table, p0)
-                                .tagihanEntityRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.idSewa == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $$SewaEntityTableProcessedTableManager = ProcessedTableManager<
-    _$Datasource,
-    $SewaEntityTable,
-    SewaEntityData,
-    $$SewaEntityTableFilterComposer,
-    $$SewaEntityTableOrderingComposer,
-    $$SewaEntityTableAnnotationComposer,
-    $$SewaEntityTableCreateCompanionBuilder,
-    $$SewaEntityTableUpdateCompanionBuilder,
-    (SewaEntityData, $$SewaEntityTableReferences),
-    SewaEntityData,
-    PrefetchHooks Function(
-        {bool idClient, bool idGudang, bool tagihanEntityRefs})>;
-typedef $$TagihanEntityTableCreateCompanionBuilder = TagihanEntityCompanion
-    Function({
-  Value<int> id,
-  required int idSewa,
-  required int idPembayaran,
-  required int biaya,
-  required DateTime batasWaktu,
-  Value<DateTime?> createdAt,
-});
-typedef $$TagihanEntityTableUpdateCompanionBuilder = TagihanEntityCompanion
-    Function({
-  Value<int> id,
-  Value<int> idSewa,
-  Value<int> idPembayaran,
-  Value<int> biaya,
-  Value<DateTime> batasWaktu,
-  Value<DateTime?> createdAt,
-});
-
-final class $$TagihanEntityTableReferences extends BaseReferences<_$Datasource,
-    $TagihanEntityTable, TagihanEntityData> {
-  $$TagihanEntityTableReferences(
-      super.$_db, super.$_table, super.$_typedResult);
-
-  static $SewaEntityTable _idSewaTable(_$Datasource db) =>
-      db.sewaEntity.createAlias(
-          $_aliasNameGenerator(db.tagihanEntity.idSewa, db.sewaEntity.id));
-
-  $$SewaEntityTableProcessedTableManager get idSewa {
-    final manager = $$SewaEntityTableTableManager($_db, $_db.sewaEntity)
-        .filter((f) => f.id($_item.idSewa!));
-    final item = $_typedResult.readTableOrNull(_idSewaTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-
-  static MultiTypedResultKey<$PembayaranEntityTable, List<PembayaranEntityData>>
-      _pembayaranEntityRefsTable(_$Datasource db) =>
-          MultiTypedResultKey.fromTable(db.pembayaranEntity,
-              aliasName: $_aliasNameGenerator(
-                  db.tagihanEntity.id, db.pembayaranEntity.idTagihan));
-
-  $$PembayaranEntityTableProcessedTableManager get pembayaranEntityRefs {
-    final manager =
-        $$PembayaranEntityTableTableManager($_db, $_db.pembayaranEntity)
-            .filter((f) => f.idTagihan.id($_item.id));
-
-    final cache =
-        $_typedResult.readTableOrNull(_pembayaranEntityRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $$TagihanEntityTableFilterComposer
-    extends Composer<_$Datasource, $TagihanEntityTable> {
-  $$TagihanEntityTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<int> get idPembayaran => $composableBuilder(
-      column: $table.idPembayaran, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<int> get biaya => $composableBuilder(
-      column: $table.biaya, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<DateTime> get batasWaktu => $composableBuilder(
-      column: $table.batasWaktu, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-      column: $table.createdAt, builder: (column) => ColumnFilters(column));
-
-  $$SewaEntityTableFilterComposer get idSewa {
-    final $$SewaEntityTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idSewa,
-        referencedTable: $db.sewaEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$SewaEntityTableFilterComposer(
-              $db: $db,
-              $table: $db.sewaEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<bool> pembayaranEntityRefs(
-      Expression<bool> Function($$PembayaranEntityTableFilterComposer f) f) {
-    final $$PembayaranEntityTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.pembayaranEntity,
-        getReferencedColumn: (t) => t.idTagihan,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$PembayaranEntityTableFilterComposer(
-              $db: $db,
-              $table: $db.pembayaranEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$TagihanEntityTableOrderingComposer
-    extends Composer<_$Datasource, $TagihanEntityTable> {
-  $$TagihanEntityTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<int> get idPembayaran => $composableBuilder(
-      column: $table.idPembayaran,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<int> get biaya => $composableBuilder(
-      column: $table.biaya, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<DateTime> get batasWaktu => $composableBuilder(
-      column: $table.batasWaktu, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
-
-  $$SewaEntityTableOrderingComposer get idSewa {
-    final $$SewaEntityTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idSewa,
-        referencedTable: $db.sewaEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$SewaEntityTableOrderingComposer(
-              $db: $db,
-              $table: $db.sewaEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $$TagihanEntityTableAnnotationComposer
-    extends Composer<_$Datasource, $TagihanEntityTable> {
-  $$TagihanEntityTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get idPembayaran => $composableBuilder(
-      column: $table.idPembayaran, builder: (column) => column);
-
-  GeneratedColumn<int> get biaya =>
-      $composableBuilder(column: $table.biaya, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get batasWaktu => $composableBuilder(
-      column: $table.batasWaktu, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => column);
-
-  $$SewaEntityTableAnnotationComposer get idSewa {
-    final $$SewaEntityTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idSewa,
-        referencedTable: $db.sewaEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$SewaEntityTableAnnotationComposer(
-              $db: $db,
-              $table: $db.sewaEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<T> pembayaranEntityRefs<T extends Object>(
-      Expression<T> Function($$PembayaranEntityTableAnnotationComposer a) f) {
-    final $$PembayaranEntityTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.pembayaranEntity,
-        getReferencedColumn: (t) => t.idTagihan,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$PembayaranEntityTableAnnotationComposer(
-              $db: $db,
-              $table: $db.pembayaranEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$TagihanEntityTableTableManager extends RootTableManager<
-    _$Datasource,
-    $TagihanEntityTable,
-    TagihanEntityData,
-    $$TagihanEntityTableFilterComposer,
-    $$TagihanEntityTableOrderingComposer,
-    $$TagihanEntityTableAnnotationComposer,
-    $$TagihanEntityTableCreateCompanionBuilder,
-    $$TagihanEntityTableUpdateCompanionBuilder,
-    (TagihanEntityData, $$TagihanEntityTableReferences),
-    TagihanEntityData,
-    PrefetchHooks Function({bool idSewa, bool pembayaranEntityRefs})> {
-  $$TagihanEntityTableTableManager(_$Datasource db, $TagihanEntityTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$TagihanEntityTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$TagihanEntityTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$TagihanEntityTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> idSewa = const Value.absent(),
-            Value<int> idPembayaran = const Value.absent(),
-            Value<int> biaya = const Value.absent(),
-            Value<DateTime> batasWaktu = const Value.absent(),
-            Value<DateTime?> createdAt = const Value.absent(),
-          }) =>
-              TagihanEntityCompanion(
-            id: id,
-            idSewa: idSewa,
-            idPembayaran: idPembayaran,
-            biaya: biaya,
-            batasWaktu: batasWaktu,
-            createdAt: createdAt,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int idSewa,
-            required int idPembayaran,
-            required int biaya,
-            required DateTime batasWaktu,
-            Value<DateTime?> createdAt = const Value.absent(),
-          }) =>
-              TagihanEntityCompanion.insert(
-            id: id,
-            idSewa: idSewa,
-            idPembayaran: idPembayaran,
-            biaya: biaya,
-            batasWaktu: batasWaktu,
-            createdAt: createdAt,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$TagihanEntityTableReferences(db, table, e)
-                  ))
-              .toList(),
-          prefetchHooksCallback: (
-              {idSewa = false, pembayaranEntityRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (pembayaranEntityRefs) db.pembayaranEntity
-              ],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (idSewa) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.idSewa,
-                    referencedTable:
-                        $$TagihanEntityTableReferences._idSewaTable(db),
-                    referencedColumn:
-                        $$TagihanEntityTableReferences._idSewaTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (pembayaranEntityRefs)
-                    await $_getPrefetchedData(
-                        currentTable: table,
-                        referencedTable: $$TagihanEntityTableReferences
-                            ._pembayaranEntityRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$TagihanEntityTableReferences(db, table, p0)
-                                .pembayaranEntityRefs,
-                        referencedItemsForCurrentItem:
-                            (item, referencedItems) => referencedItems
-                                .where((e) => e.idTagihan == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $$TagihanEntityTableProcessedTableManager = ProcessedTableManager<
-    _$Datasource,
-    $TagihanEntityTable,
-    TagihanEntityData,
-    $$TagihanEntityTableFilterComposer,
-    $$TagihanEntityTableOrderingComposer,
-    $$TagihanEntityTableAnnotationComposer,
-    $$TagihanEntityTableCreateCompanionBuilder,
-    $$TagihanEntityTableUpdateCompanionBuilder,
-    (TagihanEntityData, $$TagihanEntityTableReferences),
-    TagihanEntityData,
-    PrefetchHooks Function({bool idSewa, bool pembayaranEntityRefs})>;
 typedef $$PembayaranEntityTableCreateCompanionBuilder
     = PembayaranEntityCompanion Function({
   Value<int> id,
-  required int idTagihan,
   required int jumlahBayar,
   Value<DateTime?> createdAt,
 });
 typedef $$PembayaranEntityTableUpdateCompanionBuilder
     = PembayaranEntityCompanion Function({
   Value<int> id,
-  Value<int> idTagihan,
   Value<int> jumlahBayar,
   Value<DateTime?> createdAt,
 });
-
-final class $$PembayaranEntityTableReferences extends BaseReferences<
-    _$Datasource, $PembayaranEntityTable, PembayaranEntityData> {
-  $$PembayaranEntityTableReferences(
-      super.$_db, super.$_table, super.$_typedResult);
-
-  static $TagihanEntityTable _idTagihanTable(_$Datasource db) =>
-      db.tagihanEntity.createAlias($_aliasNameGenerator(
-          db.pembayaranEntity.idTagihan, db.tagihanEntity.id));
-
-  $$TagihanEntityTableProcessedTableManager get idTagihan {
-    final manager = $$TagihanEntityTableTableManager($_db, $_db.tagihanEntity)
-        .filter((f) => f.id($_item.idTagihan!));
-    final item = $_typedResult.readTableOrNull(_idTagihanTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-}
 
 class $$PembayaranEntityTableFilterComposer
     extends Composer<_$Datasource, $PembayaranEntityTable> {
@@ -5114,26 +4261,6 @@ class $$PembayaranEntityTableFilterComposer
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnFilters(column));
-
-  $$TagihanEntityTableFilterComposer get idTagihan {
-    final $$TagihanEntityTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idTagihan,
-        referencedTable: $db.tagihanEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$TagihanEntityTableFilterComposer(
-              $db: $db,
-              $table: $db.tagihanEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
 class $$PembayaranEntityTableOrderingComposer
@@ -5153,26 +4280,6 @@ class $$PembayaranEntityTableOrderingComposer
 
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnOrderings(column));
-
-  $$TagihanEntityTableOrderingComposer get idTagihan {
-    final $$TagihanEntityTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idTagihan,
-        referencedTable: $db.tagihanEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$TagihanEntityTableOrderingComposer(
-              $db: $db,
-              $table: $db.tagihanEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
 class $$PembayaranEntityTableAnnotationComposer
@@ -5192,26 +4299,6 @@ class $$PembayaranEntityTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
-
-  $$TagihanEntityTableAnnotationComposer get idTagihan {
-    final $$TagihanEntityTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.idTagihan,
-        referencedTable: $db.tagihanEntity,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$TagihanEntityTableAnnotationComposer(
-              $db: $db,
-              $table: $db.tagihanEntity,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
 class $$PembayaranEntityTableTableManager extends RootTableManager<
@@ -5223,9 +4310,12 @@ class $$PembayaranEntityTableTableManager extends RootTableManager<
     $$PembayaranEntityTableAnnotationComposer,
     $$PembayaranEntityTableCreateCompanionBuilder,
     $$PembayaranEntityTableUpdateCompanionBuilder,
-    (PembayaranEntityData, $$PembayaranEntityTableReferences),
+    (
+      PembayaranEntityData,
+      BaseReferences<_$Datasource, $PembayaranEntityTable, PembayaranEntityData>
+    ),
     PembayaranEntityData,
-    PrefetchHooks Function({bool idTagihan})> {
+    PrefetchHooks Function()> {
   $$PembayaranEntityTableTableManager(
       _$Datasource db, $PembayaranEntityTable table)
       : super(TableManagerState(
@@ -5239,70 +4329,28 @@ class $$PembayaranEntityTableTableManager extends RootTableManager<
               $$PembayaranEntityTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<int> idTagihan = const Value.absent(),
             Value<int> jumlahBayar = const Value.absent(),
             Value<DateTime?> createdAt = const Value.absent(),
           }) =>
               PembayaranEntityCompanion(
             id: id,
-            idTagihan: idTagihan,
             jumlahBayar: jumlahBayar,
             createdAt: createdAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            required int idTagihan,
             required int jumlahBayar,
             Value<DateTime?> createdAt = const Value.absent(),
           }) =>
               PembayaranEntityCompanion.insert(
             id: id,
-            idTagihan: idTagihan,
             jumlahBayar: jumlahBayar,
             createdAt: createdAt,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$PembayaranEntityTableReferences(db, table, e)
-                  ))
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({idTagihan = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (idTagihan) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.idTagihan,
-                    referencedTable:
-                        $$PembayaranEntityTableReferences._idTagihanTable(db),
-                    referencedColumn: $$PembayaranEntityTableReferences
-                        ._idTagihanTable(db)
-                        .id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
+          prefetchHooksCallback: null,
         ));
 }
 
@@ -5315,9 +4363,12 @@ typedef $$PembayaranEntityTableProcessedTableManager = ProcessedTableManager<
     $$PembayaranEntityTableAnnotationComposer,
     $$PembayaranEntityTableCreateCompanionBuilder,
     $$PembayaranEntityTableUpdateCompanionBuilder,
-    (PembayaranEntityData, $$PembayaranEntityTableReferences),
+    (
+      PembayaranEntityData,
+      BaseReferences<_$Datasource, $PembayaranEntityTable, PembayaranEntityData>
+    ),
     PembayaranEntityData,
-    PrefetchHooks Function({bool idTagihan})>;
+    PrefetchHooks Function()>;
 typedef $$TransaksiEntityTableCreateCompanionBuilder = TransaksiEntityCompanion
     Function({
   Value<int> id,
@@ -5923,6 +4974,721 @@ typedef $$PersetujuanEntityTableProcessedTableManager = ProcessedTableManager<
     (PersetujuanEntityData, $$PersetujuanEntityTableReferences),
     PersetujuanEntityData,
     PrefetchHooks Function({bool idPegawai, bool idTransaksi})>;
+typedef $$SewaEntityTableCreateCompanionBuilder = SewaEntityCompanion Function({
+  Value<int> id,
+  required int idClient,
+  required int idGudang,
+  required DateTime tanggalMulai,
+  required DateTime tanggalAkhir,
+  Value<DateTime?> createdAt,
+});
+typedef $$SewaEntityTableUpdateCompanionBuilder = SewaEntityCompanion Function({
+  Value<int> id,
+  Value<int> idClient,
+  Value<int> idGudang,
+  Value<DateTime> tanggalMulai,
+  Value<DateTime> tanggalAkhir,
+  Value<DateTime?> createdAt,
+});
+
+final class $$SewaEntityTableReferences
+    extends BaseReferences<_$Datasource, $SewaEntityTable, SewaEntityData> {
+  $$SewaEntityTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ClientEntityTable _idClientTable(_$Datasource db) =>
+      db.clientEntity.createAlias(
+          $_aliasNameGenerator(db.sewaEntity.idClient, db.clientEntity.id));
+
+  $$ClientEntityTableProcessedTableManager get idClient {
+    final manager = $$ClientEntityTableTableManager($_db, $_db.clientEntity)
+        .filter((f) => f.id($_item.idClient!));
+    final item = $_typedResult.readTableOrNull(_idClientTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $GudangEntityTable _idGudangTable(_$Datasource db) =>
+      db.gudangEntity.createAlias(
+          $_aliasNameGenerator(db.sewaEntity.idGudang, db.gudangEntity.id));
+
+  $$GudangEntityTableProcessedTableManager get idGudang {
+    final manager = $$GudangEntityTableTableManager($_db, $_db.gudangEntity)
+        .filter((f) => f.id($_item.idGudang!));
+    final item = $_typedResult.readTableOrNull(_idGudangTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<$TagihanEntityTable, List<TagihanEntityData>>
+      _tagihanEntityRefsTable(_$Datasource db) => MultiTypedResultKey.fromTable(
+          db.tagihanEntity,
+          aliasName:
+              $_aliasNameGenerator(db.sewaEntity.id, db.tagihanEntity.idSewa));
+
+  $$TagihanEntityTableProcessedTableManager get tagihanEntityRefs {
+    final manager = $$TagihanEntityTableTableManager($_db, $_db.tagihanEntity)
+        .filter((f) => f.idSewa.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_tagihanEntityRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$SewaEntityTableFilterComposer
+    extends Composer<_$Datasource, $SewaEntityTable> {
+  $$SewaEntityTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get tanggalMulai => $composableBuilder(
+      column: $table.tanggalMulai, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get tanggalAkhir => $composableBuilder(
+      column: $table.tanggalAkhir, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  $$ClientEntityTableFilterComposer get idClient {
+    final $$ClientEntityTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idClient,
+        referencedTable: $db.clientEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ClientEntityTableFilterComposer(
+              $db: $db,
+              $table: $db.clientEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$GudangEntityTableFilterComposer get idGudang {
+    final $$GudangEntityTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idGudang,
+        referencedTable: $db.gudangEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$GudangEntityTableFilterComposer(
+              $db: $db,
+              $table: $db.gudangEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> tagihanEntityRefs(
+      Expression<bool> Function($$TagihanEntityTableFilterComposer f) f) {
+    final $$TagihanEntityTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.tagihanEntity,
+        getReferencedColumn: (t) => t.idSewa,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$TagihanEntityTableFilterComposer(
+              $db: $db,
+              $table: $db.tagihanEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$SewaEntityTableOrderingComposer
+    extends Composer<_$Datasource, $SewaEntityTable> {
+  $$SewaEntityTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get tanggalMulai => $composableBuilder(
+      column: $table.tanggalMulai,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get tanggalAkhir => $composableBuilder(
+      column: $table.tanggalAkhir,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  $$ClientEntityTableOrderingComposer get idClient {
+    final $$ClientEntityTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idClient,
+        referencedTable: $db.clientEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ClientEntityTableOrderingComposer(
+              $db: $db,
+              $table: $db.clientEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$GudangEntityTableOrderingComposer get idGudang {
+    final $$GudangEntityTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idGudang,
+        referencedTable: $db.gudangEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$GudangEntityTableOrderingComposer(
+              $db: $db,
+              $table: $db.gudangEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$SewaEntityTableAnnotationComposer
+    extends Composer<_$Datasource, $SewaEntityTable> {
+  $$SewaEntityTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get tanggalMulai => $composableBuilder(
+      column: $table.tanggalMulai, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get tanggalAkhir => $composableBuilder(
+      column: $table.tanggalAkhir, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$ClientEntityTableAnnotationComposer get idClient {
+    final $$ClientEntityTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idClient,
+        referencedTable: $db.clientEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ClientEntityTableAnnotationComposer(
+              $db: $db,
+              $table: $db.clientEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$GudangEntityTableAnnotationComposer get idGudang {
+    final $$GudangEntityTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idGudang,
+        referencedTable: $db.gudangEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$GudangEntityTableAnnotationComposer(
+              $db: $db,
+              $table: $db.gudangEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> tagihanEntityRefs<T extends Object>(
+      Expression<T> Function($$TagihanEntityTableAnnotationComposer a) f) {
+    final $$TagihanEntityTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.tagihanEntity,
+        getReferencedColumn: (t) => t.idSewa,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$TagihanEntityTableAnnotationComposer(
+              $db: $db,
+              $table: $db.tagihanEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$SewaEntityTableTableManager extends RootTableManager<
+    _$Datasource,
+    $SewaEntityTable,
+    SewaEntityData,
+    $$SewaEntityTableFilterComposer,
+    $$SewaEntityTableOrderingComposer,
+    $$SewaEntityTableAnnotationComposer,
+    $$SewaEntityTableCreateCompanionBuilder,
+    $$SewaEntityTableUpdateCompanionBuilder,
+    (SewaEntityData, $$SewaEntityTableReferences),
+    SewaEntityData,
+    PrefetchHooks Function(
+        {bool idClient, bool idGudang, bool tagihanEntityRefs})> {
+  $$SewaEntityTableTableManager(_$Datasource db, $SewaEntityTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SewaEntityTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SewaEntityTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SewaEntityTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> idClient = const Value.absent(),
+            Value<int> idGudang = const Value.absent(),
+            Value<DateTime> tanggalMulai = const Value.absent(),
+            Value<DateTime> tanggalAkhir = const Value.absent(),
+            Value<DateTime?> createdAt = const Value.absent(),
+          }) =>
+              SewaEntityCompanion(
+            id: id,
+            idClient: idClient,
+            idGudang: idGudang,
+            tanggalMulai: tanggalMulai,
+            tanggalAkhir: tanggalAkhir,
+            createdAt: createdAt,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int idClient,
+            required int idGudang,
+            required DateTime tanggalMulai,
+            required DateTime tanggalAkhir,
+            Value<DateTime?> createdAt = const Value.absent(),
+          }) =>
+              SewaEntityCompanion.insert(
+            id: id,
+            idClient: idClient,
+            idGudang: idGudang,
+            tanggalMulai: tanggalMulai,
+            tanggalAkhir: tanggalAkhir,
+            createdAt: createdAt,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$SewaEntityTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {idClient = false, idGudang = false, tagihanEntityRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (tagihanEntityRefs) db.tagihanEntity
+              ],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idClient) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idClient,
+                    referencedTable:
+                        $$SewaEntityTableReferences._idClientTable(db),
+                    referencedColumn:
+                        $$SewaEntityTableReferences._idClientTable(db).id,
+                  ) as T;
+                }
+                if (idGudang) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idGudang,
+                    referencedTable:
+                        $$SewaEntityTableReferences._idGudangTable(db),
+                    referencedColumn:
+                        $$SewaEntityTableReferences._idGudangTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (tagihanEntityRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$SewaEntityTableReferences
+                            ._tagihanEntityRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$SewaEntityTableReferences(db, table, p0)
+                                .tagihanEntityRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.idSewa == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$SewaEntityTableProcessedTableManager = ProcessedTableManager<
+    _$Datasource,
+    $SewaEntityTable,
+    SewaEntityData,
+    $$SewaEntityTableFilterComposer,
+    $$SewaEntityTableOrderingComposer,
+    $$SewaEntityTableAnnotationComposer,
+    $$SewaEntityTableCreateCompanionBuilder,
+    $$SewaEntityTableUpdateCompanionBuilder,
+    (SewaEntityData, $$SewaEntityTableReferences),
+    SewaEntityData,
+    PrefetchHooks Function(
+        {bool idClient, bool idGudang, bool tagihanEntityRefs})>;
+typedef $$TagihanEntityTableCreateCompanionBuilder = TagihanEntityCompanion
+    Function({
+  Value<int> id,
+  required int idSewa,
+  Value<int?> idPembayaran,
+  required int biaya,
+  required DateTime batasWaktu,
+  Value<DateTime?> createdAt,
+});
+typedef $$TagihanEntityTableUpdateCompanionBuilder = TagihanEntityCompanion
+    Function({
+  Value<int> id,
+  Value<int> idSewa,
+  Value<int?> idPembayaran,
+  Value<int> biaya,
+  Value<DateTime> batasWaktu,
+  Value<DateTime?> createdAt,
+});
+
+final class $$TagihanEntityTableReferences extends BaseReferences<_$Datasource,
+    $TagihanEntityTable, TagihanEntityData> {
+  $$TagihanEntityTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $SewaEntityTable _idSewaTable(_$Datasource db) =>
+      db.sewaEntity.createAlias(
+          $_aliasNameGenerator(db.tagihanEntity.idSewa, db.sewaEntity.id));
+
+  $$SewaEntityTableProcessedTableManager get idSewa {
+    final manager = $$SewaEntityTableTableManager($_db, $_db.sewaEntity)
+        .filter((f) => f.id($_item.idSewa!));
+    final item = $_typedResult.readTableOrNull(_idSewaTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$TagihanEntityTableFilterComposer
+    extends Composer<_$Datasource, $TagihanEntityTable> {
+  $$TagihanEntityTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idPembayaran => $composableBuilder(
+      column: $table.idPembayaran, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get biaya => $composableBuilder(
+      column: $table.biaya, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get batasWaktu => $composableBuilder(
+      column: $table.batasWaktu, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  $$SewaEntityTableFilterComposer get idSewa {
+    final $$SewaEntityTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idSewa,
+        referencedTable: $db.sewaEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$SewaEntityTableFilterComposer(
+              $db: $db,
+              $table: $db.sewaEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$TagihanEntityTableOrderingComposer
+    extends Composer<_$Datasource, $TagihanEntityTable> {
+  $$TagihanEntityTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idPembayaran => $composableBuilder(
+      column: $table.idPembayaran,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get biaya => $composableBuilder(
+      column: $table.biaya, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get batasWaktu => $composableBuilder(
+      column: $table.batasWaktu, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  $$SewaEntityTableOrderingComposer get idSewa {
+    final $$SewaEntityTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idSewa,
+        referencedTable: $db.sewaEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$SewaEntityTableOrderingComposer(
+              $db: $db,
+              $table: $db.sewaEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$TagihanEntityTableAnnotationComposer
+    extends Composer<_$Datasource, $TagihanEntityTable> {
+  $$TagihanEntityTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idPembayaran => $composableBuilder(
+      column: $table.idPembayaran, builder: (column) => column);
+
+  GeneratedColumn<int> get biaya =>
+      $composableBuilder(column: $table.biaya, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get batasWaktu => $composableBuilder(
+      column: $table.batasWaktu, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$SewaEntityTableAnnotationComposer get idSewa {
+    final $$SewaEntityTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idSewa,
+        referencedTable: $db.sewaEntity,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$SewaEntityTableAnnotationComposer(
+              $db: $db,
+              $table: $db.sewaEntity,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$TagihanEntityTableTableManager extends RootTableManager<
+    _$Datasource,
+    $TagihanEntityTable,
+    TagihanEntityData,
+    $$TagihanEntityTableFilterComposer,
+    $$TagihanEntityTableOrderingComposer,
+    $$TagihanEntityTableAnnotationComposer,
+    $$TagihanEntityTableCreateCompanionBuilder,
+    $$TagihanEntityTableUpdateCompanionBuilder,
+    (TagihanEntityData, $$TagihanEntityTableReferences),
+    TagihanEntityData,
+    PrefetchHooks Function({bool idSewa})> {
+  $$TagihanEntityTableTableManager(_$Datasource db, $TagihanEntityTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TagihanEntityTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TagihanEntityTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TagihanEntityTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> idSewa = const Value.absent(),
+            Value<int?> idPembayaran = const Value.absent(),
+            Value<int> biaya = const Value.absent(),
+            Value<DateTime> batasWaktu = const Value.absent(),
+            Value<DateTime?> createdAt = const Value.absent(),
+          }) =>
+              TagihanEntityCompanion(
+            id: id,
+            idSewa: idSewa,
+            idPembayaran: idPembayaran,
+            biaya: biaya,
+            batasWaktu: batasWaktu,
+            createdAt: createdAt,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int idSewa,
+            Value<int?> idPembayaran = const Value.absent(),
+            required int biaya,
+            required DateTime batasWaktu,
+            Value<DateTime?> createdAt = const Value.absent(),
+          }) =>
+              TagihanEntityCompanion.insert(
+            id: id,
+            idSewa: idSewa,
+            idPembayaran: idPembayaran,
+            biaya: biaya,
+            batasWaktu: batasWaktu,
+            createdAt: createdAt,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$TagihanEntityTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({idSewa = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idSewa) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idSewa,
+                    referencedTable:
+                        $$TagihanEntityTableReferences._idSewaTable(db),
+                    referencedColumn:
+                        $$TagihanEntityTableReferences._idSewaTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$TagihanEntityTableProcessedTableManager = ProcessedTableManager<
+    _$Datasource,
+    $TagihanEntityTable,
+    TagihanEntityData,
+    $$TagihanEntityTableFilterComposer,
+    $$TagihanEntityTableOrderingComposer,
+    $$TagihanEntityTableAnnotationComposer,
+    $$TagihanEntityTableCreateCompanionBuilder,
+    $$TagihanEntityTableUpdateCompanionBuilder,
+    (TagihanEntityData, $$TagihanEntityTableReferences),
+    TagihanEntityData,
+    PrefetchHooks Function({bool idSewa})>;
 typedef $$BarangEntityTableCreateCompanionBuilder = BarangEntityCompanion
     Function({
   Value<int> id,
@@ -6074,16 +5840,16 @@ class $DatasourceManager {
       $$PabrikEntityTableTableManager(_db, _db.pabrikEntity);
   $$PegawaiEntityTableTableManager get pegawaiEntity =>
       $$PegawaiEntityTableTableManager(_db, _db.pegawaiEntity);
-  $$SewaEntityTableTableManager get sewaEntity =>
-      $$SewaEntityTableTableManager(_db, _db.sewaEntity);
-  $$TagihanEntityTableTableManager get tagihanEntity =>
-      $$TagihanEntityTableTableManager(_db, _db.tagihanEntity);
   $$PembayaranEntityTableTableManager get pembayaranEntity =>
       $$PembayaranEntityTableTableManager(_db, _db.pembayaranEntity);
   $$TransaksiEntityTableTableManager get transaksiEntity =>
       $$TransaksiEntityTableTableManager(_db, _db.transaksiEntity);
   $$PersetujuanEntityTableTableManager get persetujuanEntity =>
       $$PersetujuanEntityTableTableManager(_db, _db.persetujuanEntity);
+  $$SewaEntityTableTableManager get sewaEntity =>
+      $$SewaEntityTableTableManager(_db, _db.sewaEntity);
+  $$TagihanEntityTableTableManager get tagihanEntity =>
+      $$TagihanEntityTableTableManager(_db, _db.tagihanEntity);
   $$BarangEntityTableTableManager get barangEntity =>
       $$BarangEntityTableTableManager(_db, _db.barangEntity);
 }

@@ -59,6 +59,8 @@ class DetailSewaPage extends StatelessWidget {
                       _buildInfoRow('Tagihan', tagihan.id.toString()),
                       const Divider(),
                       _buildInfoRow(
+                          'Status Pembayaran', state.statusPemabyaran),
+                      _buildInfoRow(
                           'Biaya Sewa', Utils.formatCurrency(tagihan.biaya)),
                       _buildInfoRow(
                           'Batas Waktu', Utils.formatDate(tagihan.batasWaktu)),
@@ -74,19 +76,29 @@ class DetailSewaPage extends StatelessWidget {
             selector: (state) {
               final detail = state.mapOrNull(loaded: (value) => value);
               if (detail != null) {
-                return [detail.sewa.id, detail.sewa.biaya];
+                return [
+                  detail.sewa.id,
+                  detail.sewa.biaya,
+                  detail.tagihan.idPembayaran ?? -1
+                ];
               }
               return [];
             },
             builder: (context, data) {
+              if (data.isNotEmpty && data[2] != -1) {
+                return const SizedBox();
+              }
               return ElevatedButton.icon(
-                onPressed: () {
-                  Navigate.push(
+                onPressed: () async {
+                  await Navigate.push(
                       context,
                       PembayaranPage(
                         idSewa: data[0],
                         total: data[1],
                       ));
+                  if (context.mounted) {
+                    context.read<DetailSewaCubit>().getDetailSewa(idSewa);
+                  }
                 },
                 label: const Text('Bayar'),
                 icon: const Icon(Icons.money),

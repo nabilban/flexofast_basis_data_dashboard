@@ -8,3 +8,14 @@ class DetailSewaState with _$DetailSewaState {
       DetailSewaViewData sewa, TagihanEntityData tagihan) = DetailSewaLoaded;
   const factory DetailSewaState.error() = DetailSewaError;
 }
+
+extension DetailSewaStateX on DetailSewaState {
+  String get statusPemabyaran {
+    if (this is DetailSewaLoaded) {
+      return (this as DetailSewaLoaded).tagihan.idPembayaran == null
+          ? 'Belum Lunas'
+          : 'Lunas';
+    }
+    return 'Belum Ada Data';
+  }
+}

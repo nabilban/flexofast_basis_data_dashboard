@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
+import 'package:flexofast_basis_data_dashboard/database/datasource.dart';
 import 'package:flexofast_basis_data_dashboard/entity/barang_entity.dart';
 part 'barang_dao.g.dart';
 

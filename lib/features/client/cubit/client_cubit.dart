@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:flexofast_basis_data_dashboard/dao/client_dao.dart';
-import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
+import 'package:flexofast_basis_data_dashboard/database/datasource.dart';
 
 part 'client_cubit.freezed.dart';
 part 'client_state.dart';

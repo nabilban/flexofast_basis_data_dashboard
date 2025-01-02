@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flexofast_basis_data_dashboard/dao/barang_dao.dart';
-import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
+import 'package:flexofast_basis_data_dashboard/database/datasource.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'barang_state.dart';

@@ -1,5 +1,5 @@
 import 'package:flexofast_basis_data_dashboard/dao/master_dao.dart';
-import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
+import 'package:flexofast_basis_data_dashboard/database/datasource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

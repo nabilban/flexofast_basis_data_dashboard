@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
+import 'package:flexofast_basis_data_dashboard/database/datasource.dart';
 import 'package:flexofast_basis_data_dashboard/entity/client_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/gudang_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/pembayaran_entity.dart';
@@ -87,6 +87,13 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
       },
     );
 
+    return result;
+  }
+
+  Future<DetailSewaViewData> getDetailSewa(int id) async {
+    final result = await (select(db.detailSewaView)
+          ..where((tbl) => tbl.sewa.id.equals(id)))
+        .getSingle();
     return result;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:flexofast_basis_data_dashboard/datasource/datasource.dart';
+import 'package:flexofast_basis_data_dashboard/database/datasource.dart';
 import 'package:flexofast_basis_data_dashboard/entity/distributor_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/gudang_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/pabrik_entity.dart';

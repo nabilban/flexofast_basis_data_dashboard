@@ -43,7 +43,7 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
           biaya: Value(biaya),
           batasWaktu: Value(DateTime.now().add(1.days))));
 
-      return getTagihanById(tagihanId);
+      return getTagihanBySewaId(createdSewaId);
     });
 
     return result;
@@ -56,9 +56,9 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
     return result;
   }
 
-  Future<TagihanEntityData> getTagihanById(int id) async {
+  Future<TagihanEntityData> getTagihanByIdSewa(int id) async {
     final result = await (select(db.tagihanEntity)
-          ..where((tbl) => tbl.id.equals(id)))
+          ..where((tbl) => tbl.idSewa.equals(id)))
         .getSingle();
     return result;
   }
@@ -73,12 +73,12 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
   }
 
   Future<PembayaranEntityData> insertPembayaran(
-      int idTagihan, PembayaranEntityCompanion pembayaran) async {
+      int idSewa, PembayaranEntityCompanion pembayaran) async {
     final result = transaction(
       () async {
         final pembayaranId = await into(db.pembayaranEntity).insert(pembayaran);
 
-        final tagihan = await getTagihanById(idTagihan);
+        final tagihan = await getTagihanBySewaId(idSewa);
         await updateTagihan(
             tagihan.copyWith(idPembayaran: Value(pembayaranId)));
         return (select(db.pembayaranEntity)

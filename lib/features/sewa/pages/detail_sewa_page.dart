@@ -1,4 +1,6 @@
+import 'package:flexofast_basis_data_dashboard/features/pembayaran/pages/pembayaran_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/sewa/cubit/detail_sewa_cubit.dart';
+import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/utils.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_form_scaffold.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/empty_widget_state.dart';
@@ -17,7 +19,31 @@ class DetailSewaPage extends StatelessWidget {
     return BlocProvider.value(
       value: DetailSewaCubit()..getDetailSewa(id),
       child: CommonFormScaffold(
-          actions: const [],
+          actions: [
+            BlocSelector<DetailSewaCubit, DetailSewaState, List<int>>(
+              selector: (state) {
+                final detail = state.mapOrNull(loaded: (value) => value);
+                if (detail != null) {
+                  return [detail.sewa.id, detail.sewa.biaya];
+                }
+                return [];
+              },
+              builder: (context, data) {
+                return ElevatedButton.icon(
+                  onPressed: () {
+                    Navigate.push(
+                        context,
+                        PembayaranPage(
+                          idSewa: data[0],
+                          total: data[1],
+                        ));
+                  },
+                  label: const Text('Bayar'),
+                  icon: const Icon(Icons.money),
+                );
+              },
+            )
+          ],
           title: 'Detail Sewa Page',
           body: Center(
               child: Card(

@@ -4,6 +4,7 @@ import 'package:flexofast_basis_data_dashboard/features/client/pages/list_barang
 import 'package:flexofast_basis_data_dashboard/features/client/pages/list_gudang_page.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
+import 'package:flexofast_basis_data_dashboard/widgets/empty_widget_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,8 +15,15 @@ class ClientDashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ClientCubit, ClientState>(
       builder: (context, state) {
+        if (state.current == null) {
+          return const CommonScaffold(
+            title: 'No Client Selected',
+            body: Center(child: EmptyWidgetState()),
+          );
+        }
+
         return CommonScaffold(
-          title: state.current?.nama ?? '',
+          title: state.current!.nama,
           body: Center(
             child: ListView(
               children: [
@@ -28,7 +36,11 @@ class ClientDashboardPage extends StatelessWidget {
                 ListTile(
                   title: const Text('List Gudang'),
                   onTap: () {
-                    Navigate.push(context, const ListGudangPage());
+                    Navigate.push(
+                        context,
+                        ListGudangPage(
+                          clientId: state.current!.id,
+                        ));
                   },
                 ),
                 ListTile(

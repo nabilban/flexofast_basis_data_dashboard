@@ -96,4 +96,11 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
         .getSingle();
     return result;
   }
+
+  Future<List<SewaEntityData>> getSewaByClient(int id) async {
+    final result = await (select(db.sewaEntity)
+          ..where((tbl) => tbl.idClient.equals(id)))
+        .get();
+    return result;
+  }
 }

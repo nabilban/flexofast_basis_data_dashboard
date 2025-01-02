@@ -3150,6 +3150,242 @@ class BarangEntityCompanion extends UpdateCompanion<BarangEntityData> {
   }
 }
 
+class DetailSewaViewData extends DataClass {
+  final int id;
+  final DateTime tanggalMulai;
+  final DateTime tanggalAkhir;
+  final String nama;
+  final String noHandphone;
+  final String tipe;
+  final String alamat;
+  final int volume;
+  final int biaya;
+  final DateTime? createdAt;
+  const DetailSewaViewData(
+      {required this.id,
+      required this.tanggalMulai,
+      required this.tanggalAkhir,
+      required this.nama,
+      required this.noHandphone,
+      required this.tipe,
+      required this.alamat,
+      required this.volume,
+      required this.biaya,
+      this.createdAt});
+  factory DetailSewaViewData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DetailSewaViewData(
+      id: serializer.fromJson<int>(json['id']),
+      tanggalMulai: serializer.fromJson<DateTime>(json['tanggalMulai']),
+      tanggalAkhir: serializer.fromJson<DateTime>(json['tanggalAkhir']),
+      nama: serializer.fromJson<String>(json['nama']),
+      noHandphone: serializer.fromJson<String>(json['noHandphone']),
+      tipe: serializer.fromJson<String>(json['tipe']),
+      alamat: serializer.fromJson<String>(json['alamat']),
+      volume: serializer.fromJson<int>(json['volume']),
+      biaya: serializer.fromJson<int>(json['biaya']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'tanggalMulai': serializer.toJson<DateTime>(tanggalMulai),
+      'tanggalAkhir': serializer.toJson<DateTime>(tanggalAkhir),
+      'nama': serializer.toJson<String>(nama),
+      'noHandphone': serializer.toJson<String>(noHandphone),
+      'tipe': serializer.toJson<String>(tipe),
+      'alamat': serializer.toJson<String>(alamat),
+      'volume': serializer.toJson<int>(volume),
+      'biaya': serializer.toJson<int>(biaya),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
+    };
+  }
+
+  DetailSewaViewData copyWith(
+          {int? id,
+          DateTime? tanggalMulai,
+          DateTime? tanggalAkhir,
+          String? nama,
+          String? noHandphone,
+          String? tipe,
+          String? alamat,
+          int? volume,
+          int? biaya,
+          Value<DateTime?> createdAt = const Value.absent()}) =>
+      DetailSewaViewData(
+        id: id ?? this.id,
+        tanggalMulai: tanggalMulai ?? this.tanggalMulai,
+        tanggalAkhir: tanggalAkhir ?? this.tanggalAkhir,
+        nama: nama ?? this.nama,
+        noHandphone: noHandphone ?? this.noHandphone,
+        tipe: tipe ?? this.tipe,
+        alamat: alamat ?? this.alamat,
+        volume: volume ?? this.volume,
+        biaya: biaya ?? this.biaya,
+        createdAt: createdAt.present ? createdAt.value : this.createdAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DetailSewaViewData(')
+          ..write('id: $id, ')
+          ..write('tanggalMulai: $tanggalMulai, ')
+          ..write('tanggalAkhir: $tanggalAkhir, ')
+          ..write('nama: $nama, ')
+          ..write('noHandphone: $noHandphone, ')
+          ..write('tipe: $tipe, ')
+          ..write('alamat: $alamat, ')
+          ..write('volume: $volume, ')
+          ..write('biaya: $biaya, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, tanggalMulai, tanggalAkhir, nama,
+      noHandphone, tipe, alamat, volume, biaya, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DetailSewaViewData &&
+          other.id == this.id &&
+          other.tanggalMulai == this.tanggalMulai &&
+          other.tanggalAkhir == this.tanggalAkhir &&
+          other.nama == this.nama &&
+          other.noHandphone == this.noHandphone &&
+          other.tipe == this.tipe &&
+          other.alamat == this.alamat &&
+          other.volume == this.volume &&
+          other.biaya == this.biaya &&
+          other.createdAt == this.createdAt);
+}
+
+class $DetailSewaViewView
+    extends ViewInfo<$DetailSewaViewView, DetailSewaViewData>
+    implements HasResultSet {
+  final String? _alias;
+  @override
+  final _$Datasource attachedDatabase;
+  $DetailSewaViewView(this.attachedDatabase, [this._alias]);
+  $SewaEntityTable get sewa => attachedDatabase.sewaEntity.createAlias('t0');
+  $GudangEntityTable get gudang =>
+      attachedDatabase.gudangEntity.createAlias('t1');
+  $ClientEntityTable get client =>
+      attachedDatabase.clientEntity.createAlias('t2');
+  $TagihanEntityTable get tagihan =>
+      attachedDatabase.tagihanEntity.createAlias('t3');
+  $PembayaranEntityTable get pembayaran =>
+      attachedDatabase.pembayaranEntity.createAlias('t4');
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        tanggalMulai,
+        tanggalAkhir,
+        nama,
+        noHandphone,
+        tipe,
+        alamat,
+        volume,
+        biaya,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? entityName;
+  @override
+  String get entityName => 'detail_sewa_view';
+  @override
+  Map<SqlDialect, String>? get createViewStatements => null;
+  @override
+  $DetailSewaViewView get asDslTable => this;
+  @override
+  DetailSewaViewData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DetailSewaViewData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      tanggalMulai: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}tanggal_mulai'])!,
+      tanggalAkhir: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}tanggal_akhir'])!,
+      nama: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nama'])!,
+      noHandphone: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}no_handphone'])!,
+      tipe: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tipe'])!,
+      alamat: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alamat'])!,
+      volume: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}volume'])!,
+      biaya: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}biaya'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
+    );
+  }
+
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      generatedAs: GeneratedAs(sewa.id, false), type: DriftSqlType.int);
+  late final GeneratedColumn<DateTime> tanggalMulai = GeneratedColumn<DateTime>(
+      'tanggal_mulai', aliasedName, false,
+      generatedAs: GeneratedAs(sewa.tanggalMulai, false),
+      type: DriftSqlType.dateTime);
+  late final GeneratedColumn<DateTime> tanggalAkhir = GeneratedColumn<DateTime>(
+      'tanggal_akhir', aliasedName, false,
+      generatedAs: GeneratedAs(sewa.tanggalAkhir, false),
+      type: DriftSqlType.dateTime);
+  late final GeneratedColumn<String> nama = GeneratedColumn<String>(
+      'nama', aliasedName, false,
+      generatedAs: GeneratedAs(client.nama, false), type: DriftSqlType.string);
+  late final GeneratedColumn<String> noHandphone = GeneratedColumn<String>(
+      'no_handphone', aliasedName, false,
+      generatedAs: GeneratedAs(client.noHandphone, false),
+      type: DriftSqlType.string);
+  late final GeneratedColumn<String> tipe = GeneratedColumn<String>(
+      'tipe', aliasedName, false,
+      generatedAs: GeneratedAs(gudang.tipe, false), type: DriftSqlType.string);
+  late final GeneratedColumn<String> alamat = GeneratedColumn<String>(
+      'alamat', aliasedName, false,
+      generatedAs: GeneratedAs(gudang.alamat, false),
+      type: DriftSqlType.string);
+  late final GeneratedColumn<int> volume = GeneratedColumn<int>(
+      'volume', aliasedName, false,
+      generatedAs: GeneratedAs(gudang.volume, false), type: DriftSqlType.int);
+  late final GeneratedColumn<int> biaya = GeneratedColumn<int>(
+      'biaya', aliasedName, false,
+      generatedAs: GeneratedAs(tagihan.biaya, false), type: DriftSqlType.int);
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, true,
+      generatedAs: GeneratedAs(pembayaran.createdAt, false),
+      type: DriftSqlType.dateTime);
+  @override
+  $DetailSewaViewView createAlias(String alias) {
+    return $DetailSewaViewView(attachedDatabase, alias);
+  }
+
+  @override
+  Query? get query =>
+      (attachedDatabase.selectOnly(sewa)..addColumns($columns)).join([
+        innerJoin(gudang, gudang.id.equalsExp(sewa.idGudang)),
+        innerJoin(client, client.id.equalsExp(sewa.idClient)),
+        innerJoin(tagihan, tagihan.idSewa.equalsExp(sewa.id)),
+        innerJoin(pembayaran, pembayaran.id.equalsExp(tagihan.idPembayaran))
+      ]);
+  @override
+  Set<String> get readTables => const {
+        'sewa_entity',
+        'gudang_entity',
+        'client_entity',
+        'tagihan_entity',
+        'pembayaran_entity'
+      };
+}
+
 abstract class _$Datasource extends GeneratedDatabase {
   _$Datasource(QueryExecutor e) : super(e);
   $DatasourceManager get managers => $DatasourceManager(this);
@@ -3168,6 +3404,7 @@ abstract class _$Datasource extends GeneratedDatabase {
   late final $SewaEntityTable sewaEntity = $SewaEntityTable(this);
   late final $TagihanEntityTable tagihanEntity = $TagihanEntityTable(this);
   late final $BarangEntityTable barangEntity = $BarangEntityTable(this);
+  late final $DetailSewaViewView detailSewaView = $DetailSewaViewView(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3183,7 +3420,8 @@ abstract class _$Datasource extends GeneratedDatabase {
         persetujuanEntity,
         sewaEntity,
         tagihanEntity,
-        barangEntity
+        barangEntity,
+        detailSewaView
       ];
 }
 

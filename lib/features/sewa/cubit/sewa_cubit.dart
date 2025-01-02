@@ -12,7 +12,9 @@ class SewaCubit extends Cubit<SewaState> {
 
   final _dao = SewaDao.instance;
 
-  Future<void> getAllSewa() async {
+  Future<void> getAllSewa({
+    int? clientId,
+  }) async {
     emit(const SewaState.loading());
     final result = await _dao.getAllSewa();
     emit(SewaState.loaded(result));

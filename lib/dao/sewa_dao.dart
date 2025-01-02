@@ -90,12 +90,33 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
     return result;
   }
 
-  Future<DetailSewaViewData> getDetailSewa(int id) async {
-    final result = await (select(db.detailSewaView)
-          ..where((tbl) => tbl.sewa.id.equals(id)))
-        .getSingle();
-    print(result);
-    return result;
+  Future<DetailSewaViewData?> getDetailSewa(int id) async {
+    final query = select(sewaEntity).join([
+      innerJoin(gudangEntity, gudangEntity.id.equalsExp(sewaEntity.idGudang)),
+      innerJoin(clientEntity, clientEntity.id.equalsExp(sewaEntity.idClient)),
+      innerJoin(tagihanEntity, tagihanEntity.idSewa.equalsExp(sewaEntity.id)),
+    ])
+      ..where(sewaEntity.id.equals(id));
+
+    final result = await query.get();
+
+    if (result.isEmpty) {
+      return null;
+    }
+
+    final data = result[0];
+
+    return DetailSewaViewData(
+      id: id,
+      tanggalMulai: data.readTable(sewaEntity).tanggalMulai,
+      tanggalAkhir: data.readTable(sewaEntity).tanggalAkhir,
+      nama: data.readTable(clientEntity).nama,
+      noHandphone: data.readTable(clientEntity).noHandphone,
+      tipe: data.readTable(gudangEntity).tipe,
+      alamat: data.readTable(gudangEntity).alamat,
+      volume: data.readTable(gudangEntity).volume,
+      biaya: data.readTable(tagihanEntity).biaya,
+    );
   }
 
   Future<List<SewaEntityData>> getSewaByClient(int id) async {

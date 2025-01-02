@@ -21,6 +21,7 @@ mixin _$DetailSewaState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$DetailSewaState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,28 +37,32 @@ mixin _$DetailSewaState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function()? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
+    required TResult Function(DetailSewaInitial value) initial,
+    required TResult Function(DetailSewaLoading value) loading,
+    required TResult Function(DetailSewaLoaded value) loaded,
+    required TResult Function(DetailSewaError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
+    TResult? Function(DetailSewaInitial value)? initial,
+    TResult? Function(DetailSewaLoading value)? loading,
+    TResult? Function(DetailSewaLoaded value)? loaded,
+    TResult? Function(DetailSewaError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
+    TResult Function(DetailSewaInitial value)? initial,
+    TResult Function(DetailSewaLoading value)? loading,
+    TResult Function(DetailSewaLoaded value)? loaded,
+    TResult Function(DetailSewaError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -84,18 +90,18 @@ class _$DetailSewaStateCopyWithImpl<$Res, $Val extends DetailSewaState>
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
+abstract class _$$DetailSewaInitialImplCopyWith<$Res> {
+  factory _$$DetailSewaInitialImplCopyWith(_$DetailSewaInitialImpl value,
+          $Res Function(_$DetailSewaInitialImpl) then) =
+      __$$DetailSewaInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$DetailSewaStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
+class __$$DetailSewaInitialImplCopyWithImpl<$Res>
+    extends _$DetailSewaStateCopyWithImpl<$Res, _$DetailSewaInitialImpl>
+    implements _$$DetailSewaInitialImplCopyWith<$Res> {
+  __$$DetailSewaInitialImplCopyWithImpl(_$DetailSewaInitialImpl _value,
+      $Res Function(_$DetailSewaInitialImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DetailSewaState
@@ -104,8 +110,8 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements Initial {
-  const _$InitialImpl();
+class _$DetailSewaInitialImpl implements DetailSewaInitial {
+  const _$DetailSewaInitialImpl();
 
   @override
   String toString() {
@@ -115,7 +121,7 @@ class _$InitialImpl implements Initial {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
+        (other.runtimeType == runtimeType && other is _$DetailSewaInitialImpl);
   }
 
   @override
@@ -127,6 +133,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function() error,
   }) {
     return initial();
   }
@@ -137,6 +144,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function()? error,
   }) {
     return initial?.call();
   }
@@ -147,6 +155,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -158,9 +167,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
+    required TResult Function(DetailSewaInitial value) initial,
+    required TResult Function(DetailSewaLoading value) loading,
+    required TResult Function(DetailSewaLoaded value) loaded,
+    required TResult Function(DetailSewaError value) error,
   }) {
     return initial(this);
   }
@@ -168,9 +178,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
+    TResult? Function(DetailSewaInitial value)? initial,
+    TResult? Function(DetailSewaLoading value)? loading,
+    TResult? Function(DetailSewaLoaded value)? loaded,
+    TResult? Function(DetailSewaError value)? error,
   }) {
     return initial?.call(this);
   }
@@ -178,9 +189,10 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
+    TResult Function(DetailSewaInitial value)? initial,
+    TResult Function(DetailSewaLoading value)? loading,
+    TResult Function(DetailSewaLoaded value)? loaded,
+    TResult Function(DetailSewaError value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -190,23 +202,23 @@ class _$InitialImpl implements Initial {
   }
 }
 
-abstract class Initial implements DetailSewaState {
-  const factory Initial() = _$InitialImpl;
+abstract class DetailSewaInitial implements DetailSewaState {
+  const factory DetailSewaInitial() = _$DetailSewaInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$DetailSewaLoadingImplCopyWith<$Res> {
+  factory _$$DetailSewaLoadingImplCopyWith(_$DetailSewaLoadingImpl value,
+          $Res Function(_$DetailSewaLoadingImpl) then) =
+      __$$DetailSewaLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$DetailSewaStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$DetailSewaLoadingImplCopyWithImpl<$Res>
+    extends _$DetailSewaStateCopyWithImpl<$Res, _$DetailSewaLoadingImpl>
+    implements _$$DetailSewaLoadingImplCopyWith<$Res> {
+  __$$DetailSewaLoadingImplCopyWithImpl(_$DetailSewaLoadingImpl _value,
+      $Res Function(_$DetailSewaLoadingImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DetailSewaState
@@ -215,8 +227,8 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$DetailSewaLoadingImpl implements DetailSewaLoading {
+  const _$DetailSewaLoadingImpl();
 
   @override
   String toString() {
@@ -226,7 +238,7 @@ class _$LoadingImpl implements Loading {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$DetailSewaLoadingImpl);
   }
 
   @override
@@ -238,6 +250,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function() error,
   }) {
     return loading();
   }
@@ -248,6 +261,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function()? error,
   }) {
     return loading?.call();
   }
@@ -258,6 +272,7 @@ class _$LoadingImpl implements Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -269,9 +284,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
+    required TResult Function(DetailSewaInitial value) initial,
+    required TResult Function(DetailSewaLoading value) loading,
+    required TResult Function(DetailSewaLoaded value) loaded,
+    required TResult Function(DetailSewaError value) error,
   }) {
     return loading(this);
   }
@@ -279,9 +295,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
+    TResult? Function(DetailSewaInitial value)? initial,
+    TResult? Function(DetailSewaLoading value)? loading,
+    TResult? Function(DetailSewaLoaded value)? loaded,
+    TResult? Function(DetailSewaError value)? error,
   }) {
     return loading?.call(this);
   }
@@ -289,9 +306,10 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
+    TResult Function(DetailSewaInitial value)? initial,
+    TResult Function(DetailSewaLoading value)? loading,
+    TResult Function(DetailSewaLoaded value)? loaded,
+    TResult Function(DetailSewaError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -301,25 +319,25 @@ class _$LoadingImpl implements Loading {
   }
 }
 
-abstract class Loading implements DetailSewaState {
-  const factory Loading() = _$LoadingImpl;
+abstract class DetailSewaLoading implements DetailSewaState {
+  const factory DetailSewaLoading() = _$DetailSewaLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadedImplCopyWith<$Res> {
-  factory _$$LoadedImplCopyWith(
-          _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
-      __$$LoadedImplCopyWithImpl<$Res>;
+abstract class _$$DetailSewaLoadedImplCopyWith<$Res> {
+  factory _$$DetailSewaLoadedImplCopyWith(_$DetailSewaLoadedImpl value,
+          $Res Function(_$DetailSewaLoadedImpl) then) =
+      __$$DetailSewaLoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({DetailSewaViewData sewa});
 }
 
 /// @nodoc
-class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$DetailSewaStateCopyWithImpl<$Res, _$LoadedImpl>
-    implements _$$LoadedImplCopyWith<$Res> {
-  __$$LoadedImplCopyWithImpl(
-      _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
+class __$$DetailSewaLoadedImplCopyWithImpl<$Res>
+    extends _$DetailSewaStateCopyWithImpl<$Res, _$DetailSewaLoadedImpl>
+    implements _$$DetailSewaLoadedImplCopyWith<$Res> {
+  __$$DetailSewaLoadedImplCopyWithImpl(_$DetailSewaLoadedImpl _value,
+      $Res Function(_$DetailSewaLoadedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DetailSewaState
@@ -329,7 +347,7 @@ class __$$LoadedImplCopyWithImpl<$Res>
   $Res call({
     Object? sewa = null,
   }) {
-    return _then(_$LoadedImpl(
+    return _then(_$DetailSewaLoadedImpl(
       null == sewa
           ? _value.sewa
           : sewa // ignore: cast_nullable_to_non_nullable
@@ -340,8 +358,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadedImpl implements Loaded {
-  const _$LoadedImpl(this.sewa);
+class _$DetailSewaLoadedImpl implements DetailSewaLoaded {
+  const _$DetailSewaLoadedImpl(this.sewa);
 
   @override
   final DetailSewaViewData sewa;
@@ -355,7 +373,7 @@ class _$LoadedImpl implements Loaded {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoadedImpl &&
+            other is _$DetailSewaLoadedImpl &&
             (identical(other.sewa, sewa) || other.sewa == sewa));
   }
 
@@ -367,8 +385,9 @@ class _$LoadedImpl implements Loaded {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
+  _$$DetailSewaLoadedImplCopyWith<_$DetailSewaLoadedImpl> get copyWith =>
+      __$$DetailSewaLoadedImplCopyWithImpl<_$DetailSewaLoadedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -376,6 +395,7 @@ class _$LoadedImpl implements Loaded {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function() error,
   }) {
     return loaded(sewa);
   }
@@ -386,6 +406,7 @@ class _$LoadedImpl implements Loaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function()? error,
   }) {
     return loaded?.call(sewa);
   }
@@ -396,6 +417,7 @@ class _$LoadedImpl implements Loaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -407,9 +429,10 @@ class _$LoadedImpl implements Loaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
+    required TResult Function(DetailSewaInitial value) initial,
+    required TResult Function(DetailSewaLoading value) loading,
+    required TResult Function(DetailSewaLoaded value) loaded,
+    required TResult Function(DetailSewaError value) error,
   }) {
     return loaded(this);
   }
@@ -417,9 +440,10 @@ class _$LoadedImpl implements Loaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
+    TResult? Function(DetailSewaInitial value)? initial,
+    TResult? Function(DetailSewaLoading value)? loading,
+    TResult? Function(DetailSewaLoaded value)? loaded,
+    TResult? Function(DetailSewaError value)? error,
   }) {
     return loaded?.call(this);
   }
@@ -427,9 +451,10 @@ class _$LoadedImpl implements Loaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
+    TResult Function(DetailSewaInitial value)? initial,
+    TResult Function(DetailSewaLoading value)? loading,
+    TResult Function(DetailSewaLoaded value)? loaded,
+    TResult Function(DetailSewaError value)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -439,14 +464,132 @@ class _$LoadedImpl implements Loaded {
   }
 }
 
-abstract class Loaded implements DetailSewaState {
-  const factory Loaded(final DetailSewaViewData sewa) = _$LoadedImpl;
+abstract class DetailSewaLoaded implements DetailSewaState {
+  const factory DetailSewaLoaded(final DetailSewaViewData sewa) =
+      _$DetailSewaLoadedImpl;
 
   DetailSewaViewData get sewa;
 
   /// Create a copy of DetailSewaState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+  _$$DetailSewaLoadedImplCopyWith<_$DetailSewaLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DetailSewaErrorImplCopyWith<$Res> {
+  factory _$$DetailSewaErrorImplCopyWith(_$DetailSewaErrorImpl value,
+          $Res Function(_$DetailSewaErrorImpl) then) =
+      __$$DetailSewaErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DetailSewaErrorImplCopyWithImpl<$Res>
+    extends _$DetailSewaStateCopyWithImpl<$Res, _$DetailSewaErrorImpl>
+    implements _$$DetailSewaErrorImplCopyWith<$Res> {
+  __$$DetailSewaErrorImplCopyWithImpl(
+      _$DetailSewaErrorImpl _value, $Res Function(_$DetailSewaErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DetailSewaState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DetailSewaErrorImpl implements DetailSewaError {
+  const _$DetailSewaErrorImpl();
+
+  @override
+  String toString() {
+    return 'DetailSewaState.error()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$DetailSewaErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function() error,
+  }) {
+    return error();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function()? error,
+  }) {
+    return error?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DetailSewaInitial value) initial,
+    required TResult Function(DetailSewaLoading value) loading,
+    required TResult Function(DetailSewaLoaded value) loaded,
+    required TResult Function(DetailSewaError value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(DetailSewaInitial value)? initial,
+    TResult? Function(DetailSewaLoading value)? loading,
+    TResult? Function(DetailSewaLoaded value)? loaded,
+    TResult? Function(DetailSewaError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DetailSewaInitial value)? initial,
+    TResult Function(DetailSewaLoading value)? loading,
+    TResult Function(DetailSewaLoaded value)? loaded,
+    TResult Function(DetailSewaError value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DetailSewaError implements DetailSewaState {
+  const factory DetailSewaError() = _$DetailSewaErrorImpl;
 }

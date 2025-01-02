@@ -13,11 +13,13 @@ class DetailSewaCubit extends Cubit<DetailSewaState> {
 
   Future<void> getDetailSewa(int id) async {
     emit(const DetailSewaState.loading());
-    final result = await dao.getDetailSewa(id);
-    if (result == null) {
+    final resultDetail = await dao.getDetailSewa(id);
+    final resultTagihan = await dao.getTagihanBySewaId(id);
+    if (resultDetail == null) {
       emit(const DetailSewaState.error());
       return;
     }
-    emit(DetailSewaState.loaded(result));
+
+    emit(DetailSewaState.loaded(resultDetail, resultTagihan));
   }
 }

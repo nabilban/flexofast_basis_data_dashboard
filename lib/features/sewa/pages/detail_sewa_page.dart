@@ -10,73 +10,136 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class DetailSewaPage extends StatelessWidget {
   const DetailSewaPage({
     super.key,
-    required this.id,
+    required this.idSewa,
   });
-  final int id;
+  final int idSewa;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: DetailSewaCubit()..getDetailSewa(id),
+      value: DetailSewaCubit()..getDetailSewa(idSewa),
       child: CommonFormScaffold(
-          actions: [
-            BlocSelector<DetailSewaCubit, DetailSewaState, List<int>>(
-              selector: (state) {
-                final detail = state.mapOrNull(loaded: (value) => value);
-                if (detail != null) {
-                  return [detail.sewa.id, detail.sewa.biaya];
-                }
-                return [];
-              },
-              builder: (context, data) {
-                return ElevatedButton.icon(
-                  onPressed: () {
-                    Navigate.push(
-                        context,
-                        PembayaranPage(
-                          idSewa: data[0],
-                          total: data[1],
-                        ));
-                  },
-                  label: const Text('Bayar'),
-                  icon: const Icon(Icons.money),
-                );
-              },
-            )
-          ],
-          title: 'Detail Sewa Page',
-          body: Center(
-              child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: BlocBuilder<DetailSewaCubit, DetailSewaState>(
-                builder: (context, state) {
-                  return state.maybeWhen(
-                      orElse: () => const EmptyWidgetState(),
-                      loading: () => const CircularProgressIndicator(),
-                      loaded: (sewa) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Sewa Details',
-                              ),
-                              const SizedBox(height: 8),
-                              Text('ID: ${sewa.id}'),
-                              Text('Name: ${sewa.nama}'),
-                              Text(
-                                  'Date: ${Utils.formatDate(sewa.tanggalMulai)} - ${Utils.formatDate(sewa.tanggalAkhir)}'),
-                              Text(
-                                  'Masa Sewa: ${sewa.tanggalAkhir.difference(sewa.tanggalMulai).inDays} hari'),
-                              Text('Volume: ${sewa.volume}'),
-                              Text(
-                                  'Biaya: ${Utils.formatCurrency(sewa.biaya)}'),
-                              // Add more fields as necessary
-                            ],
-                          ));
+        title: 'Detail Sewa',
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: BlocBuilder<DetailSewaCubit, DetailSewaState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () => const EmptyWidgetState(),
+                loading: () => const Center(child: CircularProgressIndicator()),
+                loaded: (sewaDetail, tagihan) => ListView(
+                  padding: const EdgeInsets.all(8.0),
+                  children: [
+                    _buildSectionTitle('Sewa Details'),
+                    _buildCard([
+                      _buildInfoRow('Sewa', sewaDetail.id.toString()),
+                      const Divider(),
+                      _buildInfoRow('Name', sewaDetail.nama),
+                      _buildInfoRow(
+                          'No Handphone Client', sewaDetail.noHandphone),
+                      _buildInfoRow('Alamat', sewaDetail.alamat),
+                      _buildInfoRow('Gudang', sewaDetail.tipe),
+                      _buildInfoRow(
+                        'Date',
+                        '${Utils.formatDate(sewaDetail.tanggalMulai)} - ${Utils.formatDate(sewaDetail.tanggalAkhir)}',
+                      ),
+                      _buildInfoRow(
+                        'Masa Sewa',
+                        '${sewaDetail.tanggalAkhir.difference(sewaDetail.tanggalMulai).inDays} hari',
+                      ),
+                      _buildInfoRow('Volume', '${sewaDetail.volume} / m³'),
+                      _buildInfoRow(
+                        'Biaya',
+                        Utils.formatCurrency(sewaDetail.biaya),
+                      ),
+                    ]),
+                    const SizedBox(height: 16),
+                    _buildSectionTitle('Tagihan Details'),
+                    _buildCard([
+                      _buildInfoRow('Tagihan', tagihan.id.toString()),
+                      const Divider(),
+                      _buildInfoRow(
+                          'Status Pembayaran', state.statusPemabyaran),
+                      _buildInfoRow(
+                          'Biaya Sewa', Utils.formatCurrency(tagihan.biaya)),
+                      _buildInfoRow(
+                          'Batas Waktu', Utils.formatDate(tagihan.batasWaktu)),
+                    ]),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+        actions: [
+          BlocSelector<DetailSewaCubit, DetailSewaState, List<int>>(
+            selector: (state) {
+              final detail = state.mapOrNull(loaded: (value) => value);
+              if (detail != null) {
+                return [
+                  detail.sewa.id,
+                  detail.sewa.biaya,
+                  detail.tagihan.idPembayaran ?? -1
+                ];
+              }
+              return [];
+            },
+            builder: (context, data) {
+              if (data.isNotEmpty && data[2] != -1) {
+                return const SizedBox();
+              }
+              return ElevatedButton.icon(
+                onPressed: () async {
+                  await Navigate.push(
+                      context,
+                      PembayaranPage(
+                        idSewa: data[0],
+                        total: data[1],
+                      ));
+                  if (context.mounted) {
+                    context.read<DetailSewaCubit>().getDetailSewa(idSewa);
+                  }
                 },
-              ),
-            ),
-          ))),
+                label: const Text('Bayar'),
+                icon: const Icon(Icons.money),
+              );
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget _buildCard(List<Widget> children) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Flexible(child: Text(value, textAlign: TextAlign.end)),
+        ],
+      ),
     );
   }
 }

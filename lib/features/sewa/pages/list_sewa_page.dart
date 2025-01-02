@@ -45,7 +45,7 @@ class ListSewaPage extends StatelessWidget {
                           onTap: () {
                             Navigate.push(
                               context,
-                              DetailSewaPage(id: sewa.id),
+                              DetailSewaPage(idSewa: sewa.id),
                             );
                           },
                           title: Text(

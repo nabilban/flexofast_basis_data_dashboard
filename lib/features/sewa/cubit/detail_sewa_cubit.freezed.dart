@@ -20,7 +20,9 @@ mixin _$DetailSewaState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function(
+            DetailSewaViewData sewa, TagihanEntityData tagihan)
+        loaded,
     required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +30,8 @@ mixin _$DetailSewaState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +39,8 @@ mixin _$DetailSewaState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) =>
@@ -132,7 +136,9 @@ class _$DetailSewaInitialImpl implements DetailSewaInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function(
+            DetailSewaViewData sewa, TagihanEntityData tagihan)
+        loaded,
     required TResult Function() error,
   }) {
     return initial();
@@ -143,7 +149,8 @@ class _$DetailSewaInitialImpl implements DetailSewaInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult? Function()? error,
   }) {
     return initial?.call();
@@ -154,7 +161,8 @@ class _$DetailSewaInitialImpl implements DetailSewaInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -249,7 +257,9 @@ class _$DetailSewaLoadingImpl implements DetailSewaLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function(
+            DetailSewaViewData sewa, TagihanEntityData tagihan)
+        loaded,
     required TResult Function() error,
   }) {
     return loading();
@@ -260,7 +270,8 @@ class _$DetailSewaLoadingImpl implements DetailSewaLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult? Function()? error,
   }) {
     return loading?.call();
@@ -271,7 +282,8 @@ class _$DetailSewaLoadingImpl implements DetailSewaLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -329,7 +341,7 @@ abstract class _$$DetailSewaLoadedImplCopyWith<$Res> {
           $Res Function(_$DetailSewaLoadedImpl) then) =
       __$$DetailSewaLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({DetailSewaViewData sewa});
+  $Res call({DetailSewaViewData sewa, TagihanEntityData tagihan});
 }
 
 /// @nodoc
@@ -346,12 +358,17 @@ class __$$DetailSewaLoadedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? sewa = null,
+    Object? tagihan = null,
   }) {
     return _then(_$DetailSewaLoadedImpl(
       null == sewa
           ? _value.sewa
           : sewa // ignore: cast_nullable_to_non_nullable
               as DetailSewaViewData,
+      null == tagihan
+          ? _value.tagihan
+          : tagihan // ignore: cast_nullable_to_non_nullable
+              as TagihanEntityData,
     ));
   }
 }
@@ -359,14 +376,16 @@ class __$$DetailSewaLoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DetailSewaLoadedImpl implements DetailSewaLoaded {
-  const _$DetailSewaLoadedImpl(this.sewa);
+  const _$DetailSewaLoadedImpl(this.sewa, this.tagihan);
 
   @override
   final DetailSewaViewData sewa;
+  @override
+  final TagihanEntityData tagihan;
 
   @override
   String toString() {
-    return 'DetailSewaState.loaded(sewa: $sewa)';
+    return 'DetailSewaState.loaded(sewa: $sewa, tagihan: $tagihan)';
   }
 
   @override
@@ -374,11 +393,12 @@ class _$DetailSewaLoadedImpl implements DetailSewaLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DetailSewaLoadedImpl &&
-            (identical(other.sewa, sewa) || other.sewa == sewa));
+            (identical(other.sewa, sewa) || other.sewa == sewa) &&
+            (identical(other.tagihan, tagihan) || other.tagihan == tagihan));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sewa);
+  int get hashCode => Object.hash(runtimeType, sewa, tagihan);
 
   /// Create a copy of DetailSewaState
   /// with the given fields replaced by the non-null parameter values.
@@ -394,10 +414,12 @@ class _$DetailSewaLoadedImpl implements DetailSewaLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function(
+            DetailSewaViewData sewa, TagihanEntityData tagihan)
+        loaded,
     required TResult Function() error,
   }) {
-    return loaded(sewa);
+    return loaded(sewa, tagihan);
   }
 
   @override
@@ -405,10 +427,11 @@ class _$DetailSewaLoadedImpl implements DetailSewaLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult? Function()? error,
   }) {
-    return loaded?.call(sewa);
+    return loaded?.call(sewa, tagihan);
   }
 
   @override
@@ -416,12 +439,13 @@ class _$DetailSewaLoadedImpl implements DetailSewaLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(sewa);
+      return loaded(sewa, tagihan);
     }
     return orElse();
   }
@@ -465,10 +489,12 @@ class _$DetailSewaLoadedImpl implements DetailSewaLoaded {
 }
 
 abstract class DetailSewaLoaded implements DetailSewaState {
-  const factory DetailSewaLoaded(final DetailSewaViewData sewa) =
+  const factory DetailSewaLoaded(
+          final DetailSewaViewData sewa, final TagihanEntityData tagihan) =
       _$DetailSewaLoadedImpl;
 
   DetailSewaViewData get sewa;
+  TagihanEntityData get tagihan;
 
   /// Create a copy of DetailSewaState
   /// with the given fields replaced by the non-null parameter values.
@@ -520,7 +546,9 @@ class _$DetailSewaErrorImpl implements DetailSewaError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DetailSewaViewData sewa) loaded,
+    required TResult Function(
+            DetailSewaViewData sewa, TagihanEntityData tagihan)
+        loaded,
     required TResult Function() error,
   }) {
     return error();
@@ -531,7 +559,8 @@ class _$DetailSewaErrorImpl implements DetailSewaError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DetailSewaViewData sewa)? loaded,
+    TResult? Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult? Function()? error,
   }) {
     return error?.call();
@@ -542,7 +571,8 @@ class _$DetailSewaErrorImpl implements DetailSewaError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DetailSewaViewData sewa)? loaded,
+    TResult Function(DetailSewaViewData sewa, TagihanEntityData tagihan)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {

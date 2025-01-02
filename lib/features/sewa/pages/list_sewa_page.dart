@@ -1,3 +1,4 @@
+import 'package:flexofast_basis_data_dashboard/features/sewa/pages/detail_sewa_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/sewa/pages/penyewaan_page.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/utils.dart';
@@ -41,7 +42,12 @@ class ListSewaPage extends StatelessWidget {
                       return Card(
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         child: ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigate.push(
+                              context,
+                              DetailSewaPage(id: sewa.id),
+                            );
+                          },
                           title: Text(
                             'Sewa ${sewa.id}',
                             style: const TextStyle(fontWeight: FontWeight.bold),

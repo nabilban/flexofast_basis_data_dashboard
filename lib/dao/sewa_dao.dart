@@ -94,6 +94,7 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
     final result = await (select(db.detailSewaView)
           ..where((tbl) => tbl.sewa.id.equals(id)))
         .getSingle();
+    print(result);
     return result;
   }
 }

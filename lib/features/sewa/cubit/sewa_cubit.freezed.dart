@@ -20,7 +20,7 @@ mixin _$SewaState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DateRangeEntity? date, int gudangId, int client)
+    required TResult Function(DateRangeEntity? date, int? gudangId, int? client)
         form,
     required TResult Function(List<SewaEntityData> sewa) loaded,
   }) =>
@@ -29,7 +29,7 @@ mixin _$SewaState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult? Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult? Function(List<SewaEntityData> sewa)? loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ mixin _$SewaState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult Function(List<SewaEntityData> sewa)? loaded,
     required TResult orElse(),
   }) =>
@@ -132,7 +132,7 @@ class _$SewaInitialImpl implements SewaInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DateRangeEntity? date, int gudangId, int client)
+    required TResult Function(DateRangeEntity? date, int? gudangId, int? client)
         form,
     required TResult Function(List<SewaEntityData> sewa) loaded,
   }) {
@@ -144,7 +144,7 @@ class _$SewaInitialImpl implements SewaInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult? Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult? Function(List<SewaEntityData> sewa)? loaded,
   }) {
     return initial?.call();
@@ -155,7 +155,7 @@ class _$SewaInitialImpl implements SewaInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult Function(List<SewaEntityData> sewa)? loaded,
     required TResult orElse(),
   }) {
@@ -250,7 +250,7 @@ class _$SewaLoadingImpl implements SewaLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DateRangeEntity? date, int gudangId, int client)
+    required TResult Function(DateRangeEntity? date, int? gudangId, int? client)
         form,
     required TResult Function(List<SewaEntityData> sewa) loaded,
   }) {
@@ -262,7 +262,7 @@ class _$SewaLoadingImpl implements SewaLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult? Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult? Function(List<SewaEntityData> sewa)? loaded,
   }) {
     return loading?.call();
@@ -273,7 +273,7 @@ class _$SewaLoadingImpl implements SewaLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult Function(List<SewaEntityData> sewa)? loaded,
     required TResult orElse(),
   }) {
@@ -331,7 +331,7 @@ abstract class _$$SewaFormImplCopyWith<$Res> {
           _$SewaFormImpl value, $Res Function(_$SewaFormImpl) then) =
       __$$SewaFormImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({DateRangeEntity? date, int gudangId, int client});
+  $Res call({DateRangeEntity? date, int? gudangId, int? client});
 
   $DateRangeEntityCopyWith<$Res>? get date;
 }
@@ -350,22 +350,22 @@ class __$$SewaFormImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? date = freezed,
-    Object? gudangId = null,
-    Object? client = null,
+    Object? gudangId = freezed,
+    Object? client = freezed,
   }) {
     return _then(_$SewaFormImpl(
       date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateRangeEntity?,
-      gudangId: null == gudangId
+      gudangId: freezed == gudangId
           ? _value.gudangId
           : gudangId // ignore: cast_nullable_to_non_nullable
-              as int,
-      client: null == client
+              as int?,
+      client: freezed == client
           ? _value.client
           : client // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 
@@ -387,15 +387,14 @@ class __$$SewaFormImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SewaFormImpl implements SewaForm {
-  const _$SewaFormImpl(
-      {this.date, required this.gudangId, required this.client});
+  const _$SewaFormImpl({this.date, this.gudangId, this.client});
 
   @override
   final DateRangeEntity? date;
   @override
-  final int gudangId;
+  final int? gudangId;
   @override
-  final int client;
+  final int? client;
 
   @override
   String toString() {
@@ -429,7 +428,7 @@ class _$SewaFormImpl implements SewaForm {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DateRangeEntity? date, int gudangId, int client)
+    required TResult Function(DateRangeEntity? date, int? gudangId, int? client)
         form,
     required TResult Function(List<SewaEntityData> sewa) loaded,
   }) {
@@ -441,7 +440,7 @@ class _$SewaFormImpl implements SewaForm {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult? Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult? Function(List<SewaEntityData> sewa)? loaded,
   }) {
     return form?.call(date, gudangId, client);
@@ -452,7 +451,7 @@ class _$SewaFormImpl implements SewaForm {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult Function(List<SewaEntityData> sewa)? loaded,
     required TResult orElse(),
   }) {
@@ -503,12 +502,12 @@ class _$SewaFormImpl implements SewaForm {
 abstract class SewaForm implements SewaState {
   const factory SewaForm(
       {final DateRangeEntity? date,
-      required final int gudangId,
-      required final int client}) = _$SewaFormImpl;
+      final int? gudangId,
+      final int? client}) = _$SewaFormImpl;
 
   DateRangeEntity? get date;
-  int get gudangId;
-  int get client;
+  int? get gudangId;
+  int? get client;
 
   /// Create a copy of SewaState
   /// with the given fields replaced by the non-null parameter values.
@@ -593,7 +592,7 @@ class _$SewaLoadedImpl implements SewaLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(DateRangeEntity? date, int gudangId, int client)
+    required TResult Function(DateRangeEntity? date, int? gudangId, int? client)
         form,
     required TResult Function(List<SewaEntityData> sewa) loaded,
   }) {
@@ -605,7 +604,7 @@ class _$SewaLoadedImpl implements SewaLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult? Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult? Function(List<SewaEntityData> sewa)? loaded,
   }) {
     return loaded?.call(sewa);
@@ -616,7 +615,7 @@ class _$SewaLoadedImpl implements SewaLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(DateRangeEntity? date, int gudangId, int client)? form,
+    TResult Function(DateRangeEntity? date, int? gudangId, int? client)? form,
     TResult Function(List<SewaEntityData> sewa)? loaded,
     required TResult orElse(),
   }) {

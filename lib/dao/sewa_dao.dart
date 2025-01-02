@@ -77,6 +77,7 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
     final result = transaction(
       () async {
         final pembayaranId = await into(db.pembayaranEntity).insert(pembayaran);
+
         final tagihan = await getTagihanById(idTagihan);
         await updateTagihan(
             tagihan.copyWith(idPembayaran: Value(pembayaranId)));

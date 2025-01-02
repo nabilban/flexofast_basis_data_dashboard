@@ -6,8 +6,8 @@ class SewaState with _$SewaState {
   const factory SewaState.loading() = SewaLoading;
   const factory SewaState.form({
     DateRangeEntity? date,
-    required int gudangId,
-    required int client,
+    int? gudangId,
+    int? client,
   }) = SewaForm;
   const factory SewaState.loaded(List<SewaEntityData> sewa) = SewaLoaded;
 }
@@ -27,17 +27,17 @@ extension SewaStateX on SewaState {
     return null;
   }
 
-  int get gudangId {
+  int? get gudangId {
     if (this is SewaForm) {
       return (this as SewaForm).gudangId;
     }
-    return 0;
+    return null;
   }
 
-  int get clientId {
+  int? get clientId {
     if (this is SewaForm) {
       return (this as SewaForm).client;
     }
-    return 0;
+    return null;
   }
 }

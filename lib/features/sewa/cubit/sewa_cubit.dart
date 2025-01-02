@@ -19,41 +19,50 @@ class SewaCubit extends Cubit<SewaState> {
   }
 
   Future<TagihanEntityData> createSewa(SewaEntityCompanion sewa) async {
-    print(sewa);
     final tagihan = await _dao.createSewaAndGenerateTagihan(sewa);
-
     return tagihan;
   }
 
   void selectedGudang(int gudangId) {
     final currentClient = state.clientId;
+    final currentDate = state.date;
+
     emit(
       state.maybeMap(
         form: (formState) => formState.copyWith(gudangId: gudangId),
-        orElse: () => SewaState.form(gudangId: gudangId, client: currentClient),
+        orElse: () => SewaState.form(
+            gudangId: gudangId, client: currentClient, date: currentDate),
       ),
     );
   }
 
   void selectedClient(int client) {
     final currentGudang = state.gudangId;
+    final currentDate = state.date;
 
     emit(
       state.maybeMap(
         form: (formState) => formState.copyWith(client: client),
         orElse: () => SewaState.form(
-            client: client, date: state.date, gudangId: currentGudang),
+            client: client, date: currentDate, gudangId: currentGudang),
       ),
     );
   }
 
   void selectedDate(DateRangeEntity date) {
+    final currentGudang = state.gudangId;
+    final currentClient = state.clientId;
+
     emit(
       state.maybeMap(
         form: (formState) => formState.copyWith(date: date),
         orElse: () => SewaState.form(
-            date: date, gudangId: state.gudangId, client: state.clientId),
+            date: date, gudangId: currentGudang, client: currentClient),
       ),
     );
+  }
+
+  void resetForm() {
+    emit(const SewaState.form());
   }
 }

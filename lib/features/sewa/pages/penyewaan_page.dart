@@ -38,7 +38,7 @@ class _PenyewaanPageState extends State<PenyewaanPage> {
                   ),
                   const Divider(),
                   BlocProvider.value(
-                    value: context.read<GudangCubit>()..getAllGudang(),
+                    value: context.read<GudangCubit>()..getAvailableGudang(),
                     child: BlocBuilder<GudangCubit, GudangState>(
                       builder: (context, state) {
                         return state.maybeWhen(

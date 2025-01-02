@@ -38,7 +38,7 @@ class SewaDao extends DatabaseAccessor<Datasource> with _$SewaDaoMixin {
 
       final createdSewaId = await into(db.sewaEntity).insert(sewa);
 
-      final tagihanId = await insertTagihan(TagihanEntityCompanion(
+      await insertTagihan(TagihanEntityCompanion(
           idSewa: Value(createdSewaId),
           biaya: Value(biaya),
           batasWaktu: Value(DateTime.now().add(1.days))));

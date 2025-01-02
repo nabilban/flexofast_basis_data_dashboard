@@ -11,27 +11,27 @@ class GudangCubit extends Cubit<GudangState> {
 
   final masterDao = MasterDao.instance;
 
-  Future<void> getAllGudang() async {
+  Future<void> getAvailableGudang() async {
     emit(const GudangState.loading());
-    final result = await masterDao.getAllGudang();
+    final result = await masterDao.getAvailableGudang();
     emit(GudangState.loaded(listGudang: result));
   }
 
   Future<void> insertGudang(GudangEntityCompanion gudang) async {
     emit(const GudangState.loading());
     await masterDao.insertGudang(gudang);
-    await getAllGudang();
+    await getAvailableGudang();
   }
 
   Future<void> updateGudang(GudangEntityData gudang) async {
     emit(const GudangState.loading());
     await masterDao.updateGudang(gudang);
-    await getAllGudang();
+    await getAvailableGudang();
   }
 
   Future<void> deleteGudang(int id) async {
     emit(const GudangState.loading());
     await masterDao.deleteGudang(id);
-    await getAllGudang();
+    await getAvailableGudang();
   }
 }

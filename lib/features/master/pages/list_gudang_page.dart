@@ -17,7 +17,7 @@ class ListGudangPage extends StatelessWidget {
     return CommonScaffold(
       title: 'Daftar Gudang',
       body: BlocProvider.value(
-        value: context.read<GudangCubit>()..getAllGudang(),
+        value: context.read<GudangCubit>()..getAvailableGudang(),
         child: BlocBuilder<GudangCubit, GudangState>(
           builder: (context, state) {
             return state.maybeWhen(orElse: () {

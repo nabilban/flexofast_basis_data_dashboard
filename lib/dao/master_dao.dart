@@ -3,13 +3,44 @@ import 'package:flexofast_basis_data_dashboard/database/datasource.dart';
 import 'package:flexofast_basis_data_dashboard/entity/distributor_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/gudang_entity.dart';
 import 'package:flexofast_basis_data_dashboard/entity/pabrik_entity.dart';
+import 'package:flexofast_basis_data_dashboard/entity/sewa_entity.dart';
 part 'master_dao.g.dart';
 
-@DriftAccessor(tables: [GudangEntity, DistributorEntity, PabrikEntity])
+@DriftAccessor(
+    tables: [GudangEntity, DistributorEntity, PabrikEntity, SewaEntity])
 class MasterDao extends DatabaseAccessor<Datasource> with _$MasterDaoMixin {
   MasterDao(super.db);
 
   static final MasterDao instance = MasterDao(Datasource.instance);
+
+  Future<List<GudangEntityData>> getAvailableGudang() async {
+    final gudangs = await select(db.gudangEntity).get();
+    final sewas = await select(db.sewaEntity).get();
+
+    final gudangPernahTersewa = gudangs
+        .where((gudang) {
+          return sewas.any((sewa) => sewa.idGudang == gudang.id);
+        })
+        .toSet()
+        .toList();
+
+    final gudangBelumPernahTersewa = gudangs
+        .where((gudang) => !gudangPernahTersewa.contains(gudang))
+        .toList();
+
+    final today = DateTime.now();
+
+    final onGoings = sewas.where((sewa) {
+      return sewa.tanggalMulai.isBefore(today) &&
+          today.isBefore(sewa.tanggalAkhir);
+    }).toList();
+
+    final gudangTidakDisewa = gudangPernahTersewa.where((gudang) {
+      return !onGoings.any((sewa) => sewa.idGudang == gudang.id);
+    }).toList();
+
+    return [...gudangBelumPernahTersewa, ...gudangTidakDisewa];
+  }
 
   Future<List<GudangEntityData>> getAllGudang() async {
     final result = await select(db.gudangEntity).get();

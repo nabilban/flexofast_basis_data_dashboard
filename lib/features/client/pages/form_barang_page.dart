@@ -56,11 +56,12 @@ class _FormClientPageState extends State<FormBarangPage> {
                 return;
               }
               if (widget.barang != null) {
-                // context.read<BarangCubit>().updateClient(widget.barang!
-                //     .copyWith(
-                //         nama: _namaController.text,
-                //         ));
-                // Navigate.pop(context);
+                context
+                    .read<BarangCubit>()
+                    .updateBarang(widget.barang!.copyWith(
+                      nama: _namaController.text,
+                    ));
+                Navigate.pop(context);
                 return;
               } else {
                 context

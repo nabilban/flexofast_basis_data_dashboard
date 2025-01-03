@@ -1,5 +1,5 @@
 import 'package:flexofast_basis_data_dashboard/features/client/cubit/client_cubit.dart';
-import 'package:flexofast_basis_data_dashboard/features/client/pages/daftar_transaksi.dart';
+import 'package:flexofast_basis_data_dashboard/features/transaksi/pages/daftar_transaksi.dart';
 import 'package:flexofast_basis_data_dashboard/features/client/pages/list_barang_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/client/pages/list_gudang_page.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';

@@ -7,12 +7,14 @@ class CommonTextField extends StatelessWidget {
     required this.label,
     this.onChanged,
     this.keyboardType = TextInputType.text,
+    this.floatingLabelBehavior,
   });
 
   final TextEditingController controller;
   final String label;
   final TextInputType keyboardType;
   final ValueChanged<String>? onChanged;
+  final FloatingLabelBehavior? floatingLabelBehavior;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class CommonTextField extends StatelessWidget {
       keyboardType: keyboardType,
       onChanged: onChanged,
       decoration: InputDecoration(
+        floatingLabelBehavior: floatingLabelBehavior,
         labelText: label,
         border: const OutlineInputBorder(),
       ),

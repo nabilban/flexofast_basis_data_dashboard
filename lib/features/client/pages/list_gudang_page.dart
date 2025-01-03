@@ -1,6 +1,4 @@
 import 'package:flexofast_basis_data_dashboard/features/client/cubit/client_gudang_cubit.dart';
-import 'package:flexofast_basis_data_dashboard/features/client/pages/list_barang_page.dart';
-import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/empty_widget_state.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/loading_widget_state.dart';
@@ -26,7 +24,6 @@ class ListGudangPage extends StatelessWidget {
                   if (gudangs.isEmpty) {
                     return const EmptyWidgetState();
                   }
-
                   return ListView(
                     children: gudangs
                         .map((gudang) => ListTile(

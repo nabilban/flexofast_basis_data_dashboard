@@ -226,6 +226,7 @@ class _PenyewaanPageState extends State<PenyewaanPage> {
                               ),
                             );
                         context.read<SewaCubit>().resetForm();
+                        context.read<SewaCubit>().getAllSewa();
                         Navigate.pop(context);
                       }
                     : null,

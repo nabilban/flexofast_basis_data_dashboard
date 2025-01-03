@@ -6,7 +6,8 @@ class TransaksiEntity extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idGudang => integer()();
   IntColumn get idBarang => integer()();
-  IntColumn get alamat => integer()();
+  IntColumn get volume => integer()();
+  TextColumn get alamat => text()();
   IntColumn get tipe => intEnum<TipeTransaksi>()();
   DateTimeColumn get createdAt => dateTime().nullable()();
 }

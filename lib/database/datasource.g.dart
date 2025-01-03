@@ -1637,11 +1637,16 @@ class $TransaksiEntityTable extends TransaksiEntity
   late final GeneratedColumn<int> idBarang = GeneratedColumn<int>(
       'id_barang', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _volumeMeta = const VerificationMeta('volume');
+  @override
+  late final GeneratedColumn<int> volume = GeneratedColumn<int>(
+      'volume', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _alamatMeta = const VerificationMeta('alamat');
   @override
-  late final GeneratedColumn<int> alamat = GeneratedColumn<int>(
+  late final GeneratedColumn<String> alamat = GeneratedColumn<String>(
       'alamat', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _tipeMeta = const VerificationMeta('tipe');
   @override
   late final GeneratedColumnWithTypeConverter<TipeTransaksi, int> tipe =
@@ -1656,7 +1661,7 @@ class $TransaksiEntityTable extends TransaksiEntity
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, idGudang, idBarang, alamat, tipe, createdAt];
+      [id, idGudang, idBarang, volume, alamat, tipe, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1682,6 +1687,12 @@ class $TransaksiEntityTable extends TransaksiEntity
           idBarang.isAcceptableOrUnknown(data['id_barang']!, _idBarangMeta));
     } else if (isInserting) {
       context.missing(_idBarangMeta);
+    }
+    if (data.containsKey('volume')) {
+      context.handle(_volumeMeta,
+          volume.isAcceptableOrUnknown(data['volume']!, _volumeMeta));
+    } else if (isInserting) {
+      context.missing(_volumeMeta);
     }
     if (data.containsKey('alamat')) {
       context.handle(_alamatMeta,
@@ -1709,8 +1720,10 @@ class $TransaksiEntityTable extends TransaksiEntity
           .read(DriftSqlType.int, data['${effectivePrefix}id_gudang'])!,
       idBarang: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id_barang'])!,
+      volume: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}volume'])!,
       alamat: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}alamat'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}alamat'])!,
       tipe: $TransaksiEntityTable.$convertertipe.fromSql(attachedDatabase
           .typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}tipe'])!),
@@ -1733,13 +1746,15 @@ class TransaksiEntityData extends DataClass
   final int id;
   final int idGudang;
   final int idBarang;
-  final int alamat;
+  final int volume;
+  final String alamat;
   final TipeTransaksi tipe;
   final DateTime? createdAt;
   const TransaksiEntityData(
       {required this.id,
       required this.idGudang,
       required this.idBarang,
+      required this.volume,
       required this.alamat,
       required this.tipe,
       this.createdAt});
@@ -1749,7 +1764,8 @@ class TransaksiEntityData extends DataClass
     map['id'] = Variable<int>(id);
     map['id_gudang'] = Variable<int>(idGudang);
     map['id_barang'] = Variable<int>(idBarang);
-    map['alamat'] = Variable<int>(alamat);
+    map['volume'] = Variable<int>(volume);
+    map['alamat'] = Variable<String>(alamat);
     {
       map['tipe'] =
           Variable<int>($TransaksiEntityTable.$convertertipe.toSql(tipe));
@@ -1765,6 +1781,7 @@ class TransaksiEntityData extends DataClass
       id: Value(id),
       idGudang: Value(idGudang),
       idBarang: Value(idBarang),
+      volume: Value(volume),
       alamat: Value(alamat),
       tipe: Value(tipe),
       createdAt: createdAt == null && nullToAbsent
@@ -1780,7 +1797,8 @@ class TransaksiEntityData extends DataClass
       id: serializer.fromJson<int>(json['id']),
       idGudang: serializer.fromJson<int>(json['idGudang']),
       idBarang: serializer.fromJson<int>(json['idBarang']),
-      alamat: serializer.fromJson<int>(json['alamat']),
+      volume: serializer.fromJson<int>(json['volume']),
+      alamat: serializer.fromJson<String>(json['alamat']),
       tipe: $TransaksiEntityTable.$convertertipe
           .fromJson(serializer.fromJson<int>(json['tipe'])),
       createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
@@ -1793,7 +1811,8 @@ class TransaksiEntityData extends DataClass
       'id': serializer.toJson<int>(id),
       'idGudang': serializer.toJson<int>(idGudang),
       'idBarang': serializer.toJson<int>(idBarang),
-      'alamat': serializer.toJson<int>(alamat),
+      'volume': serializer.toJson<int>(volume),
+      'alamat': serializer.toJson<String>(alamat),
       'tipe': serializer
           .toJson<int>($TransaksiEntityTable.$convertertipe.toJson(tipe)),
       'createdAt': serializer.toJson<DateTime?>(createdAt),
@@ -1804,13 +1823,15 @@ class TransaksiEntityData extends DataClass
           {int? id,
           int? idGudang,
           int? idBarang,
-          int? alamat,
+          int? volume,
+          String? alamat,
           TipeTransaksi? tipe,
           Value<DateTime?> createdAt = const Value.absent()}) =>
       TransaksiEntityData(
         id: id ?? this.id,
         idGudang: idGudang ?? this.idGudang,
         idBarang: idBarang ?? this.idBarang,
+        volume: volume ?? this.volume,
         alamat: alamat ?? this.alamat,
         tipe: tipe ?? this.tipe,
         createdAt: createdAt.present ? createdAt.value : this.createdAt,
@@ -1820,6 +1841,7 @@ class TransaksiEntityData extends DataClass
       id: data.id.present ? data.id.value : this.id,
       idGudang: data.idGudang.present ? data.idGudang.value : this.idGudang,
       idBarang: data.idBarang.present ? data.idBarang.value : this.idBarang,
+      volume: data.volume.present ? data.volume.value : this.volume,
       alamat: data.alamat.present ? data.alamat.value : this.alamat,
       tipe: data.tipe.present ? data.tipe.value : this.tipe,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
@@ -1832,6 +1854,7 @@ class TransaksiEntityData extends DataClass
           ..write('id: $id, ')
           ..write('idGudang: $idGudang, ')
           ..write('idBarang: $idBarang, ')
+          ..write('volume: $volume, ')
           ..write('alamat: $alamat, ')
           ..write('tipe: $tipe, ')
           ..write('createdAt: $createdAt')
@@ -1841,7 +1864,7 @@ class TransaksiEntityData extends DataClass
 
   @override
   int get hashCode =>
-      Object.hash(id, idGudang, idBarang, alamat, tipe, createdAt);
+      Object.hash(id, idGudang, idBarang, volume, alamat, tipe, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1849,6 +1872,7 @@ class TransaksiEntityData extends DataClass
           other.id == this.id &&
           other.idGudang == this.idGudang &&
           other.idBarang == this.idBarang &&
+          other.volume == this.volume &&
           other.alamat == this.alamat &&
           other.tipe == this.tipe &&
           other.createdAt == this.createdAt);
@@ -1858,13 +1882,15 @@ class TransaksiEntityCompanion extends UpdateCompanion<TransaksiEntityData> {
   final Value<int> id;
   final Value<int> idGudang;
   final Value<int> idBarang;
-  final Value<int> alamat;
+  final Value<int> volume;
+  final Value<String> alamat;
   final Value<TipeTransaksi> tipe;
   final Value<DateTime?> createdAt;
   const TransaksiEntityCompanion({
     this.id = const Value.absent(),
     this.idGudang = const Value.absent(),
     this.idBarang = const Value.absent(),
+    this.volume = const Value.absent(),
     this.alamat = const Value.absent(),
     this.tipe = const Value.absent(),
     this.createdAt = const Value.absent(),
@@ -1873,18 +1899,21 @@ class TransaksiEntityCompanion extends UpdateCompanion<TransaksiEntityData> {
     this.id = const Value.absent(),
     required int idGudang,
     required int idBarang,
-    required int alamat,
+    required int volume,
+    required String alamat,
     required TipeTransaksi tipe,
     this.createdAt = const Value.absent(),
   })  : idGudang = Value(idGudang),
         idBarang = Value(idBarang),
+        volume = Value(volume),
         alamat = Value(alamat),
         tipe = Value(tipe);
   static Insertable<TransaksiEntityData> custom({
     Expression<int>? id,
     Expression<int>? idGudang,
     Expression<int>? idBarang,
-    Expression<int>? alamat,
+    Expression<int>? volume,
+    Expression<String>? alamat,
     Expression<int>? tipe,
     Expression<DateTime>? createdAt,
   }) {
@@ -1892,6 +1921,7 @@ class TransaksiEntityCompanion extends UpdateCompanion<TransaksiEntityData> {
       if (id != null) 'id': id,
       if (idGudang != null) 'id_gudang': idGudang,
       if (idBarang != null) 'id_barang': idBarang,
+      if (volume != null) 'volume': volume,
       if (alamat != null) 'alamat': alamat,
       if (tipe != null) 'tipe': tipe,
       if (createdAt != null) 'created_at': createdAt,
@@ -1902,13 +1932,15 @@ class TransaksiEntityCompanion extends UpdateCompanion<TransaksiEntityData> {
       {Value<int>? id,
       Value<int>? idGudang,
       Value<int>? idBarang,
-      Value<int>? alamat,
+      Value<int>? volume,
+      Value<String>? alamat,
       Value<TipeTransaksi>? tipe,
       Value<DateTime?>? createdAt}) {
     return TransaksiEntityCompanion(
       id: id ?? this.id,
       idGudang: idGudang ?? this.idGudang,
       idBarang: idBarang ?? this.idBarang,
+      volume: volume ?? this.volume,
       alamat: alamat ?? this.alamat,
       tipe: tipe ?? this.tipe,
       createdAt: createdAt ?? this.createdAt,
@@ -1927,8 +1959,11 @@ class TransaksiEntityCompanion extends UpdateCompanion<TransaksiEntityData> {
     if (idBarang.present) {
       map['id_barang'] = Variable<int>(idBarang.value);
     }
+    if (volume.present) {
+      map['volume'] = Variable<int>(volume.value);
+    }
     if (alamat.present) {
-      map['alamat'] = Variable<int>(alamat.value);
+      map['alamat'] = Variable<String>(alamat.value);
     }
     if (tipe.present) {
       map['tipe'] =
@@ -1946,6 +1981,7 @@ class TransaksiEntityCompanion extends UpdateCompanion<TransaksiEntityData> {
           ..write('id: $id, ')
           ..write('idGudang: $idGudang, ')
           ..write('idBarang: $idBarang, ')
+          ..write('volume: $volume, ')
           ..write('alamat: $alamat, ')
           ..write('tipe: $tipe, ')
           ..write('createdAt: $createdAt')
@@ -4612,7 +4648,8 @@ typedef $$TransaksiEntityTableCreateCompanionBuilder = TransaksiEntityCompanion
   Value<int> id,
   required int idGudang,
   required int idBarang,
-  required int alamat,
+  required int volume,
+  required String alamat,
   required TipeTransaksi tipe,
   Value<DateTime?> createdAt,
 });
@@ -4621,7 +4658,8 @@ typedef $$TransaksiEntityTableUpdateCompanionBuilder = TransaksiEntityCompanion
   Value<int> id,
   Value<int> idGudang,
   Value<int> idBarang,
-  Value<int> alamat,
+  Value<int> volume,
+  Value<String> alamat,
   Value<TipeTransaksi> tipe,
   Value<DateTime?> createdAt,
 });
@@ -4668,7 +4706,10 @@ class $$TransaksiEntityTableFilterComposer
   ColumnFilters<int> get idBarang => $composableBuilder(
       column: $table.idBarang, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get alamat => $composableBuilder(
+  ColumnFilters<int> get volume => $composableBuilder(
+      column: $table.volume, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get alamat => $composableBuilder(
       column: $table.alamat, builder: (column) => ColumnFilters(column));
 
   ColumnWithTypeConverterFilters<TipeTransaksi, TipeTransaksi, int> get tipe =>
@@ -4719,7 +4760,10 @@ class $$TransaksiEntityTableOrderingComposer
   ColumnOrderings<int> get idBarang => $composableBuilder(
       column: $table.idBarang, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get alamat => $composableBuilder(
+  ColumnOrderings<int> get volume => $composableBuilder(
+      column: $table.volume, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get alamat => $composableBuilder(
       column: $table.alamat, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get tipe => $composableBuilder(
@@ -4747,7 +4791,10 @@ class $$TransaksiEntityTableAnnotationComposer
   GeneratedColumn<int> get idBarang =>
       $composableBuilder(column: $table.idBarang, builder: (column) => column);
 
-  GeneratedColumn<int> get alamat =>
+  GeneratedColumn<int> get volume =>
+      $composableBuilder(column: $table.volume, builder: (column) => column);
+
+  GeneratedColumn<String> get alamat =>
       $composableBuilder(column: $table.alamat, builder: (column) => column);
 
   GeneratedColumnWithTypeConverter<TipeTransaksi, int> get tipe =>
@@ -4806,7 +4853,8 @@ class $$TransaksiEntityTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<int> idGudang = const Value.absent(),
             Value<int> idBarang = const Value.absent(),
-            Value<int> alamat = const Value.absent(),
+            Value<int> volume = const Value.absent(),
+            Value<String> alamat = const Value.absent(),
             Value<TipeTransaksi> tipe = const Value.absent(),
             Value<DateTime?> createdAt = const Value.absent(),
           }) =>
@@ -4814,6 +4862,7 @@ class $$TransaksiEntityTableTableManager extends RootTableManager<
             id: id,
             idGudang: idGudang,
             idBarang: idBarang,
+            volume: volume,
             alamat: alamat,
             tipe: tipe,
             createdAt: createdAt,
@@ -4822,7 +4871,8 @@ class $$TransaksiEntityTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             required int idGudang,
             required int idBarang,
-            required int alamat,
+            required int volume,
+            required String alamat,
             required TipeTransaksi tipe,
             Value<DateTime?> createdAt = const Value.absent(),
           }) =>
@@ -4830,6 +4880,7 @@ class $$TransaksiEntityTableTableManager extends RootTableManager<
             id: id,
             idGudang: idGudang,
             idBarang: idBarang,
+            volume: volume,
             alamat: alamat,
             tipe: tipe,
             createdAt: createdAt,

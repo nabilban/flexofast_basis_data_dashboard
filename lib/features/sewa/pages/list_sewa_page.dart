@@ -15,7 +15,7 @@ class ListSewaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: SewaCubit()..getAllSewa(),
+      value: context.read<SewaCubit>()..getAllSewa(),
       child: CommonScaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {

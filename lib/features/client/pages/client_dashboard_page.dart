@@ -1,5 +1,5 @@
 import 'package:flexofast_basis_data_dashboard/features/client/cubit/client_cubit.dart';
-import 'package:flexofast_basis_data_dashboard/features/client/pages/daftar_transaksi.dart';
+import 'package:flexofast_basis_data_dashboard/features/transaksi/pages/daftar_transaksi.dart';
 import 'package:flexofast_basis_data_dashboard/features/client/pages/list_barang_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/client/pages/list_gudang_page.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
@@ -21,7 +21,6 @@ class ClientDashboardPage extends StatelessWidget {
             body: Center(child: EmptyWidgetState()),
           );
         }
-
         return CommonScaffold(
           title: state.current!.nama,
           body: Center(
@@ -46,7 +45,11 @@ class ClientDashboardPage extends StatelessWidget {
                 ListTile(
                   title: const Text('Daftar Transaksi'),
                   onTap: () {
-                    Navigate.push(context, const DaftarTransaksi());
+                    Navigate.push(
+                        context,
+                        DaftarTransaksi(
+                          clientId: state.current?.id ?? -1,
+                        ));
                   },
                 ),
               ],

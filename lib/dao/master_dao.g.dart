@@ -8,4 +8,6 @@ mixin _$MasterDaoMixin on DatabaseAccessor<Datasource> {
   $DistributorEntityTable get distributorEntity =>
       attachedDatabase.distributorEntity;
   $PabrikEntityTable get pabrikEntity => attachedDatabase.pabrikEntity;
+  $ClientEntityTable get clientEntity => attachedDatabase.clientEntity;
+  $SewaEntityTable get sewaEntity => attachedDatabase.sewaEntity;
 }

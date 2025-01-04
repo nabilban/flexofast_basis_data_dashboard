@@ -1,5 +1,6 @@
 import 'package:flexofast_basis_data_dashboard/features/pegawai/cubit/pegawai_cubit.dart';
 import 'package:flexofast_basis_data_dashboard/features/sewa/pages/list_sewa_page.dart';
+import 'package:flexofast_basis_data_dashboard/features/transaksi/pages/daftar_transaksi.dart';
 import 'package:flexofast_basis_data_dashboard/navigate.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,13 @@ class DashboardPegawaiPage extends StatelessWidget {
               ),
               ListTile(
                 title: const Text('Daftar Transaksi'),
-                onTap: () {},
+                onTap: () {
+                  Navigate.push(
+                      context,
+                      DaftarTransaksi(
+                        pegawaiId: state.current?.id,
+                      ));
+                },
               ),
             ],
           ),

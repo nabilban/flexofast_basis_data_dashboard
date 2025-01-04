@@ -4,7 +4,8 @@ part of 'transaksi_cubit.dart';
 class TransaksiState with _$TransaksiState {
   const factory TransaksiState.initial() = initial;
   const factory TransaksiState.loading() = Loading;
-  const factory TransaksiState.loaded(List<TransaksiEntityData> transaksi) =
+  const factory TransaksiState.loaded(
+          List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi) =
       Loaded;
   const factory TransaksiState.form({
     int? idBarang,
@@ -19,6 +20,13 @@ extension TransaksiStateX on TransaksiState {
   List<TransaksiEntityData> get renderedListTransaksi {
     if (this is Loaded) {
       return (this as Loaded).transaksi;
+    }
+    return [];
+  }
+
+  List<int> get acceptedTransaksi {
+    if (this is Loaded) {
+      return (this as Loaded).accepetedTransaksi;
     }
     return [];
   }

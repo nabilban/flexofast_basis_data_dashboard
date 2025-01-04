@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:flexofast_basis_data_dashboard/database/datasource.dart';
 import 'package:flexofast_basis_data_dashboard/entity/transaksi_entity.dart';
 import 'package:flexofast_basis_data_dashboard/features/client/cubit/barang_cubit.dart';
@@ -217,15 +218,16 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   ? () {
                       context.read<TransaksiCubit>().createTransaksi(
                             TransaksiEntityCompanion.insert(
-                              idBarang: transaksiState.idBarang!,
-                              idGudang: transaksiState.idGudang!,
-                              tipe: transaksiState.tipeTransaksi!,
-                              volume: transaksiState.volume!,
-                              alamat: transaksiState.alamat!,
-                            ),
+                                idClient: widget.clientId,
+                                idBarang: transaksiState.idBarang!,
+                                idGudang: transaksiState.idGudang!,
+                                tipe: transaksiState.tipeTransaksi!,
+                                volume: transaksiState.volume!,
+                                alamat: transaksiState.alamat!,
+                                createdAt: drift.Value(DateTime.now())),
                           );
                       context.read<TransaksiCubit>().resetForm();
-                      context.read<TransaksiCubit>().getAllTransaksi();
+
                       Navigate.pop(context);
                     }
                   : null,

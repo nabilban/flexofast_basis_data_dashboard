@@ -20,7 +20,9 @@ mixin _$TransaksiState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TransaksiEntityData> transaksi) loaded,
+    required TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)
+        loaded,
     required TResult Function(int? idBarang, int? idGudang, String? alamat,
             int? volume, TipeTransaksi? tipeTransaksi)
         form,
@@ -30,7 +32,9 @@ mixin _$TransaksiState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult? Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult? Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
@@ -40,7 +44,9 @@ mixin _$TransaksiState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
@@ -138,7 +144,9 @@ class _$initialImpl implements initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TransaksiEntityData> transaksi) loaded,
+    required TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)
+        loaded,
     required TResult Function(int? idBarang, int? idGudang, String? alamat,
             int? volume, TipeTransaksi? tipeTransaksi)
         form,
@@ -151,7 +159,9 @@ class _$initialImpl implements initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult? Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult? Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
@@ -164,7 +174,9 @@ class _$initialImpl implements initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
@@ -261,7 +273,9 @@ class _$LoadingImpl implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TransaksiEntityData> transaksi) loaded,
+    required TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)
+        loaded,
     required TResult Function(int? idBarang, int? idGudang, String? alamat,
             int? volume, TipeTransaksi? tipeTransaksi)
         form,
@@ -274,7 +288,9 @@ class _$LoadingImpl implements Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult? Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult? Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
@@ -287,7 +303,9 @@ class _$LoadingImpl implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
@@ -347,7 +365,8 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<TransaksiEntityData> transaksi});
+  $Res call(
+      {List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi});
 }
 
 /// @nodoc
@@ -364,12 +383,17 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? transaksi = null,
+    Object? accepetedTransaksi = null,
   }) {
     return _then(_$LoadedImpl(
       null == transaksi
           ? _value._transaksi
           : transaksi // ignore: cast_nullable_to_non_nullable
               as List<TransaksiEntityData>,
+      null == accepetedTransaksi
+          ? _value._accepetedTransaksi
+          : accepetedTransaksi // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -377,8 +401,10 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements Loaded {
-  const _$LoadedImpl(final List<TransaksiEntityData> transaksi)
-      : _transaksi = transaksi;
+  const _$LoadedImpl(final List<TransaksiEntityData> transaksi,
+      final List<int> accepetedTransaksi)
+      : _transaksi = transaksi,
+        _accepetedTransaksi = accepetedTransaksi;
 
   final List<TransaksiEntityData> _transaksi;
   @override
@@ -388,9 +414,18 @@ class _$LoadedImpl implements Loaded {
     return EqualUnmodifiableListView(_transaksi);
   }
 
+  final List<int> _accepetedTransaksi;
+  @override
+  List<int> get accepetedTransaksi {
+    if (_accepetedTransaksi is EqualUnmodifiableListView)
+      return _accepetedTransaksi;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_accepetedTransaksi);
+  }
+
   @override
   String toString() {
-    return 'TransaksiState.loaded(transaksi: $transaksi)';
+    return 'TransaksiState.loaded(transaksi: $transaksi, accepetedTransaksi: $accepetedTransaksi)';
   }
 
   @override
@@ -399,12 +434,16 @@ class _$LoadedImpl implements Loaded {
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
             const DeepCollectionEquality()
-                .equals(other._transaksi, _transaksi));
+                .equals(other._transaksi, _transaksi) &&
+            const DeepCollectionEquality()
+                .equals(other._accepetedTransaksi, _accepetedTransaksi));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_transaksi));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_transaksi),
+      const DeepCollectionEquality().hash(_accepetedTransaksi));
 
   /// Create a copy of TransaksiState
   /// with the given fields replaced by the non-null parameter values.
@@ -419,12 +458,14 @@ class _$LoadedImpl implements Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TransaksiEntityData> transaksi) loaded,
+    required TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)
+        loaded,
     required TResult Function(int? idBarang, int? idGudang, String? alamat,
             int? volume, TipeTransaksi? tipeTransaksi)
         form,
   }) {
-    return loaded(transaksi);
+    return loaded(transaksi, accepetedTransaksi);
   }
 
   @override
@@ -432,12 +473,14 @@ class _$LoadedImpl implements Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult? Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult? Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
   }) {
-    return loaded?.call(transaksi);
+    return loaded?.call(transaksi, accepetedTransaksi);
   }
 
   @override
@@ -445,14 +488,16 @@ class _$LoadedImpl implements Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(transaksi);
+      return loaded(transaksi, accepetedTransaksi);
     }
     return orElse();
   }
@@ -496,10 +541,11 @@ class _$LoadedImpl implements Loaded {
 }
 
 abstract class Loaded implements TransaksiState {
-  const factory Loaded(final List<TransaksiEntityData> transaksi) =
-      _$LoadedImpl;
+  const factory Loaded(final List<TransaksiEntityData> transaksi,
+      final List<int> accepetedTransaksi) = _$LoadedImpl;
 
   List<TransaksiEntityData> get transaksi;
+  List<int> get accepetedTransaksi;
 
   /// Create a copy of TransaksiState
   /// with the given fields replaced by the non-null parameter values.
@@ -623,7 +669,9 @@ class _$FormImpl implements Form {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TransaksiEntityData> transaksi) loaded,
+    required TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)
+        loaded,
     required TResult Function(int? idBarang, int? idGudang, String? alamat,
             int? volume, TipeTransaksi? tipeTransaksi)
         form,
@@ -636,7 +684,9 @@ class _$FormImpl implements Form {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult? Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult? Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,
@@ -649,7 +699,9 @@ class _$FormImpl implements Form {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TransaksiEntityData> transaksi)? loaded,
+    TResult Function(
+            List<TransaksiEntityData> transaksi, List<int> accepetedTransaksi)?
+        loaded,
     TResult Function(int? idBarang, int? idGudang, String? alamat, int? volume,
             TipeTransaksi? tipeTransaksi)?
         form,

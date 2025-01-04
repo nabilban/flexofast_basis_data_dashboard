@@ -12,10 +12,32 @@ class TransaksiCubit extends Cubit<TransaksiState> {
 
   final _dao = TransaksiDao.instance;
 
-  Future<void> getAllTransaksi() async {
+  Future<List<int>> getAllAcceptedTransaksiId() async {
+    final currentTransaksi = state.renderedListTransaksi;
     emit(const TransaksiState.loading());
-    final result = await _dao.getAllTransaksi();
-    emit(TransaksiState.loaded(result));
+    final result = await _dao.getAllAcceptedTransaksiId();
+    emit(TransaksiState.loaded(currentTransaksi, result));
+    return result;
+  }
+
+  Future<void> getUnacceptedTransaksi() async {
+    final currentAccepted = await getAllAcceptedTransaksiId();
+    emit(const TransaksiState.loading());
+    final result = await _dao.getAllUnacceptedTransaksi();
+    emit(TransaksiState.loaded(result, currentAccepted));
+  }
+
+  Future<void> getTransaksiByClientId(int id) async {
+    final currentAccepted = await getAllAcceptedTransaksiId();
+    emit(const TransaksiState.loading());
+    final result = await _dao.getAllTransaksiByClientId(id);
+    emit(TransaksiState.loaded(result, currentAccepted));
+  }
+
+  Future<void> persetujuanTransaksi(int idPegawai, int idPersetujuan) async {
+    emit(const TransaksiState.loading());
+    await _dao.persetujuanTransaksi(idPegawai, idPersetujuan);
+    getUnacceptedTransaksi();
   }
 
   void selectedBarang(int idBarang) {
@@ -40,8 +62,8 @@ class TransaksiCubit extends Cubit<TransaksiState> {
 
   Future<void> createTransaksi(TransaksiEntityCompanion transaksi) async {
     emit(const TransaksiState.loading());
-    await _dao.insertTransaksi(transaksi);
-    getAllTransaksi();
+    await _dao.insertTransaksiDanPersetujuan(transaksi);
+    getTransaksiByClientId(transaksi.idClient.value);
     resetForm();
   }
 
@@ -76,5 +98,15 @@ class TransaksiCubit extends Cubit<TransaksiState> {
 
   void resetForm() {
     emit(const TransaksiState.form());
+  }
+}
+
+extension TransaksiCubitExtension on TransaksiCubit {
+  void initializeTransaksi(int? clientId) {
+    if (clientId == null) {
+      getUnacceptedTransaksi();
+    } else {
+      getTransaksiByClientId(clientId);
+    }
   }
 }

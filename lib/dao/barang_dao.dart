@@ -22,7 +22,10 @@ class BarangDao extends DatabaseAccessor<Datasource> with _$BarangDaoMixin {
   }
 
   Future<int> insertBarang(BarangEntityCompanion barang) async {
-    final result = await into(db.barangEntity).insert(barang);
+    final data = BarangEntityCompanion.insert(
+        nama: barang.nama.value, createdAt: Value(DateTime.now()));
+
+    final result = await into(db.barangEntity).insert(data);
     return result;
   }
 

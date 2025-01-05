@@ -24,7 +24,13 @@ class ClientDao extends DatabaseAccessor<Datasource> with _$ClientDaoMixin {
   }
 
   Future<int> insertClient(ClientEntityCompanion client) async {
-    final result = await into(db.clientEntity).insert(client);
+    final data = ClientEntityCompanion.insert(
+      nama: client.nama.value,
+      alamat: client.alamat,
+      noHandphone: client.noHandphone.value,
+      createdAt: Value(DateTime.now()),
+    );
+    final result = await into(db.clientEntity).insert(data);
     return result;
   }
 

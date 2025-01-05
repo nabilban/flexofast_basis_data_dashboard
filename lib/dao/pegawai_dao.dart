@@ -22,7 +22,11 @@ class PegawaiDao extends DatabaseAccessor<Datasource> with _$PegawaiDaoMixin {
   }
 
   Future<void> insertPegawai(PegawaiEntityCompanion pegawai) async {
-    await into(db.pegawaiEntity).insert(pegawai);
+    final data = PegawaiEntityCompanion.insert(
+      nama: pegawai.nama.value,
+      createdAt: Value(DateTime.now()),
+    );
+    await into(db.pegawaiEntity).insert(data);
   }
 
   Future<void> updatePegawai(PegawaiEntityData pegawai) async {

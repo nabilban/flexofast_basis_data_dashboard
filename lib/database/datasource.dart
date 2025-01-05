@@ -49,43 +49,16 @@ class Datasource extends _$Datasource {
   @override
   int get schemaVersion => 1;
 
-  // static Future<QueryExecutor> _openConnection() async {
-  //   final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
-  //   final String databasePath = appDocumentsDir.path;
-
-  //   return driftDatabase(
-  //     name: 'flexofast_db',
-  //   );
-  // }
-
   static LazyDatabase _openConnectionStatic() {
     return LazyDatabase(() async {
-      // put the database file, called db.sqlite here, into the documents folder
-      // for your app.
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'flexofast.db'));
 
-      if (!await file.exists()) {
-        // Extract the pre-populated database file from assets
-        // final blob = await rootBundle.load('assets/my_database.db');
-        // final buffer = blob.buffer;
-        // await file.writeAsBytes(
-        //     buffer.asUint8List(blob.offsetInBytes, blob.lengthInBytes));
-        print('File from asset used ');
-      }
-
-      // Also work around limitations on old Android versions
       if (Platform.isAndroid) {
         await applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
       }
-
-      // Make sqlite3 pick a more suitable location for temporary files - the
-      // one from the system may be inaccessible due to sandboxing.
       final cachebase = (await getTemporaryDirectory()).path;
-      // We can't access /tmp on Android, which sqlite3 would try by default.
-      // Explicitly tell it about the correct temporary directory.
       sqlite3.tempDirectory = cachebase;
-
       return NativeDatabase.createInBackground(file);
     });
   }

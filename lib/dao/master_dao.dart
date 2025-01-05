@@ -55,7 +55,14 @@ class MasterDao extends DatabaseAccessor<Datasource> with _$MasterDaoMixin {
   }
 
   Future<int> insertGudang(GudangEntityCompanion gudang) async {
-    final result = await into(db.gudangEntity).insert(gudang);
+    final data = GudangEntityCompanion.insert(
+      tipe: gudang.tipe.value,
+      volume: gudang.volume.value,
+      alamat: gudang.alamat.value,
+      harga: gudang.harga.value,
+      createdAt: Value(DateTime.now()),
+    );
+    final result = await into(db.gudangEntity).insert(data);
     return result;
   }
 
@@ -80,7 +87,12 @@ class MasterDao extends DatabaseAccessor<Datasource> with _$MasterDaoMixin {
   }
 
   Future<int> insertDistributor(DistributorEntityCompanion distributor) async {
-    final result = await into(db.distributorEntity).insert(distributor);
+    final data = DistributorEntityCompanion.insert(
+      nama: distributor.nama.value,
+      alamat: distributor.alamat.value,
+      createdAt: Value(DateTime.now()),
+    );
+    final result = await into(db.distributorEntity).insert(data);
     return result;
   }
 
@@ -106,7 +118,12 @@ class MasterDao extends DatabaseAccessor<Datasource> with _$MasterDaoMixin {
   }
 
   Future<int> insertPabrik(PabrikEntityCompanion pabrik) async {
-    final result = await into(db.pabrikEntity).insert(pabrik);
+    final data = PabrikEntityCompanion.insert(
+      nama: pabrik.nama.value,
+      alamat: pabrik.alamat.value,
+      createdAt: Value(DateTime.now()),
+    );
+    final result = await into(db.pabrikEntity).insert(data);
     return result;
   }
 

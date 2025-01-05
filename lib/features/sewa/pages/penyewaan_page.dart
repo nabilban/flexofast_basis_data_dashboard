@@ -26,6 +26,10 @@ class _PenyewaanPageState extends State<PenyewaanPage> {
     return BlocBuilder<SewaCubit, SewaState>(
       builder: (context, sewaState) {
         return CommonFormScaffold(
+            onBackPressed: () {
+              context.read<SewaCubit>().resetForm();
+              Navigate.pop(context);
+            },
             title: 'Buat Penyewaan',
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),

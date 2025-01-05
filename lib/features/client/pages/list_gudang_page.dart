@@ -1,4 +1,5 @@
 import 'package:flexofast_basis_data_dashboard/features/client/cubit/client_gudang_cubit.dart';
+import 'package:flexofast_basis_data_dashboard/utils.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/common_scaffold.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/empty_widget_state.dart';
 import 'package:flexofast_basis_data_dashboard/widgets/loading_widget_state.dart';
@@ -27,7 +28,19 @@ class ListGudangPage extends StatelessWidget {
                   return ListView(
                     children: gudangs
                         .map((gudang) => ListTile(
-                              title: Text('Gudang ${gudang.id}'),
+                              title: Text('Gudang ${gudang.id}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Alamat: ${gudang.alamat}'),
+                                  Text('Kapasitas: ${gudang.volume}/ m³'),
+                                  Text(
+                                      'Harga: ${Utils.formatCurrency(gudang.harga)}'),
+                                  Text('Tipe: ${gudang.tipe}'),
+                                ],
+                              ),
                               onTap: () {},
                             ))
                         .toList(),

@@ -1,3 +1,4 @@
+import 'package:flexofast_basis_data_dashboard/backup/backup.dart';
 import 'package:flexofast_basis_data_dashboard/features/client/pages/client_login_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/master/pages/master_dashboard_page.dart';
 import 'package:flexofast_basis_data_dashboard/features/pegawai/pages/login_pegawai_page.dart';
@@ -11,6 +12,17 @@ class DashboardMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonScaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const BackupDialog();
+            },
+          );
+        },
+        child: const Icon(Icons.backup),
+      ),
       key: key,
       title: 'Dashboard Menu',
       body: ListView(

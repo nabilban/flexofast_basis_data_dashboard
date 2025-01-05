@@ -14,22 +14,22 @@ class ListSewaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: context.read<SewaCubit>()..getAllSewa(),
-      child: CommonScaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigate.push(context, const PenyewaanPage());
-          },
-          child: const Icon(Icons.addchart),
-        ),
-        title: 'List Sewa',
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
+    return CommonScaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigate.push(context, const PenyewaanPage());
+        },
+        child: const Icon(Icons.addchart),
+      ),
+      title: 'List Sewa',
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocProvider.value(
+          value: context.read<SewaCubit>()..getAllSewa(),
           child: BlocBuilder<SewaCubit, SewaState>(
             builder: (context, state) {
               return state.maybeWhen(
-                orElse: () => const LoadingWidgetState(),
+                orElse: () => const EmptyWidgetState(),
                 loading: () => const LoadingWidgetState(),
                 loaded: (list) {
                   if (list.isEmpty) {

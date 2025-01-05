@@ -26,45 +26,42 @@ class SewaCubit extends Cubit<SewaState> {
   }
 
   void selectedGudang(int gudangId) {
-    final currentClient = state.clientId;
-    final currentDate = state.date;
-
-    emit(
-      state.maybeMap(
-        form: (formState) => formState.copyWith(gudangId: gudangId),
-        orElse: () => SewaState.form(
-            gudangId: gudangId, client: currentClient, date: currentDate),
-      ),
-    );
+    _updateForm(gudangId: gudangId);
   }
 
   void selectedClient(int client) {
-    final currentGudang = state.gudangId;
-    final currentDate = state.date;
-
-    emit(
-      state.maybeMap(
-        form: (formState) => formState.copyWith(client: client),
-        orElse: () => SewaState.form(
-            client: client, date: currentDate, gudangId: currentGudang),
-      ),
-    );
+    _updateForm(clientId: client);
   }
 
   void selectedDate(DateRangeEntity date) {
-    final currentGudang = state.gudangId;
-    final currentClient = state.clientId;
-
-    emit(
-      state.maybeMap(
-        form: (formState) => formState.copyWith(date: date),
-        orElse: () => SewaState.form(
-            date: date, gudangId: currentGudang, client: currentClient),
-      ),
-    );
+    _updateForm(date: date);
   }
 
   void resetForm() {
     emit(const SewaState.form());
+    getAllSewa();
+  }
+
+  void _updateForm({
+    int? gudangId,
+    int? clientId,
+    DateRangeEntity? date,
+  }) {
+    final newState = state.maybeMap(
+      form: (formState) => formState.copyWith(
+        gudangId: gudangId ?? formState.gudangId,
+        client: clientId ?? formState.client,
+        date: date ?? formState.date,
+      ),
+      orElse: () => SewaState.form(
+        gudangId: gudangId,
+        client: clientId,
+        date: date,
+      ),
+    );
+
+    if (newState != state) {
+      emit(newState);
+    }
   }
 }
